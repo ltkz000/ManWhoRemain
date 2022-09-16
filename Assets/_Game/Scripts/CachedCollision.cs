@@ -4,27 +4,42 @@ using UnityEngine;
 
 public static class CachedCollision
 {
-    public static Dictionary<Collision, CharacterCombat> CharecterCombatCollisionDictionary = new Dictionary<Collision, CharacterCombat>();
-    public static Dictionary<Collider, CharacterCombat> CharecterCombatColliderDictionary = new Dictionary<Collider, CharacterCombat>();
+    public static Dictionary<Collision, CharacterCombat> CharacterCombatCollisionDictionary = new Dictionary<Collision, CharacterCombat>();
+    public static Dictionary<Collider, CharacterCombat> CharacterCombatColliderDictionary = new Dictionary<Collider, CharacterCombat>();
+    public static Dictionary<GameObject, CharacterCombat> CharacterCombatDictionary = new Dictionary<GameObject, CharacterCombat>();
     // public static Dictionary<Collision, BaseCharacter> CharacterCollisionDictionary = new Dictionary<Collision, BaseCharacter>();
     // public static Dictionary<Collision, Obstacle> ObstacleCollisionDictionary = new Dictionary<Collision, Obstacle>();
     // public static Dictionary<Collision, Wall> WallCollisionDictionary = new Dictionary<Collision, Wall>();
     // public static Dictionary<Collider, BaseCharacter> CharacterColliderDictionary = new Dictionary<Collider, BaseCharacter>();
     // public static Dictionary<Collider, BumperCars_Weapon> WeaponColliderDictionary = new Dictionary<Collider, BumperCars_Weapon>();
 
+    // public static CharacterCombat GetCharacterCombatCollision(Collision collision)
+    // {
+    //     if (CharecterCombatCollisionDictionary.TryGetValue(collision, out CharacterCombat characterCombat)) return characterCombat;
+
+    //     CharecterCombatCollisionDictionary.Add(collision, collision.gameObject.GetComponent<CharacterCombat>());
+    //     return CharecterCombatCollisionDictionary[collision];
+    // }
+    public static CharacterCombat GetCharacterCombat(GameObject gameObject)
+    {
+        if(CharacterCombatDictionary.TryGetValue(gameObject, out CharacterCombat characterCombat)) return characterCombat;
+
+        CharacterCombatDictionary.Add(gameObject, gameObject.GetComponent<CharacterCombat>());
+        return CharacterCombatDictionary[gameObject];
+    }
     public static CharacterCombat GetCharacterCombatCollision(Collision collision)
     {
-        if (CharecterCombatCollisionDictionary.TryGetValue(collision, out CharacterCombat characterCombat)) return characterCombat;
+        if(CharacterCombatCollisionDictionary.TryGetValue(collision, out CharacterCombat characterCombat)) return characterCombat;
 
-        CharecterCombatCollisionDictionary.Add(collision, collision.gameObject.GetComponent<CharacterCombat>());
-        return CharecterCombatCollisionDictionary[collision];
+        CharacterCombatCollisionDictionary.Add(collision, collision.gameObject.GetComponent<CharacterCombat>());
+        return CharacterCombatCollisionDictionary[collision];
     }
     public static CharacterCombat GetCharacterCombatCollider(Collider collider)
     {
-        if (CharecterCombatColliderDictionary.TryGetValue(collider, out CharacterCombat characterCombat)) return characterCombat;
+        if (CharacterCombatColliderDictionary.TryGetValue(collider, out CharacterCombat characterCombat)) return characterCombat;
 
-        CharecterCombatColliderDictionary.Add(collider, collider.gameObject.GetComponent<CharacterCombat>());
-        return CharecterCombatColliderDictionary[collider];
+        CharacterCombatColliderDictionary.Add(collider, collider.gameObject.GetComponent<CharacterCombat>());
+        return CharacterCombatColliderDictionary[collider];
     }
 
     // public static BaseCharacter GetBaseCharacter(Collision collision)

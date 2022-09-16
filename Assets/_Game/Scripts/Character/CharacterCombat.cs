@@ -5,19 +5,19 @@ using UnityEngine;
 public class CharacterCombat : MonoBehaviour
 {
     public Transform characterTransform;
-    public GameObject rangeObj;
     public bool isAttackalbe;
     public bool attackIng;
     public bool alreadyAttacked;
 
     [SerializeField] private AnimationController _animationController;
     [SerializeField] private MeshRenderer weaponRenderer;
-    [SerializeField] private Pooling throwPoint;
+    [SerializeField] private Transform throwPoint;
     [SerializeField] protected List<CharacterCombat> targetList;
+    [SerializeField] private WeaponID weaponID;
+    [SerializeField] private GameObject rangeObj;
+    [SerializeField] private GameObject lockedObj;
+    [SerializeField] private Transform carryPoint;
     [SerializeField] private float attackRange;
-
-    private bool inAttackRange;
-    Collider[] targetInRange;
 
     private void Awake() 
     {
@@ -30,13 +30,18 @@ public class CharacterCombat : MonoBehaviour
 
     private void Update() 
     {
-        TargetInRange();
+        // TargetInRange();
 
         Debug.Log("targetList: " + targetList.Count);
 
-        if(inAttackRange && alreadyAttacked == false && isAttackalbe == true)
+        if(targetList.Count > 0)
         {
-            Attack(targetList[0]);
+            if(alreadyAttacked == false && isAttackalbe == true)
+            {
+                Attack(targetList[0]);
+            }
+            
+            targetList[0].BeingLocked();
         }
     }
 
@@ -50,32 +55,15 @@ public class CharacterCombat : MonoBehaviour
         targetList.Remove(target);
     }
 
-    private void TargetInRange()
-    {
-        if(targetList.Count > 0)
-        {
-            inAttackRange = true;
-        }
-        else
-        {
-            inAttackRange = false;
-        }
-    }
-
     private void Attack(CharacterCombat target)
     {
-        Debug.Log("Attack");
         alreadyAttacked = true;
         characterTransform.LookAt(target.transform.position);
 
         StartCoroutine(TriggerAttack());
 
-        GameObject throwWeapon = throwPoint.GetObject();
-        throwWeapon.transform.position = throwPoint.transform.position;
-        throwWeapon.transform.rotation = transform.rotation;
-        throwWeapon.SetActive(true);
-        throwWeapon.transform.parent = null;
-        throwWeapon.GetComponent<Weapon>().Fly(target.characterTransform);
+        GameObject throwWeapon =  WeaponManager.Ins.SpawnFromPool(weaponID, throwPoint.transform.position, transform.rotation);
+        throwWeapon.GetComponent<Weapon>().Fly(this ,target.characterTransform);
     }
 
     IEnumerator TriggerAttack()
@@ -89,15 +77,25 @@ public class CharacterCombat : MonoBehaviour
         weaponRenderer.enabled = true;
     }
 
-    private void UpdateKill()
+    public void UpdateOnKill(CharacterCombat target)
     {
+        targetList.Remove(target);
+    }
 
+    public void BeingLocked()
+    {
+        lockedObj.SetActive(true);
     }
 
     public void BeingKilled()
     {
-        Debug.Log("haha");
         _animationController.PlayDead();
+        lockedObj.SetActive(false);
+    }
+
+    public void PoolBackWeapon(GameObject weapon)
+    {
+        WeaponManager.Ins.ReturnToPool(weapon);
     }
 
     public void Targeted()
