@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 4089698752325151726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children:
   - {fileID: 1629931284327400854}
   - {fileID: 7902238156358218347}
@@ -89,7 +89,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4089698752325151726}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.118432954, y: 0.4321128, z: 0.8582611}
@@ -107,9 +107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 2630305904760726315}
-  axeRb: {fileID: 7643497894370428437}
+  rigidbody: {fileID: 7643497894370428437}
   transform: {fileID: 4116674044781672998}
   handPoint: {fileID: 7902238156358218347}
+  weaponObj: {fileID: 4089698752325151726}
   flySpeed: 7
 --- !u!1001 &1629931284327800598
 PrefabInstance:
@@ -140,23 +141,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 47c5647b1ac791e4f94e83afb9095d5b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 47c5647b1ac791e4f94e83afb9095d5b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 47c5647b1ac791e4f94e83afb9095d5b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5
+      value: -0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 47c5647b1ac791e4f94e83afb9095d5b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 47c5647b1ac791e4f94e83afb9095d5b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 47c5647b1ac791e4f94e83afb9095d5b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

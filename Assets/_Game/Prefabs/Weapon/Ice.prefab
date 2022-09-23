@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1095677657913207717}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children:
   - {fileID: 8404373352631532791}
   - {fileID: 6943589763323162717}
@@ -59,7 +59,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095677657913207717}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.26578465, y: 0.2334721, z: 0.6796495}
@@ -77,9 +77,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 9053071301038746790}
-  axeRb: {fileID: 301281280558726435}
+  rigidbody: {fileID: 301281280558726435}
   transform: {fileID: 3626442471545374677}
   handPoint: {fileID: 6943589763323162717}
+  weaponObj: {fileID: 1095677657913207717}
   flySpeed: 11
 --- !u!1 &7420404445584550100
 GameObject:

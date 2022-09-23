@@ -12,7 +12,7 @@ public enum WeaponID
     Ice
 }
 
-public enum WeaponColor
+public enum SkinColor
 {
     Red,
     Green,
@@ -22,27 +22,32 @@ public enum WeaponColor
     White
 }
 
+[System.Serializable]
+public class WeaponRef
+{
+    public WeaponID weaponID;
+    public Weapon weaponScript;
+}
+
+[System.Serializable]
+public class WeaponPool
+{
+    public WeaponID weaponID;
+    public GameObject weaponPrefab;
+    public int poolSize;
+}
+
+[System.Serializable]
+public class WeaponSkin
+{
+    public SkinColor skinColor;
+    public Material material;
+}
+
 public class WeaponManager : Singleton<WeaponManager>
 {
-
-    [System.Serializable]
-    public class WeaponPool
-    {
-        public WeaponID weaponID;
-        public GameObject weaponPrefab;
-        public int poolSize;
-    }
-
-    [System.Serializable]
-    public class WeaponSkin
-    {
-        public WeaponColor weaponColor;
-        public Material material;
-    }
-
     public Transform weaponHolder;
     public List<WeaponPool> pools;
-    public List<WeaponSkin> weaponSkins;
     public static Dictionary<WeaponID, Queue<GameObject>> weaponDictionary;  
     
     void Start()
@@ -71,14 +76,13 @@ public class WeaponManager : Singleton<WeaponManager>
         return gameObject;
     }
 
-    public GameObject SpawnFromPool(WeaponID weaponID, Vector3 position, Quaternion rotation)
+    public GameObject SpawnFromPool(WeaponID weaponID, Vector3 position)
     {
         if(weaponDictionary.ContainsKey(weaponID))
         {
             GameObject objectToSpawn = weaponDictionary[weaponID].Dequeue();
 
             objectToSpawn.transform.position = position;
-            objectToSpawn.transform.rotation = rotation;
             objectToSpawn.SetActive(true);
 
             weaponDictionary[weaponID].Enqueue(objectToSpawn);
@@ -95,10 +99,8 @@ public class WeaponManager : Singleton<WeaponManager>
     public void ReturnToPool(GameObject gameObject)
     {
         gameObject.SetActive(false);
-    }
-
-    public void InitOnHand(Weapon weapon, Transform handPos)
-    {
-        
+        gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+        gameObject.transform.position = Vector3.zero;
+        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 }

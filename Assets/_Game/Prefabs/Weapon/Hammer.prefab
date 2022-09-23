@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1166226599677329739}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children:
   - {fileID: 2740471821540070735}
   - {fileID: 3121826421505966515}
@@ -59,7 +59,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166226599677329739}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.2033175, y: 0.4938571, z: 0.26298633}
@@ -77,9 +77,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 4697239023972356868}
-  axeRb: {fileID: 7696264573061176340}
+  rigidbody: {fileID: 7696264573061176340}
   transform: {fileID: 4605839028066582388}
   handPoint: {fileID: 3121826421505966515}
+  weaponObj: {fileID: 1166226599677329739}
   flySpeed: 8
 --- !u!1 &6599626131170408992
 GameObject:
@@ -140,23 +141,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5
+      value: -0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

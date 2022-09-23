@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class AttackRange : MonoBehaviour
 {
-    [SerializeField] private CharacterCombat characterCombat;
+    [SerializeField] private CharacterCombatAbtract characterCombat;
 
     private void OnTriggerEnter(Collider other) 
     {
-        CharacterCombat target = CachedCollision.GetCharacterCombatCollider(other);
-        if(target != null)
+        CharacterCombatAbtract target = CachedCollision.GetCharacterCombatCollider(other);
+        if(target != null && target != characterCombat)
         {
             characterCombat.AddTarget(target);
         }
+
+        Transparent transparent = CachedCollision.GetTransparentCollider(other);
+        if(transparent != null)
+        {
+            transparent.TransparentObject();
+        }
+
     }
 
     private void OnTriggerExit(Collider other) 
     {
-        CharacterCombat target = CachedCollision.GetCharacterCombatCollider(other);
+        CharacterCombatAbtract target = CachedCollision.GetCharacterCombatCollider(other);
         if(target != null)
         {
             characterCombat.RemoveTarget(target);
+        }
+
+        Transparent transparent = CachedCollision.GetTransparentCollider(other);
+        if(transparent != null)
+        {
+            transparent.SetDefaultMat();
         }
     }
 }

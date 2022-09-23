@@ -5,34 +5,94 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public BoxCollider boxCollider;
-    public Rigidbody axeRb;
+    public Rigidbody rigidbody;
     public Transform transform;
-    public Transform handPoint;
-    private CharacterCombat _attacker;
-    // public MeshRenderer WeaponSkinRenderer;
+    public Transform handPoint; 
+
+    [SerializeField] private GameObject weaponObj;
+
+    private CharacterCombatAbtract _attacker;
+    private Vector3 rotate;
+    private Vector3 lastPosition;
+    private float rotateSpeed;
 
     [SerializeField] private float flySpeed;
 
-    public void Fly(CharacterCombat attacker, Transform target)
+    private void Start() 
+    {
+        rotate = new Vector3(0, 1, 0);
+    }
+
+    public void InitOnHand()
+    {
+        weaponObj.SetActive(true);
+        boxCollider.enabled = false;
+    }
+
+    public void DisappearOnHand()
+    {
+        weaponObj.SetActive(false);
+    }
+
+    public void AppearOnHand()
+    {
+        weaponObj.SetActive(true);
+    }
+
+    private void Update() 
+    {
+        FlyRotate();
+        OutOfRange();
+    }
+
+    public void Fly(CharacterCombatAbtract attacker, Transform target)
     {
         _attacker = attacker;
         var velo = (target.position - transform.position).normalized * flySpeed;
         velo.y = 0;
-        axeRb.velocity = velo;   
+        rigidbody.velocity = velo;   
+        rotateSpeed = 600f;
+
+        lastPosition = transform.position;
+    }
+
+    public void FlyRotate()
+    {
+        transform.Rotate(rotate * rotateSpeed * Time.deltaTime);
+    }
+
+    public void OutOfRange()
+    {
+        if(_attacker != null)
+        {
+            float distance = Vector3.Distance(transform.position, lastPosition);
+
+            if(distance - 0.5f > _attacker.attackRange)
+            {
+                _attacker.PoolBackWeapon(gameObject);
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision other) 
     {
-        // CharacterCombat characterCombat = CachedCollision.GetCharacterCombatCollision(other);
-        // CharacterCombat characterCombat = other.gameObject.GetComponent<CharacterCombat>();
-        CharacterCombat characterCombat = CachedCollision.GetCharacterCombat(other.gameObject);
+        CharacterCombatAbtract characterCombat = CachedCollision.GetCharacterCombat(other.gameObject);
         if(characterCombat != null)
         {
             OnTarGet(characterCombat);
         }
     }
 
-    private void OnTarGet(CharacterCombat target)
+    private void OnTriggerEnter(Collider other) 
+    {
+        CharacterCombatAbtract characterCombat = CachedCollision.GetCharacterCombatCollider(other);
+        if(characterCombat != null)
+        {
+            OnTarGet(characterCombat);
+        }
+    }
+
+    private void OnTarGet(CharacterCombatAbtract target)
     {
         target.BeingKilled();
         target.PoolBackWeapon(gameObject);

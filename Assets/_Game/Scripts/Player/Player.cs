@@ -22,7 +22,14 @@ public class Player : MonoBehaviour
 
     private void Update() 
     {
-        Move();
+        if(_characterCombat.isDead == false)
+        {
+            Move();
+        }
+        else
+        {
+            _animationController.PlayDead();
+        }
     }
 
     private void Move()
@@ -31,26 +38,26 @@ public class Player : MonoBehaviour
         moveVector = Vector3.zero;
         moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;
         moveVector.z = _joystick.Vertical * _moveSpeed * Time.deltaTime;
-        // moveVector.x = _joystick.Direction.x * _moveSpeed * Time.deltaTime;
-        // moveVector.y = _joystick.Direction.y * _moveSpeed * Time.deltaTime;
 
         if(_joystick.Horizontal != 0 || _joystick.Vertical != 0)//Run
         {
             direction = Vector3.RotateTowards(transform.forward, moveVector, _rotateSpeed * Time.deltaTime, 0.0f);
             transform.rotation = Quaternion.LookRotation(direction);
 
+            //Change attackable and alreadyAttack bool to let player can hit
             _characterCombat.EnableAttack(false);
             _characterCombat.ChangeAttackStatus(false);
+
             _animationController.PlayRun();
         }
-        else if(_joystick.Horizontal == 0 || _joystick.Vertical == 0)//Stop
+        else if(_joystick.Horizontal.Equals(0) || _joystick.Vertical.Equals(0))//Stop
         {
-            if(_characterCombat.attackIng == false)//Idle
+            if(_characterCombat.attackIng == false)//Start IdleAnimation
             {
                 _characterCombat.EnableAttack(true);
                 _animationController.PlayIdle();
             }
-            else//Attack
+            else//Start AttackAnimation
             {
                 _animationController.PlayAttack();
             }
