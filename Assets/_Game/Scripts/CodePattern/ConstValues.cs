@@ -14,4 +14,8 @@ public class ConstValues
 
     //Tags
     public const string TARGET_TAG = "Target";
+
+    //UI 
+    public const string EQUIPPED_TEXT = "EQUIPPED";
+    public const string SELECT_TEXT = "SELECT";
 }

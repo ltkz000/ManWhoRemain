@@ -2150,10 +2150,12 @@ MonoBehaviour:
   alreadyAttacked: 0
   isDead: 0
   attackRange: 7
+  capsuleCollider: {fileID: 1809016054466920325}
   lockedObj: {fileID: 972214340526268596}
   rangeObj: {fileID: 1809016053538132475}
   _animationController: {fileID: 8678591450721132325}
   targetList: []
+  attackRangeScript: {fileID: 5738151377558437424}
   weaponRefs:
   - weaponID: 0
     weaponScript: {fileID: 580938057472502266}
@@ -2168,9 +2170,7 @@ MonoBehaviour:
   - weaponID: 5
     weaponScript: {fileID: 4524267177237109957}
   skinRenderer: {fileID: 1809016054191793293}
-  characterweaponID: 3
-  skinColor: 0
-  weaponColor: 5
+  characterWeaponID: 0
   characterWeaponScript: {fileID: 0}
   agent: {fileID: 8678591450721132328}
   throwPoint: {fileID: 1809016053495982311}
@@ -2604,7 +2604,7 @@ GameObject:
   - component: {fileID: 209988050611541875}
   - component: {fileID: 3913553923288501871}
   - component: {fileID: 4391685368174187248}
-  - component: {fileID: 3759918941809843015}
+  - component: {fileID: 5738151377558437424}
   m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
@@ -2655,7 +2655,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3759918941809843015
+--- !u!114 &5738151377558437424
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

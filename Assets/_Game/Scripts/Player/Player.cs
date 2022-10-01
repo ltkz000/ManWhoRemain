@@ -11,14 +11,9 @@ public class Player : MonoBehaviour
     [SerializeField] private CharacterCombat _characterCombat;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
+    [SerializeField] private Rigidbody rb;
 
-    private Rigidbody rb;
     private Vector3 moveVector;
-
-    private void Awake() 
-    {
-        rb = GetComponent<Rigidbody>();   
-    }
 
     private void Update() 
     {
@@ -32,6 +27,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void UpdateJoystick(FloatingJoystick newfloatingJoystick)
+    {
+        _joystick = newfloatingJoystick;
+    }
+
     private void Move()
     {
         Vector3 direction;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;
         moveVector.z = _joystick.Vertical * _moveSpeed * Time.deltaTime;
 
-        if(_joystick.Horizontal != 0 || _joystick.Vertical != 0)//Run
+        if(moveVector.magnitude != 0)
         {
             direction = Vector3.RotateTowards(transform.forward, moveVector, _rotateSpeed * Time.deltaTime, 0.0f);
             transform.rotation = Quaternion.LookRotation(direction);
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 
             _animationController.PlayRun();
         }
-        else if(_joystick.Horizontal.Equals(0) || _joystick.Vertical.Equals(0))//Stop
+        else if(moveVector.magnitude == 0)
         {
             if(_characterCombat.attackIng == false)//Start IdleAnimation
             {

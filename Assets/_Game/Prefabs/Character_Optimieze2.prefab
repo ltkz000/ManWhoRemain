@@ -1165,10 +1165,12 @@ MonoBehaviour:
   alreadyAttacked: 0
   isDead: 0
   attackRange: 7
+  capsuleCollider: {fileID: 1470167231265950713}
   lockedObj: {fileID: 1206359240}
   rangeObj: {fileID: 1470167231523644807}
   _animationController: {fileID: 1470167231265950715}
   targetList: []
+  attackRangeScript: {fileID: 0}
   weaponRefs:
   - weaponID: 0
     weaponScript: {fileID: 392402364941409670}
@@ -1183,11 +1185,10 @@ MonoBehaviour:
   - weaponID: 5
     weaponScript: {fileID: 3725764197071530169}
   skinRenderer: {fileID: 1470167231003939057}
-  characterweaponID: 4
-  skinColor: 3
-  weaponColor: 0
+  characterWeaponID: 0
   characterWeaponScript: {fileID: 0}
   throwPoint: {fileID: 1470167232253729947}
+  skinColor: 3
 --- !u!114 &1470167231265950715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1218,6 +1219,7 @@ MonoBehaviour:
   _characterCombat: {fileID: 1470167231265950714}
   _moveSpeed: 7
   _rotateSpeed: 10
+  rb: {fileID: 1470167231265950712}
 --- !u!195 &5038804045262330533
 NavMeshAgent:
   m_ObjectHideFlags: 0

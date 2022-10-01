@@ -10,18 +10,19 @@ public class CharacterCombatAbtract : MonoBehaviour
     public bool alreadyAttacked;
     public bool isDead;
     public float attackRange;
+    public CapsuleCollider capsuleCollider;
     public GameObject lockedObj;
     public GameObject rangeObj;
     public AnimationController _animationController;
     public List<CharacterCombatAbtract> targetList;
+
+    [SerializeField] protected AttackRange attackRangeScript;
     
     //Skin and WeaponData
     [SerializeField] protected List<WeaponRef> weaponRefs;
-    // [SerializeField] protected SkinnedMeshRenderer weaponRenderer;
     [SerializeField] protected SkinnedMeshRenderer skinRenderer; 
-    public WeaponID characterweaponID;
-    public SkinColor skinColor;
-    public SkinColor weaponColor;
+    public WeaponID characterWeaponID;
+
     public Weapon characterWeaponScript;
 
     public void Awake() 
@@ -29,30 +30,21 @@ public class CharacterCombatAbtract : MonoBehaviour
         isDead = false;
 
         targetList = new List<CharacterCombatAbtract>();
-
-        initWeapon();
-        initSkin();
+    
+        InitSkin();
     }
 
     //Init character skin
-    protected void initSkin()
+    protected virtual void InitSkin()
     {
-        for(int i = 0; i < SkinManager.Ins.skinList.Count; i++)
-        {
-            if(SkinManager.Ins.skinList[i].color == skinColor)
-            {
-                skinRenderer.material = SkinManager.Ins.skinList[i].material;
-                break;
-            }
-        }
     }
 
     //Get the weapon on character hand
-    protected void initWeapon()
+    protected void InitWeapon()
     {
         foreach(WeaponRef temp in weaponRefs)
         {
-            if(temp.weaponID == characterweaponID)
+            if(temp.weaponID == characterWeaponID)
             {
                 characterWeaponScript = temp.weaponScript;
                 break;
@@ -62,8 +54,12 @@ public class CharacterCombatAbtract : MonoBehaviour
         if(characterWeaponScript != null)
         {
             characterWeaponScript.InitOnHand();
-            Debug.Log(characterWeaponScript.name);
         }
+    }
+
+    protected void InitWeaponSkin()
+    {
+
     }
 
     public void AddTarget(CharacterCombatAbtract target)
@@ -78,8 +74,9 @@ public class CharacterCombatAbtract : MonoBehaviour
         target.lockedObj.SetActive(false);
     }
 
-    public void UpdateOnKill(CharacterCombatAbtract target)
+    public virtual void UpdateOnKill(CharacterCombatAbtract target)
     {
+        transform.localScale += transform.localScale*0.1f;
         targetList.Remove(target);
     }
 
@@ -90,12 +87,14 @@ public class CharacterCombatAbtract : MonoBehaviour
     }
 
     //When character be killed
-    public void BeingKilled()
+    public virtual void BeingKilled()
     {
         isDead = true;
         targetList.Clear();
-
         lockedObj.SetActive(false);
+        capsuleCollider.enabled = false;
+
+        attackRangeScript.enabled = false;
 
         Invoke(nameof(DisappearAfterKilled), ConstValues.DEAD_ANIM_TIME);
     }
