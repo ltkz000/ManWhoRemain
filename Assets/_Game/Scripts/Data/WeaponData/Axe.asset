@@ -13,9 +13,20 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   weaponID: 0
-  price: 100
-  isEquipped: 0
-  isLock: 0
-  weaponSkin:
-  - {fileID: 2100000, guid: 31ad9033fee450a499e82bb821f89ad1, type: 2}
-  - {fileID: 2100000, guid: c999187d63338fc4999597ada5410e09, type: 2}
+  currentSkin: {fileID: 1825613330419649881, guid: b30801e2fc47c9c4986a23e291e2bd74, type: 3}
+  currentSkinUI: {fileID: 1825613330419649881, guid: 6b0e28ae1c621cf428068e26689799b5, type: 3}
+  price: 10
+  isLock: 1
+  WeaponSkins:
+  - price: 0
+    isEquipped: 1
+    skinPrefab: {fileID: 1825613330419649881, guid: b30801e2fc47c9c4986a23e291e2bd74, type: 3}
+    skinUI: {fileID: 1825613330419649881, guid: 6b0e28ae1c621cf428068e26689799b5, type: 3}
+  - price: 10
+    isEquipped: 0
+    skinPrefab: {fileID: 1825613330419649881, guid: f0938388f99badf4c91f970d3a76f096, type: 3}
+    skinUI: {fileID: 1825613330419649881, guid: df3ebdefc7e04d44dbd3289eaeaac8dc, type: 3}
+  - price: 15
+    isEquipped: 0
+    skinPrefab: {fileID: 1825613330419649881, guid: 40d28b3a29b647b4a88a03e7d9f386d7, type: 3}
+    skinUI: {fileID: 1825613330419649881, guid: 6e112779f8eec0b4698f00bd8b7aae32, type: 3}

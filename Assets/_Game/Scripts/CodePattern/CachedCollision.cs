@@ -32,6 +32,4 @@ public static class CachedCollision
         TransparentColliderDictionary.Add(collider, collider.gameObject.GetComponent<Transparent>());
         return TransparentColliderDictionary[collider];
     }
-
-    
 }

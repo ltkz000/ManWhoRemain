@@ -13,9 +13,20 @@ MonoBehaviour:
   m_Name: Candy
   m_EditorClassIdentifier: 
   weaponID: 3
-  price: 50
-  isEquipped: 0
-  isLock: 0
-  weaponSkin:
-  - {fileID: 2100000, guid: 21ca01fe77464e742b4f37872fbff55f, type: 2}
-  - {fileID: 2100000, guid: 8cb290ba83581f54bb856776ffeb1f1f, type: 2}
+  currentSkin: {fileID: 4089698752325151726, guid: 69616d2155452134fab04851b7bfecf7, type: 3}
+  currentSkinUI: {fileID: 4089698752325151726, guid: 513e84162df9a1a488b0854867812eb1, type: 3}
+  price: 5
+  isLock: 1
+  WeaponSkins:
+  - price: 0
+    isEquipped: 1
+    skinPrefab: {fileID: 4089698752325151726, guid: 69616d2155452134fab04851b7bfecf7, type: 3}
+    skinUI: {fileID: 4089698752325151726, guid: 513e84162df9a1a488b0854867812eb1, type: 3}
+  - price: 5
+    isEquipped: 0
+    skinPrefab: {fileID: 4089698752325151726, guid: 59cb3c669852f174d845ac7b94f66906, type: 3}
+    skinUI: {fileID: 4089698752325151726, guid: d32b91876fe4b13459cf38962b1e0df1, type: 3}
+  - price: 10
+    isEquipped: 0
+    skinPrefab: {fileID: 4089698752325151726, guid: 6cf35390e690c7b4493a30f916dd3c97, type: 3}
+    skinUI: {fileID: 4089698752325151726, guid: 9fcfe1a112f1bb741a0a43dfdb995a4e, type: 3}

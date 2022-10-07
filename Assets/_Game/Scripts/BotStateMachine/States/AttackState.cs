@@ -35,7 +35,8 @@ public class AttackState : IState<Character>
         character.ChangeAttackStatus(true);
         character.characterTransform.LookAt(target.transform.position);
 
-        GameObject throwWeapon =  WeaponManager.Ins.SpawnFromPool(character.characterWeaponID, character.throwPoint.transform.position);
+        // GameObject throwWeapon =  WeaponManager.Ins.SpawnFromPool(character.characterWeaponID, character.throwPoint.transform.position);
+        GameObject throwWeapon = character.weaponPooler.GetObject(WeaponManager.Ins.transform);
         
         Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
         weaponScipt.Fly(character ,target.characterTransform);

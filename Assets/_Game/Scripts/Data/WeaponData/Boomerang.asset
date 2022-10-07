@@ -13,9 +13,20 @@ MonoBehaviour:
   m_Name: Boomerang
   m_EditorClassIdentifier: 
   weaponID: 2
-  price: 0
-  isEquipped: 0
-  isLock: 0
-  weaponSkin:
-  - {fileID: 2100000, guid: fea8276d5e9258b4e8bcfc35bda91427, type: 2}
-  - {fileID: 2100000, guid: 2b075ddc5282c2947977427f2f7ae85d, type: 2}
+  currentSkin: {fileID: 2157701919810794432, guid: ad129b93032be3444a23a4bd408a19cd, type: 3}
+  currentSkinUI: {fileID: 2157701919810794432, guid: f72e4ea84a5b5dd448f83b313afb76b2, type: 3}
+  price: 15
+  isLock: 1
+  WeaponSkins:
+  - price: 0
+    isEquipped: 1
+    skinPrefab: {fileID: 2157701919810794432, guid: ad129b93032be3444a23a4bd408a19cd, type: 3}
+    skinUI: {fileID: 2157701919810794432, guid: f72e4ea84a5b5dd448f83b313afb76b2, type: 3}
+  - price: 5
+    isEquipped: 0
+    skinPrefab: {fileID: 2157701919810794432, guid: 94c7e3f7f4522ff4581cccf52843488f, type: 3}
+    skinUI: {fileID: 2157701919810794432, guid: d370ed4b949d3b64d921789c32ea8038, type: 3}
+  - price: 10
+    isEquipped: 0
+    skinPrefab: {fileID: 2157701919810794432, guid: 4925cdf8e88406349ba55863ac206c28, type: 3}
+    skinUI: {fileID: 2157701919810794432, guid: 7e02587d268115e49955165b3a5f547b, type: 3}

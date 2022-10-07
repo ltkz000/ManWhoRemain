@@ -18,12 +18,14 @@ public class CharacterCombatAbtract : MonoBehaviour
 
     [SerializeField] protected AttackRange attackRangeScript;
     
-    //Skin and WeaponData
-    [SerializeField] protected List<WeaponRef> weaponRefs;
+    //Skin and Data
+    [SerializeField, NonReorderable] protected List<WeaponRef> weaponRefs;
     [SerializeField] protected SkinnedMeshRenderer skinRenderer; 
+    public Pooler weaponPooler;
     public WeaponID characterWeaponID;
 
     public Weapon characterWeaponScript;
+    protected GameObject newWeapon;
 
     public void Awake() 
     {
@@ -37,29 +39,29 @@ public class CharacterCombatAbtract : MonoBehaviour
     //Init character skin
     protected virtual void InitSkin()
     {
+
     }
 
     //Get the weapon on character hand
-    protected void InitWeapon()
+    protected void InitWeapon(GameObject weapon)
     {
         foreach(WeaponRef temp in weaponRefs)
         {
             if(temp.weaponID == characterWeaponID)
             {
-                characterWeaponScript = temp.weaponScript;
+                // characterWeaponScript = temp.weaponScript;
+                newWeapon = Instantiate(weapon, temp.weaponTranform.position, temp.weaponTranform.rotation, temp.weaponTranform.parent);
                 break;
             }
         }
 
-        if(characterWeaponScript != null)
-        {
-            characterWeaponScript.InitOnHand();
-        }
+        characterWeaponScript = newWeapon.GetComponent<Weapon>();
+        characterWeaponScript.InitOnHand();
     }
 
-    protected void InitWeaponSkin()
+    public GameObject GetCharacterWeapon()
     {
-
+        return WeaponDataManager.Ins.GetWeaponByID(characterWeaponID);
     }
 
     public void AddTarget(CharacterCombatAbtract target)
@@ -107,7 +109,7 @@ public class CharacterCombatAbtract : MonoBehaviour
     //Get the weapon back to WeaponPool
     public void PoolBackWeapon(GameObject weapon)
     {
-        WeaponManager.Ins.ReturnToPool(weapon);
+        weaponPooler.ReturnObject(weapon);
     }
 
     public void ChangeAttackStatus(bool status)

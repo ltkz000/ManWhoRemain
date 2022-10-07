@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     public Transform playerObj;
     [SerializeField] Vector3 offset;
     private Vector3 ingameOffset;
-    private Vector3 menuOffset;
+    private Vector3 menuWeaponOffset;
     public float smoothSpeed = 0.125f;
     
     private void Awake() 
@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
         }    
 
         ingameOffset = new Vector3(0, 11, -12);
-        menuOffset = new Vector3();
+        menuWeaponOffset = new Vector3(0, 7.5f, -12);
         // offset = ingameOffset;
     }
 
@@ -28,5 +28,10 @@ public class CameraController : MonoBehaviour
         Vector3 desiredPos = playerObj.position + offset;
         Vector3 smoothPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
         transform.position = smoothPos; 
+    }
+
+    public void MoveCamera()
+    {
+        
     }
 }

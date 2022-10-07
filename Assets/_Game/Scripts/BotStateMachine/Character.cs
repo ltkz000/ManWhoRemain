@@ -39,7 +39,7 @@ public class Character : CharacterCombatAbtract
         int rdWeapon = Random.Range(0, weaponRefs.Count);
         characterWeaponID = weaponRefs[rdWeapon].weaponID;
 
-        InitWeapon();
+        InitWeapon(WeaponDataManager.Ins.GetWeaponByID(characterWeaponID));
     }
 
     // Update is called once per frame

@@ -7,7 +7,6 @@ public class Weapon : MonoBehaviour
     public BoxCollider boxCollider;
     public Rigidbody rigidbody;
     public Transform transform;
-    public Transform handPoint; 
 
     [SerializeField] private GameObject weaponObj;
 
@@ -71,15 +70,6 @@ public class Weapon : MonoBehaviour
             {
                 _attacker.PoolBackWeapon(gameObject);
             }
-        }
-    }
-
-    private void OnCollisionEnter(Collision other) 
-    {
-        CharacterCombatAbtract characterCombat = CachedCollision.GetCharacterCombat(other.gameObject);
-        if(characterCombat != null)
-        {
-            OnTarGet(characterCombat);
         }
     }
 

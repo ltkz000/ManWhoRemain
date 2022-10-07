@@ -13,9 +13,20 @@ MonoBehaviour:
   m_Name: Hammer
   m_EditorClassIdentifier: 
   weaponID: 4
+  currentSkin: {fileID: 1166226599677329739, guid: 594351fa68bc72744a6c779bf329f9da, type: 3}
+  currentSkinUI: {fileID: 1166226599677329739, guid: e6e87158e6fcbc94cb251857c97af3be, type: 3}
   price: 0
-  isEquipped: 0
   isLock: 0
-  weaponSkin:
-  - {fileID: 2100000, guid: 763346d9f6b0b29488dd43f25adf06ed, type: 2}
-  - {fileID: 2100000, guid: aa919cbd52b28a54292bb6edc1c59fb0, type: 2}
+  WeaponSkins:
+  - price: 0
+    isEquipped: 1
+    skinPrefab: {fileID: 1166226599677329739, guid: 594351fa68bc72744a6c779bf329f9da, type: 3}
+    skinUI: {fileID: 1166226599677329739, guid: e6e87158e6fcbc94cb251857c97af3be, type: 3}
+  - price: 5
+    isEquipped: 0
+    skinPrefab: {fileID: 1166226599677329739, guid: 74715d5bdb05eef4a9acc1a7d57046af, type: 3}
+    skinUI: {fileID: 1166226599677329739, guid: 9f800413a6f4c7d4098eb3fc0ce1210e, type: 3}
+  - price: 10
+    isEquipped: 0
+    skinPrefab: {fileID: 1166226599677329739, guid: 308bd8ba4b7c5bf48aa611f2d47bbf97, type: 3}
+    skinUI: {fileID: 1166226599677329739, guid: 4a371ad279f39314d8964c809a28c7e7, type: 3}

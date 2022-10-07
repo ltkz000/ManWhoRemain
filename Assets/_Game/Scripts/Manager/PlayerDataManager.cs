@@ -25,4 +25,9 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
     {
         return playerData.playerGold;
     }
+
+    public void ChangePlayerGold(int weaponPrice)
+    {
+        playerData.playerGold -= weaponPrice;
+    }
 }

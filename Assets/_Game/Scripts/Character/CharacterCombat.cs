@@ -25,11 +25,20 @@ public class CharacterCombat : CharacterCombatAbtract
         }
     }
 
-    private void InitPlayerWeapon()
+    public void InitPlayerWeapon()
     {
         characterWeaponID = PlayerDataManager.Ins.GetPlayerWeaponID();
 
-        InitWeapon();
+        InitWeapon(WeaponDataManager.Ins.GetWeaponByID(characterWeaponID));
+    }
+
+    public void ChangePlayerWeapon()
+    {
+        Destroy(newWeapon);
+
+        characterWeaponID = PlayerDataManager.Ins.GetPlayerWeaponID();
+
+        InitWeapon(WeaponDataManager.Ins.GetWeaponByID(characterWeaponID));
     }
 
     private void Update() 
@@ -58,7 +67,8 @@ public class CharacterCombat : CharacterCombatAbtract
 
         StartCoroutine(TriggerAttack());
 
-        GameObject throwWeapon =  WeaponManager.Ins.SpawnFromPool(characterWeaponID, throwPoint.transform.position);
+        // GameObject throwWeapon =  WeaponManager.Ins.SpawnFromPool(characterWeaponID, throwPoint.transform.position);
+        GameObject throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.transform);
         
         Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
         weaponScipt.Fly(this ,target.characterTransform);
