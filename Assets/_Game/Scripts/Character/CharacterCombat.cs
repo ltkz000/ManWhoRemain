@@ -85,9 +85,17 @@ public class CharacterCombat : CharacterCombatAbtract
         attackIng = true;
         characterWeaponScript.DisappearOnHand();
 
+        PlaySound(throwSound);
+
         yield return new WaitForSeconds(ConstValues.ATTACK_ANIM_TIME);
 
         attackIng = false;
         characterWeaponScript.AppearOnHand();
+    }
+
+    public override void DisappearAfterKilled()
+    {
+        base.DisappearAfterKilled();
+        UIManager.Ins.OpenUI(UICanvasID.Lose);
     }
 }

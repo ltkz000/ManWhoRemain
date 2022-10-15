@@ -19,15 +19,25 @@ public class CameraController : MonoBehaviour
         }    
 
         ingameOffset = new Vector3(0, 11, -12);
-        menuWeaponOffset = new Vector3(0, 7.5f, -12);
+        menuWeaponOffset = new Vector3(0, 5, -6);
         // offset = ingameOffset;
     }
 
     private void LateUpdate() 
     {
+        if(GameManager.Ins.IsState(GameState.MainMenu))
+        {
+            offset = menuWeaponOffset;
+        }
+        else
+        {
+            offset = ingameOffset;
+        }   
+
         Vector3 desiredPos = playerObj.position + offset;
         Vector3 smoothPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
-        transform.position = smoothPos; 
+        
+        transform.position = smoothPos;
     }
 
     public void MoveCamera()

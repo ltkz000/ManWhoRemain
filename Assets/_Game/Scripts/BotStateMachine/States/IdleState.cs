@@ -16,7 +16,6 @@ public class IdleState : IState<Character>
         _character = character;
 
         delayIdleToPatrol = UnityEngine.Random.Range(delayRangeMin, delayRangeMax);
-        Debug.Log("delayTime: " + delayIdleToPatrol);
 
         character.EnableAttack(true);
     }

@@ -17,6 +17,8 @@ public class AttackState : IState<Character>
         delayAttackAnim -= Time.deltaTime;
         character._animationController.PlayAttack();
         character.characterWeaponScript.DisappearOnHand();
+
+        character.PlaySound(character.throwSound);
         
         if(character.alreadyAttacked == false)
         {
@@ -35,25 +37,14 @@ public class AttackState : IState<Character>
         character.ChangeAttackStatus(true);
         character.characterTransform.LookAt(target.transform.position);
 
-        // GameObject throwWeapon =  WeaponManager.Ins.SpawnFromPool(character.characterWeaponID, character.throwPoint.transform.position);
         GameObject throwWeapon = character.weaponPooler.GetObject(WeaponManager.Ins.transform);
         
         Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
         weaponScipt.Fly(character ,target.characterTransform);
     }
 
-    IEnumerator TriggerAttack(Character character)
-    {
-        character.characterWeaponScript.DisappearOnHand();
-
-        yield return new WaitForSeconds(ConstValues.ATTACK_ANIM_TIME);
-
-        character.characterWeaponScript.AppearOnHand();
-    }
-
     public void OnExit(Character character)
     {
         
     }
-
 }

@@ -13,12 +13,12 @@ public class GameManager : Singleton<GameManager>
         Application.targetFrameRate = 60;
         Input.multiTouchEnabled = true;
 
-        currentgameState = GameState.Pause;
+        currentgameState = GameState.MainMenu;
     }
 
     public void ChangeState(GameState gameState)
     {
-        currentgameState = gameState;
+        this.currentgameState = gameState;
     }
 
     public bool IsState(GameState gameState)

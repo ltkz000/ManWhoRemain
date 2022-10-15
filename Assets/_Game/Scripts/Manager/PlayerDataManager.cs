@@ -30,4 +30,14 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
     {
         playerData.playerGold -= weaponPrice;
     }
+
+    public string GetPlayerName()
+    {
+        return playerData.playerName;
+    }
+
+    public void changePlayerName(string newName)
+    {
+        playerData.playerName = newName;
+    }
 }

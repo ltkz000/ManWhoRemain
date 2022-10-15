@@ -19,14 +19,17 @@ MonoBehaviour:
   isLock: 1
   WeaponSkins:
   - price: 0
+    isLock: 0
     isEquipped: 1
     skinPrefab: {fileID: 1095677657913207717, guid: dfe2c53bdf2c4b84a9284006a00374d9, type: 3}
     skinUI: {fileID: 1095677657913207717, guid: 227fccaac708ab042b5971310f84ecb0, type: 3}
   - price: 5
+    isLock: 1
     isEquipped: 0
     skinPrefab: {fileID: 1095677657913207717, guid: bbe398e59bc7b384589726fc5f4b0e7d, type: 3}
     skinUI: {fileID: 1095677657913207717, guid: 408b9b85cf308a64e9f0066c0fed1c9a, type: 3}
   - price: 10
+    isLock: 1
     isEquipped: 0
     skinPrefab: {fileID: 1095677657913207717, guid: 25d32913c1234d14aba2b6cf2339fc37, type: 3}
     skinUI: {fileID: 1095677657913207717, guid: 9ca3351fbe33da84496f1a9ae012b8b4, type: 3}

@@ -1,17 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CanvasWeaponShop : UICanvas
 {
-    public int currentWeaponIndex;
-    public CharacterCombat player;
+    private int currentWeaponIndex;
+    private int currentSkinIndex;
+    [SerializeField] private CharacterCombat player;
 
     //UI
     [SerializeField] private Text weaponNameText;
     [SerializeField] private UIButton selectButton;
-    [SerializeField] private UIButton buyButton;
+    [SerializeField] private UIButton buyWeaponButton;
+    [SerializeField] private UIButton buySkinButton;
     [SerializeField] private GameObject weaponPreview;
     public List<SkinHolder> skinButtonList;
     private GameObject previewWeapon;
@@ -24,8 +25,7 @@ public class CanvasWeaponShop : UICanvas
         InitSelectedWeapon();
         SetActiveWeaponAndSkin();
         ChangSelectText();
-        ChangeButton();
-       
+        ChangeWeaponButton();
     }
 
     public void InitSkinButton()
@@ -60,6 +60,7 @@ public class CanvasWeaponShop : UICanvas
         DeactiveWeaponAndSkin();
 
         currentWeaponIndex++;
+        currentSkinIndex = WeaponDataManager.Ins.GetCurrentSkinIndex(currentSkinIndex);
         if(currentWeaponIndex == WeaponDataManager.Ins.GetListLength())
         {
             currentWeaponIndex = 0;
@@ -68,7 +69,9 @@ public class CanvasWeaponShop : UICanvas
         ChangeWeaponNameText();
         SetActiveWeaponAndSkin();
         ChangSelectText();
-        ChangeButton();
+        ChangeWeaponButton();
+
+        SoundManager.Ins.PlayButtonClickSound();
     }
 
     public void PreviousWeapon()
@@ -76,6 +79,7 @@ public class CanvasWeaponShop : UICanvas
         DeactiveWeaponAndSkin();
 
         currentWeaponIndex--;
+        currentSkinIndex = WeaponDataManager.Ins.GetCurrentSkinIndex(currentSkinIndex);
         if(currentWeaponIndex < 0)
         {
             currentWeaponIndex = WeaponDataManager.Ins.GetListLength() - 1;
@@ -84,7 +88,9 @@ public class CanvasWeaponShop : UICanvas
         ChangeWeaponNameText();
         SetActiveWeaponAndSkin();
         ChangSelectText();
-        ChangeButton();
+        ChangeWeaponButton();
+
+        SoundManager.Ins.PlayButtonClickSound();
     }
 
     private void SetActiveWeaponAndSkin()
@@ -107,7 +113,8 @@ public class CanvasWeaponShop : UICanvas
 
     private void ChangSelectText()
     {
-        if(WeaponDataManager.Ins.GetWeaponID(currentWeaponIndex) != PlayerDataManager.Ins.GetPlayerWeaponID())
+        if(WeaponDataManager.Ins.GetWeaponID(currentWeaponIndex) != PlayerDataManager.Ins.GetPlayerWeaponID()
+            || WeaponDataManager.Ins.GetCurrentSkinIndex(currentWeaponIndex) != currentSkinIndex)
         {
             selectButton.thisText.text = ConstValues.SELECT_TEXT;
         }
@@ -125,51 +132,108 @@ public class CanvasWeaponShop : UICanvas
     public void SelectWeaponButton()
     {
         PlayerDataManager.Ins.ChangePlayerWeaponID(WeaponDataManager.Ins.GetWeaponID(currentWeaponIndex));
+        WeaponDataManager.Ins.ChangeCurrentSkinIndex(currentWeaponIndex, currentSkinIndex);
 
         player.ChangePlayerWeapon();
 
-        selectButton.thisText.text = ConstValues.EQUIPPED_TEXT;
+        // selectButton.thisText.text = ConstValues.EQUIPPED_TEXT;
+        ChangSelectText();
+
+        SoundManager.Ins.PlayButtonClickSound();
     }
 
     public void BuyWeaponButton()
     {
         if(PlayerDataManager.Ins.GetPlayerGold() < WeaponDataManager.Ins.GetWeaponPrice(currentWeaponIndex))
         {
-            buyButton.DisableButton();
+            buyWeaponButton.DisableButton();
         }
         else
         {
+            currentSkinIndex = WeaponDataManager.Ins.GetCurrentSkinIndex(currentWeaponIndex);
+            Destroy(previewWeapon);
+            ShowPreviewWeapon(WeaponDataManager.Ins.GetUIWeaponPrefab(currentWeaponIndex));
             PlayerDataManager.Ins.ChangePlayerGold(WeaponDataManager.Ins.GetWeaponPrice(currentWeaponIndex));
 
             WeaponDataManager.Ins.ChangeWeaponStatus(currentWeaponIndex);
 
-            ChangeButton();
+            ChangeWeaponButton();
         }
+
+        SoundManager.Ins.PlayButtonClickSound();
+    }
+
+    public void BuySkinButton()
+    {
+        if(PlayerDataManager.Ins.GetPlayerGold() < WeaponDataManager.Ins.GetSkinPrice(currentWeaponIndex, currentSkinIndex))
+        {
+            buySkinButton.DisableButton();
+        }
+        else
+        {
+            PlayerDataManager.Ins.ChangePlayerGold(WeaponDataManager.Ins.GetSkinPrice(currentWeaponIndex, currentSkinIndex));
+
+            // WeaponDataManager.Ins.ChangeCurrentSkin(currentWeaponIndex, currentSkinIndex);
+
+            WeaponDataManager.Ins.ChangeCurrentSkinIndex(currentWeaponIndex, currentSkinIndex); 
+
+            WeaponDataManager.Ins.ChangeSkinStatus(currentWeaponIndex, currentSkinIndex);
+
+            ChangeWeaponButton();
+        }
+
+        SoundManager.Ins.PlayButtonClickSound();
     }
 
     public void SelectSkin(SkinHolder skinButton)
     {
+        currentSkinIndex = skinButton.GetButtonID();
         Destroy(previewWeapon);
 
-        WeaponDataManager.Ins.ChangeCurrentSkinUI(currentWeaponIndex, skinButton.GetButtonID());
-        WeaponDataManager.Ins.ChangeCurrentSkin(currentWeaponIndex, skinButton.GetButtonID());
+        ShowPreviewWeapon(WeaponDataManager.Ins.GetUIWeaponPreview(currentWeaponIndex, skinButton.GetButtonID()));
 
-        ShowPreviewWeapon(WeaponDataManager.Ins.GetUIWeaponPrefab(currentWeaponIndex));
+        ChangeSkinButton(skinButton);
+        ChangSelectText();
     } 
 
-    private void ChangeButton()
+    private void ChangeWeaponButton()
     {
-        
+        buySkinButton.thisButton.SetActive(false);
+
         if(WeaponDataManager.Ins.CheckWeaponStatus(currentWeaponIndex) == true)
         {
             selectButton.thisButton.SetActive(false);
-            buyButton.thisButton.SetActive(true);
-            buyButton.thisText.text = WeaponDataManager.Ins.GetWeaponPrice(currentWeaponIndex).ToString();
+            buyWeaponButton.thisButton.SetActive(true);
+            buyWeaponButton.thisText.text = WeaponDataManager.Ins.GetWeaponPrice(currentWeaponIndex).ToString();
         }
         else
         {
             selectButton.thisButton.SetActive(true);
-            buyButton.thisButton.SetActive(false);
+            buyWeaponButton.thisButton.SetActive(false);
+        }
+    }
+
+    private void ChangeSkinButton(SkinHolder skinButton)
+    {
+        if(WeaponDataManager.Ins.CheckWeaponStatus(currentWeaponIndex))
+        {
+            buySkinButton.thisButton.SetActive(false);
+        }
+        else
+        {
+            if(WeaponDataManager.Ins.CheckSkinStatus(currentWeaponIndex, skinButton.GetButtonID()) == true)
+            {
+                selectButton.thisButton.SetActive(false);
+                buyWeaponButton.thisButton.SetActive(false);
+                buySkinButton.thisButton.SetActive(true);
+                buySkinButton.thisText.text = WeaponDataManager.Ins.GetSkinPrice(currentWeaponIndex, skinButton.GetButtonID()).ToString();
+            }
+            else
+            {
+                selectButton.thisButton.SetActive(true);
+                buyWeaponButton.thisButton.SetActive(false);
+                buySkinButton.thisButton.SetActive(false);
+            }
         }
     }
 
@@ -178,6 +242,8 @@ public class CanvasWeaponShop : UICanvas
         DeactiveWeaponAndSkin();
 
         UIManager.Ins.OpenUI(UICanvasID.MainMenu);
+
+        SoundManager.Ins.PlayButtonClickSound();
 
         Close();
     }

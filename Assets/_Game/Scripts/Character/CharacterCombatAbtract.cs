@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterCombatAbtract : MonoBehaviour
 {
+    //Logic
     public Transform characterTransform;
     public bool isAttackalbe;
     public bool attackIng;
@@ -17,6 +18,11 @@ public class CharacterCombatAbtract : MonoBehaviour
     public List<CharacterCombatAbtract> targetList;
 
     [SerializeField] protected AttackRange attackRangeScript;
+
+    //Audio
+    public AudioSource throwSound;
+    public AudioSource hitSound;
+    public AudioSource levelSound;
     
     //Skin and Data
     [SerializeField, NonReorderable] protected List<WeaponRef> weaponRefs;
@@ -73,13 +79,15 @@ public class CharacterCombatAbtract : MonoBehaviour
     public void RemoveTarget(CharacterCombatAbtract target)
     {
         targetList.Remove(target);
-        target.lockedObj.SetActive(false);
+        target.DisableLock();
     }
 
     public virtual void UpdateOnKill(CharacterCombatAbtract target)
     {
         transform.localScale += transform.localScale*0.1f;
         targetList.Remove(target);
+
+        PlaySound(levelSound);
     }
 
     //When character being target of other
@@ -88,20 +96,30 @@ public class CharacterCombatAbtract : MonoBehaviour
         lockedObj.SetActive(true);
     }
 
+    public void DisableLock()
+    {
+        lockedObj.SetActive(false);
+    }
+
     //When character be killed
     public virtual void BeingKilled()
     {
-        isDead = true;
+        for(int i = 0; i < targetList.Count; i++)
+        {
+            targetList[i].DisableLock();
+        }
         targetList.Clear();
         lockedObj.SetActive(false);
-        capsuleCollider.enabled = false;
 
+        isDead = true;
+        capsuleCollider.enabled = false;
         attackRangeScript.enabled = false;
 
+        PlaySound(hitSound);
         Invoke(nameof(DisappearAfterKilled), ConstValues.DEAD_ANIM_TIME);
     }
 
-    public void DisappearAfterKilled()
+    public virtual void DisappearAfterKilled()
     {
         gameObject.SetActive(false);
     }
@@ -121,4 +139,9 @@ public class CharacterCombatAbtract : MonoBehaviour
     {
         isAttackalbe = attack;
     }   
+
+    public void PlaySound(AudioSource sound)
+    {
+        sound.Play();
+    }
 }

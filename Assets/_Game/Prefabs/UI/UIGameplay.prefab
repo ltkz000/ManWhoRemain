@@ -482,6 +482,7 @@ MonoBehaviour:
   isDestroy: 0
   _joystick: {fileID: 2172880558793045655}
   player: {fileID: 0}
+  aliveText: {fileID: 5958453988338797848}
 --- !u!1001 &8018000310135490710
 PrefabInstance:
   m_ObjectHideFlags: 0

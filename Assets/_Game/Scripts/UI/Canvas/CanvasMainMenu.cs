@@ -11,7 +11,10 @@ public class CanvasMainMenu : UICanvas
     {
         
         UIManager.Ins.OpenUI(UICanvasID.GamePlay);
+
         GameManager.Ins.currentgameState = GameState.GamePlay;
+        
+        SoundManager.Ins.PlayButtonClickSound();
 
         Close();
     }
@@ -29,6 +32,8 @@ public class CanvasMainMenu : UICanvas
     public void OpenWeaponShopButton()
     {
         UIManager.Ins.OpenUI(UICanvasID.WeaponShop);
+
+        SoundManager.Ins.PlayButtonClickSound();
 
         Close();
     }

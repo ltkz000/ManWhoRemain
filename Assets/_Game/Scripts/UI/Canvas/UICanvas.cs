@@ -7,7 +7,8 @@ public enum UICanvasID
     MainMenu,
     WeaponShop,
     SkinShop,
-    Result,
+    Lose,
+    Win,
     Setting,
     GamePlay
 }

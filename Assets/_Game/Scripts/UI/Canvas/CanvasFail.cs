@@ -9,6 +9,8 @@ public class CanvasFail : UICanvas
     {
         UIManager.Ins.OpenUI(UICanvasID.MainMenu);
 
+        SoundManager.Ins.PlayButtonClickSound();
+
         Close();
     }
 }

@@ -42,6 +42,20 @@ public class Character : CharacterCombatAbtract
         InitWeapon(WeaponDataManager.Ins.GetWeaponByID(characterWeaponID));
     }
 
+    public void BotOnSpawn()
+    {
+        isDead = false;
+        capsuleCollider.enabled = true;
+        attackRangeScript.enabled = true;
+    }
+
+    public override void DisappearAfterKilled()
+    {
+        base.DisappearAfterKilled();
+        BotManager.Ins.ReturnBotToPool(this.gameObject);
+        BotManager.Ins.SpawnBotFromPool();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -50,7 +64,7 @@ public class Character : CharacterCombatAbtract
             ChangeState(deadState);
         }
 
-        if(GameManager.Ins.currentgameState == GameState.Pause)
+        if(GameManager.Ins.IsState(GameState.Pause) || GameManager.Ins.IsState(GameState.MainMenu))
         {
             ChangeState(pauseState);
         }

@@ -7,7 +7,8 @@ using UnityEngine;
 public class WeaponSkin
 {
     public int price;
-    public bool isEquipped;
+    public bool isLock;
+    // public bool isEquipped;
     public GameObject skinPrefab;
     public GameObject skinUI;
 }
@@ -16,7 +17,8 @@ public class WeaponData : ScriptableObject
 {
     public WeaponID weaponID;
     public GameObject currentSkin;
-    public GameObject currentSkinUI;
+    // public GameObject currentSkinUI;
+    public int currentSkinIndex;
     public int price;
     public bool isLock;
     [NonReorderable] public List<WeaponSkin> WeaponSkins;

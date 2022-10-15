@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   playerWeaponID: 4
-  PlayerGold: 0
+  highestScore: 0
+  playerGold: 100

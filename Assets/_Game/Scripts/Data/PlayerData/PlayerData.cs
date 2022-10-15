@@ -8,4 +8,5 @@ public class PlayerData : ScriptableObject
    public WeaponID playerWeaponID;
    public int highestScore;
    public int playerGold;
+   public string playerName;
 }
