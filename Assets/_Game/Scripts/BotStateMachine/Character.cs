@@ -43,6 +43,8 @@ public class Character : CharacterCombatAbtract
 
     public void BotOnSpawn()
     {
+        ChangeState(idleState);
+
         isDead = false;
         capsuleCollider.enabled = true;
         attackRangeScript.enabled = true;
