@@ -12,7 +12,6 @@ public class Character : CharacterCombatAbtract
     public IdleState idleState = new IdleState();
     public PatrolState patrolState = new PatrolState();
     public DeadState deadState = new DeadState();
-
     //Needed Component
     public NavMeshAgent agent;
 

@@ -11,7 +11,7 @@ public class PauseState : IState<Character>
 
     public void OnExecute(Character character)
     {
-        character._animationController.PlayIdle();
+        character.GetAnimationController().PlayIdle();
 
         if(GameManager.Ins.currentgameState != GameState.Pause)
         {

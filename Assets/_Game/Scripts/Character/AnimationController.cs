@@ -29,4 +29,9 @@ public class AnimationController : MonoBehaviour
     {
         animator.SetTrigger(ConstValues.ANIM_TRIGGER_DEAD);
     }
+
+    public void PlayDance()
+    {
+        animator.SetTrigger(ConstValues.ANIM_TRIGGER_DANCESKIN);
+    }
 }

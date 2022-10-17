@@ -144,4 +144,9 @@ public class CharacterCombatAbtract : MonoBehaviour
     {
         sound.Play();
     }
+
+    public AnimationController GetAnimationController()
+    {
+        return _animationController;
+    }
 }

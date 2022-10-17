@@ -40,6 +40,10 @@ public class CanvasMainMenu : UICanvas
 
     public void OpenSkinShopButton()
     {
+        UIManager.Ins.OpenUI(UICanvasID.SkinShop);
 
+        SoundManager.Ins.PlayButtonClickSound();
+
+        Close();
     }
 }

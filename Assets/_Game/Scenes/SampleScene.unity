@@ -263,10 +263,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIStartMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 7671947785854292754, guid: 82529bbcaa7257243ba3ee12d41723fc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7671947785854292758, guid: 82529bbcaa7257243ba3ee12d41723fc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -889,7 +885,7 @@ MonoBehaviour:
   - ID: 4
     Canvas: {fileID: 2025151133}
   - ID: 2
-    Canvas: {fileID: 2121308557}
+    Canvas: {fileID: 8577856118414996133, guid: 193e3e94ab9e0ac44a972e54470d6eb2, type: 3}
   - ID: 3
     Canvas: {fileID: 5315517141627782110, guid: 9241dc6e975b4ac4caba2bfb5a9acd0e, type: 3}
   - ID: 6
@@ -1531,10 +1527,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIGameplay
       objectReference: {fileID: 0}
-    - target: {fileID: 8018000310084919272, guid: 884ca8f1e6910134e8bb25751db3110d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8018000310084919275, guid: 884ca8f1e6910134e8bb25751db3110d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1889,13 +1881,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.32380024, y: -0, z: -0, w: 0.94612545}
-  m_LocalPosition: {x: 0, y: 7.85, z: -10}
+  m_LocalRotation: {x: 0.19080894, y: 0, z: 0, w: 0.9816273}
+  m_LocalPosition: {x: 0, y: 3, z: -18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 37.786, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 22, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1909,8 +1901,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 1045295641}
-  offset: {x: 0, y: 11, z: -12}
+  ingameOffset: {x: 0, y: 8, z: -13}
+  shopOffset: {x: 0, y: 3, z: -8}
   smoothSpeed: 0.25
+  shopRotate: {x: 0.2079117, y: 0, z: 0, w: 0.9781476}
+  ingameRotate: {x: 0.190809, y: 0, z: 0, w: 0.98162717}
 --- !u!4 &1045295641 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1470167231004660622, guid: f46bdc1ff0850114185847193855958f, type: 3}
@@ -1923,30 +1918,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4934873783200274312, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4934873783200274312, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4934873783200274312, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4934873783251922898, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4934873783251922898, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4934873783251922898, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4934873783897972627, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
       propertyPath: player
       value: 
@@ -1954,10 +1925,6 @@ PrefabInstance:
     - target: {fileID: 4934873783897972632, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
       propertyPath: m_Name
       value: UIWeaponShop
-      objectReference: {fileID: 0}
-    - target: {fileID: 4934873783897972632, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934873783897972636, guid: 0d24da6f605a6ed499f33cc7ebccdfd5, type: 3}
       propertyPath: m_Pivot.x
@@ -2447,17 +2414,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2025151132 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 732125161758504528, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
-  m_PrefabInstance: {fileID: 250819607731933120}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2025151133 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3895644662319773257, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
   m_PrefabInstance: {fileID: 250819607731933120}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025151132}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0345bacb078f5041a0fa7ed6b05a306, type: 3}
@@ -2722,14 +2684,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UISettings
       objectReference: {fileID: 0}
-    - target: {fileID: 51170524424209439, guid: bd60f12bb68f0994eb4113ea74a0d027, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1990361446423810018, guid: bd60f12bb68f0994eb4113ea74a0d027, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd60f12bb68f0994eb4113ea74a0d027, type: 3}
 --- !u!1001 &118517201515211326
@@ -2742,10 +2696,6 @@ PrefabInstance:
     - target: {fileID: 4124822674492856219, guid: 9241dc6e975b4ac4caba2bfb5a9acd0e, type: 3}
       propertyPath: m_Name
       value: UILose
-      objectReference: {fileID: 0}
-    - target: {fileID: 4124822674492856219, guid: 9241dc6e975b4ac4caba2bfb5a9acd0e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7425024848770479696, guid: 9241dc6e975b4ac4caba2bfb5a9acd0e, type: 3}
       propertyPath: m_Pivot.x
@@ -2843,30 +2793,6 @@ PrefabInstance:
     - target: {fileID: 732125161758504528, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
       propertyPath: m_Name
       value: UIWin
-      objectReference: {fileID: 0}
-    - target: {fileID: 732125161758504528, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2140880518903800356, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
-      propertyPath: m_Name
-      value: VictoryText
-      objectReference: {fileID: 0}
-    - target: {fileID: 2544115280837808755, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2025151132}
-    - target: {fileID: 2544115280837808755, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6365978246711760293, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.000030517578
-      objectReference: {fileID: 0}
-    - target: {fileID: 7926254353328036893, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
-      propertyPath: m_Name
-      value: NextLevel
       objectReference: {fileID: 0}
     - target: {fileID: 8408835021201004352, guid: 35805eb192d9e1b40bc5abb99be4be44, type: 3}
       propertyPath: m_Pivot.x
@@ -3010,10 +2936,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2037731667}
     - target: {fileID: 1470167231265950714, guid: f46bdc1ff0850114185847193855958f, type: 3}
-      propertyPath: skinColor
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1470167231265950714, guid: f46bdc1ff0850114185847193855958f, type: 3}
       propertyPath: levelSound
       value: 
       objectReference: {fileID: 875223441}
@@ -3021,10 +2943,6 @@ PrefabInstance:
       propertyPath: throwSound
       value: 
       objectReference: {fileID: 620276692}
-    - target: {fileID: 1470167231265950714, guid: f46bdc1ff0850114185847193855958f, type: 3}
-      propertyPath: characterWeaponID
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1470167231265950716, guid: f46bdc1ff0850114185847193855958f, type: 3}
       propertyPath: _joystick
       value: 
@@ -3110,10 +3028,6 @@ PrefabInstance:
     - target: {fileID: 7324896586165112570, guid: 193e3e94ab9e0ac44a972e54470d6eb2, type: 3}
       propertyPath: m_Name
       value: UISkinShop
-      objectReference: {fileID: 0}
-    - target: {fileID: 7324896586165112570, guid: 193e3e94ab9e0ac44a972e54470d6eb2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7324896586165112574, guid: 193e3e94ab9e0ac44a972e54470d6eb2, type: 3}
       propertyPath: m_Pivot.x

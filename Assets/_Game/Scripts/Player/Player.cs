@@ -50,14 +50,21 @@ public class Player : MonoBehaviour
         }
         else if(moveVector.magnitude == 0)
         {
-            if(_characterCombat.attackIng == false)//Start IdleAnimation
+            if(GameManager.Ins.IsState(GameState.SkinShop))
             {
-                _characterCombat.EnableAttack(true);
-                _animationController.PlayIdle();
+                _animationController.PlayDance();
             }
-            else//Start AttackAnimation
+            else
             {
-                _animationController.PlayAttack();
+                 if(_characterCombat.attackIng == false)//Start IdleAnimation
+                {
+                    _characterCombat.EnableAttack(true);
+                    _animationController.PlayIdle();
+                }
+                else//Start AttackAnimation
+                {
+                    _animationController.PlayAttack();
+                }
             }
         }
 

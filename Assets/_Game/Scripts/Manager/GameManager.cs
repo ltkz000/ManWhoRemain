@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState {MainMenu, GamePlay, Pause, Result}
+public enum GameState {MainMenu, GamePlay, Pause, Result, SkinShop}
 
 public class GameManager : Singleton<GameManager>
 {

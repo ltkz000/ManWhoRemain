@@ -1299,9 +1299,9 @@ MonoBehaviour:
   _animationController: {fileID: 1470167231265950715}
   targetList: []
   attackRangeScript: {fileID: 6970087840390663244}
-  throwSound: {fileID: 4647675429342647750}
-  hitSound: {fileID: 4056395046171102312}
-  levelSound: {fileID: 2253359134336053394}
+  throwSound: {fileID: 0}
+  hitSound: {fileID: 0}
+  levelSound: {fileID: 0}
   weaponRefs:
   - weaponID: 0
     weaponTranform: {fileID: 4145811023420720475}
@@ -1317,10 +1317,10 @@ MonoBehaviour:
     weaponTranform: {fileID: 4234539428777164980}
   skinRenderer: {fileID: 1470167231003939057}
   weaponPooler: {fileID: 7168115808406534931}
-  characterWeaponID: 0
+  characterWeaponID: 2
   characterWeaponScript: {fileID: 0}
   throwPoint: {fileID: 1470167232253729947}
-  skinColor: 3
+  skinColor: 0
 --- !u!114 &1470167231265950715
 MonoBehaviour:
   m_ObjectHideFlags: 0
