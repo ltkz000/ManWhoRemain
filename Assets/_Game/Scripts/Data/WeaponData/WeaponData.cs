@@ -17,7 +17,6 @@ public class WeaponData : ScriptableObject
 {
     public WeaponID weaponID;
     public GameObject currentSkin;
-    // public GameObject currentSkinUI;
     public int currentSkinIndex;
     public int price;
     public bool isLock;

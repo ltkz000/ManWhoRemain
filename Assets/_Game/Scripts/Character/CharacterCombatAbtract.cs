@@ -14,7 +14,7 @@ public class CharacterCombatAbtract : MonoBehaviour
     public CapsuleCollider capsuleCollider;
     public GameObject lockedObj;
     public GameObject rangeObj;
-    public AnimationController _animationController;
+    public Animator animator;
     public List<CharacterCombatAbtract> targetList;
 
     [SerializeField] protected AttackRange attackRangeScript;
@@ -32,6 +32,7 @@ public class CharacterCombatAbtract : MonoBehaviour
 
     public Weapon characterWeaponScript;
     protected GameObject newWeapon;
+    protected int level;
 
     public void Awake() 
     {
@@ -84,7 +85,12 @@ public class CharacterCombatAbtract : MonoBehaviour
 
     public virtual void UpdateOnKill(CharacterCombatAbtract target)
     {
-        transform.localScale += transform.localScale*0.1f;
+        if(level < ConstValues.MAX_LEVEL)
+        {
+            transform.localScale += transform.localScale*0.1f;
+            attackRange += attackRange*0.1f;
+        }
+        level++;
         targetList.Remove(target);
 
         PlaySound(levelSound);
@@ -145,8 +151,13 @@ public class CharacterCombatAbtract : MonoBehaviour
         sound.Play();
     }
 
-    public AnimationController GetAnimationController()
+    public void TriggerAnimation(string animTrigger)
     {
-        return _animationController;
+        animator.SetTrigger(animTrigger);
     }
+
+    // public AnimationController GetAnimationController()
+    // {
+    //     return _animationController;
+    // }
 }

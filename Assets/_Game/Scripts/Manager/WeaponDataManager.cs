@@ -11,11 +11,6 @@ public class WeaponDataManager : Singleton<WeaponDataManager>
         return weaponDataList.Count;
     }
 
-    // public WeaponData GetWeaponData(int index)
-    // {
-    //     return weaponDataList[index];
-    // }
-
     public WeaponID GetWeaponID(int index)
     {
         return weaponDataList[index].weaponID;
@@ -30,16 +25,6 @@ public class WeaponDataManager : Singleton<WeaponDataManager>
     {
         return weaponDataList[weaponIndex].WeaponSkins[skinIndex].price;
     }
-
-    // public void ChangeCurrentSkinUI(int index, int newSkinUIIndex)
-    // {
-    //     weaponDataList[index].currentSkinUI = weaponDataList[index].WeaponSkins[newSkinUIIndex].skinUI;
-    // }
-
-    // public void ChangeCurrentSkin(int index, int newSkinIndex)
-    // {
-    //     weaponDataList[index].currentSkin = weaponDataList[index].WeaponSkins[newSkinIndex].skinPrefab;
-    // }
 
     public GameObject GetUIWeaponPrefab(int index)
     {
@@ -96,9 +81,4 @@ public class WeaponDataManager : Singleton<WeaponDataManager>
     {
         weaponDataList[weaponIndex].WeaponSkins[skinIndex].isLock = false;
     }
-
-    // public bool GetSkinEquipStatus(int index, int skinIndex)
-    // {
-    //     return weaponDataList[index].WeaponSkins[skinIndex].isEquipped;
-    // }
 }

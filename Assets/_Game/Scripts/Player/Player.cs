@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
     public Transform transform;
 
     [SerializeField] private FloatingJoystick _joystick;
-    [SerializeField] private AnimationController _animationController;
+    // [SerializeField] private AnimationController _animationController;
     [SerializeField] private CharacterCombat _characterCombat;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            _animationController.PlayDead();
+            _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DEAD);
         }
     }
 
@@ -34,8 +34,10 @@ public class Player : MonoBehaviour
     {
         Vector3 direction;
         moveVector = Vector3.zero;
-        moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;
-        moveVector.z = _joystick.Vertical * _moveSpeed * Time.deltaTime;
+        moveVector.x = _joystick.Horizontal;
+        moveVector.z = _joystick.Vertical;
+
+        moveVector = moveVector.normalized;
 
         if(moveVector.magnitude != 0)
         {
@@ -45,25 +47,24 @@ public class Player : MonoBehaviour
             //Change attackable and alreadyAttack bool to let player can hit
             _characterCombat.EnableAttack(false);
             _characterCombat.ChangeAttackStatus(false);
-
-            _animationController.PlayRun();
+            _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_RUN);
         }
         else if(moveVector.magnitude == 0)
         {
             if(GameManager.Ins.IsState(GameState.SkinShop))
             {
-                _animationController.PlayDance();
+                _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DANCESKIN);
             }
             else
             {
                  if(_characterCombat.attackIng == false)//Start IdleAnimation
                 {
                     _characterCombat.EnableAttack(true);
-                    _animationController.PlayIdle();
+                    _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
                 }
                 else//Start AttackAnimation
                 {
-                    _animationController.PlayAttack();
+                    _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_ATTACK);
                 }
             }
         }

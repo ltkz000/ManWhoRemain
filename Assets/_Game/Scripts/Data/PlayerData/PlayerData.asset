@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db5bc8c0af869e428526d30dcd27385, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  playerWeaponID: 4
+  playerWeaponID: 2
   highestScore: 0
-  playerGold: 100
+  playerGold: 150
+  playerName: Deptrai

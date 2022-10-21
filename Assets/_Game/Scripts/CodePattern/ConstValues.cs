@@ -20,4 +20,8 @@ public class ConstValues
     //UI 
     public const string EQUIPPED_TEXT = "EQUIPPED";
     public const string SELECT_TEXT = "SELECT";
+
+    //Gameplay
+    public const int MAX_LEVEL = 5;
+    public const float DELAY_THROWWEAPON_TIME = 0.3f;
 }

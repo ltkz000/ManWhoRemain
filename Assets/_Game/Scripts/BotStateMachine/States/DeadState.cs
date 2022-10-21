@@ -11,7 +11,7 @@ public class DeadState : IState<Character>
 
     public void OnExecute(Character character)
     {
-        character._animationController.PlayDead();
+        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_DEAD);
     }
 
     public void OnExit(Character character)

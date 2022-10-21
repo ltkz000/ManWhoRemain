@@ -10,6 +10,7 @@ public class CanvasWeaponShop : UICanvas
 
     //UI
     [SerializeField] private Text weaponNameText;
+    [SerializeField] private Text goldText;
     [SerializeField] private UIButton selectButton;
     [SerializeField] private UIButton buyWeaponButton;
     [SerializeField] private UIButton buySkinButton;
@@ -20,6 +21,7 @@ public class CanvasWeaponShop : UICanvas
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
+        UpdateGold();
         ChangeWeaponNameText();
         InitSkinButton();
         InitSelectedWeapon();
@@ -129,6 +131,11 @@ public class CanvasWeaponShop : UICanvas
         weaponNameText.text = WeaponDataManager.Ins.GetWeaponID(currentWeaponIndex).ToString();
     }
 
+    public void UpdateGold()
+    {
+        goldText.text = PlayerDataManager.Ins.GetPlayerGold().ToString();
+    }
+
     public void SelectWeaponButton()
     {
         PlayerDataManager.Ins.ChangePlayerWeaponID(WeaponDataManager.Ins.GetWeaponID(currentWeaponIndex));
@@ -158,6 +165,7 @@ public class CanvasWeaponShop : UICanvas
             WeaponDataManager.Ins.ChangeWeaponStatus(currentWeaponIndex);
 
             ChangeWeaponButton();
+            UpdateGold();
         }
 
         SoundManager.Ins.PlayButtonClickSound();
@@ -180,6 +188,7 @@ public class CanvasWeaponShop : UICanvas
             WeaponDataManager.Ins.ChangeSkinStatus(currentWeaponIndex, currentSkinIndex);
 
             ChangeWeaponButton();
+            UpdateGold();
         }
 
         SoundManager.Ins.PlayButtonClickSound();

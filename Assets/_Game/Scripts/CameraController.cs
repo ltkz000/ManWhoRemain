@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
     public Transform playerObj;
-    private Vector3 offset;
+    [SerializeField] private Vector3 offset;
     private Quaternion camRotate;
     [SerializeField] private Vector3 ingameOffset;
     [SerializeField] private Vector3 shopOffset;
@@ -15,10 +15,6 @@ public class CameraController : MonoBehaviour
     //Const
     [SerializeField] private Quaternion shopRotate;
     [SerializeField] private Quaternion ingameRotate;
-
-
-    //Vector3 camSkinShopPos = new Vector3(0, 3, -18);
-    //Quaternion = (22, 0, 0);
     
     private void Awake() 
     {
@@ -50,5 +46,10 @@ public class CameraController : MonoBehaviour
         
         transform.position = smoothPos;
         transform.rotation = camRotate;
-    }    
+    }   
+
+    public void UpdateOffset()
+    {
+        ingameOffset += ingameOffset * 0.05f;
+    } 
 }

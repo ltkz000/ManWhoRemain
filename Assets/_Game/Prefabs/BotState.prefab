@@ -764,7 +764,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809016053495982304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12, y: 1.27, z: 1.18}
+  m_LocalPosition: {x: -0.12, y: 1.109, z: 1.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1809016054191466482}
@@ -2209,7 +2209,6 @@ GameObject:
   - component: {fileID: 1809016054466920325}
   - component: {fileID: 8678591450721132328}
   - component: {fileID: 8678591450721132324}
-  - component: {fileID: 8678591450721132325}
   m_Layer: 3
   m_Name: BotState
   m_TagString: Untagged
@@ -2331,7 +2330,7 @@ MonoBehaviour:
   capsuleCollider: {fileID: 1809016054466920325}
   lockedObj: {fileID: 972214340526268596}
   rangeObj: {fileID: 1809016053538132475}
-  _animationController: {fileID: 8678591450721132325}
+  animator: {fileID: 1809016054466920347}
   targetList: []
   attackRangeScript: {fileID: 5738151377558437424}
   throwSound: {fileID: 8139452705082147030}
@@ -2359,18 +2358,6 @@ MonoBehaviour:
   Ground:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &8678591450721132325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809016054466920321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 670177d741727dc4dbecfd5b48a1683d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1809016054549687068
 GameObject:
   m_ObjectHideFlags: 0

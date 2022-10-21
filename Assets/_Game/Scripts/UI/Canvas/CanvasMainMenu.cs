@@ -1,15 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CanvasMainMenu : UICanvas
 {
-    public Text goldText;
+    [SerializeField] private Text goldText;
+    [SerializeField] private UIButton changNameButton;
+
+    protected override void OnOpenCanvas()
+    {
+        base.OnOpenCanvas();
+        UpdateGold();
+        ChangeNameText();
+
+        GameManager.Ins.ChangeState(GameState.MainMenu);
+    }
 
     public void PlayButton()
     {
-        
         UIManager.Ins.OpenUI(UICanvasID.GamePlay);
 
         GameManager.Ins.currentgameState = GameState.GamePlay;
@@ -17,11 +25,6 @@ public class CanvasMainMenu : UICanvas
         SoundManager.Ins.PlayButtonClickSound();
 
         Close();
-    }
-
-    public void Update()
-    {
-        UpdateGold();
     }
 
     public void UpdateGold()
@@ -45,5 +48,10 @@ public class CanvasMainMenu : UICanvas
         SoundManager.Ins.PlayButtonClickSound();
 
         Close();
+    }
+
+    private void ChangeNameText()
+    {
+        changNameButton.changeText(PlayerDataManager.Ins.GetPlayerName());
     }
 }

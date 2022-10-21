@@ -24,7 +24,7 @@ public class IdleState : IState<Character>
     {
         delayIdleToPatrol -= Time.deltaTime;
 
-        character._animationController.PlayIdle();
+        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
 
         if(delayIdleToPatrol < 0)
         {

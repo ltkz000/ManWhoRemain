@@ -15,7 +15,7 @@ public class AttackState : IState<Character>
     public void OnExecute(Character character)
     {
         delayAttackAnim -= Time.deltaTime;
-        character._animationController.PlayAttack();
+        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_ATTACK);
         character.characterWeaponScript.DisappearOnHand();
 
         character.PlaySound(character.throwSound);
@@ -41,6 +41,11 @@ public class AttackState : IState<Character>
         
         Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
         weaponScipt.Fly(character ,target.characterTransform);
+
+        if(target.isDead == true)
+        {
+            character.RemoveTarget(target);
+        }
     }
 
     public void OnExit(Character character)

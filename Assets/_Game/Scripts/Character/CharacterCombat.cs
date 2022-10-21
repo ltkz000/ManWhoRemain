@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class CharacterCombat : CharacterCombatAbtract
 {
     [SerializeField] private Transform throwPoint;
     [SerializeField] private SkinColor skinColor;
+    [SerializeField] private CameraController cameraController;
+    [SerializeField] private TextMeshPro nameText;
+
+    //Skin
+    [SerializeField] private SkinnedMeshRenderer pantSkin;
 
     private void Start() 
     {
         InitPlayerWeapon();
+
+        nameText.text = PlayerDataManager.Ins.GetPlayerName();
     }
 
     protected override void InitSkin()
@@ -50,12 +57,12 @@ public class CharacterCombat : CharacterCombatAbtract
     {
         if(targetList.Count > 0)
         {
+            targetList[0].BeingLocked();
+
             if(alreadyAttacked == false && isAttackalbe == true)
             {
                 Attack(targetList[0]);
             }
-
-            targetList[0].BeingLocked();
         }
     }
 
@@ -67,16 +74,28 @@ public class CharacterCombat : CharacterCombatAbtract
 
         StartCoroutine(TriggerAttack());
 
-        // GameObject throwWeapon =  WeaponManager.Ins.SpawnFromPool(characterWeaponID, throwPoint.transform.position);
         GameObject throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.transform);
+
+        throwWeapon.transform.localScale = characterTransform.localScale;
         
         Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
         weaponScipt.Fly(this ,target.characterTransform);
+
+        if(target.isDead == true)
+        {
+            RemoveTarget(target);
+        }
     }
 
     public override void UpdateOnKill(CharacterCombatAbtract target)
     {
         base.UpdateOnKill(target);
+
+        if(level < ConstValues.MAX_LEVEL)
+        {
+            cameraController.UpdateOffset();
+        }
+
         PlayerDataManager.Ins.UpdatePlayerGold();
     }
 
@@ -97,5 +116,14 @@ public class CharacterCombat : CharacterCombatAbtract
     {
         base.DisappearAfterKilled();
         UIManager.Ins.OpenUI(UICanvasID.Lose);
+    }
+
+    public void ActiveNameText()
+    {
+        nameText.gameObject.SetActive(true);
+    }
+    public void DeactiveNameText()
+    {
+        nameText.gameObject.SetActive(false);
     }
 }

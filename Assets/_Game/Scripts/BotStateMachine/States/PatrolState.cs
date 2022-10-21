@@ -24,7 +24,7 @@ public class PatrolState : IState<Character>
 
     public void OnExecute(Character character)
     {
-        character._animationController.PlayRun();
+        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_RUN);
 
         if(walkPointSet == true)
         {

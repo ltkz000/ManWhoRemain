@@ -7,12 +7,19 @@ public class CanvasGameplay : UICanvas
 {
     [SerializeField] private FloatingJoystick _joystick;
     [SerializeField] private Player player;
+    [SerializeField] private CharacterCombat characterCombat;
     [SerializeField] private Text aliveText;
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
+
         player.UpdateJoystick(_joystick);
+
         BotManager.Ins.SpawnBotFromPool();
+
+        GameManager.Ins.ChangeState(GameState.GamePlay);
+
+        characterCombat.ActiveNameText();
     }
 
     private void Update() 
@@ -31,6 +38,8 @@ public class CanvasGameplay : UICanvas
 
         SoundManager.Ins.PlayButtonClickSound();
 
+        characterCombat.DeactiveNameText();
+        
         Close();
     }
 }
