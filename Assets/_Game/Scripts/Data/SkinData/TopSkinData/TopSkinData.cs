@@ -20,6 +20,17 @@ public class TopSkinData : ScriptableObject
         return true;
     }
 
+    public void ChangeSkinStatus(TopType type, bool status)
+    {
+        for(int i = 0; i < TopSkinList.Count; i++)
+        {
+            if(TopSkinList[i].topType == type)
+            {
+                TopSkinList[i].isLock = status;
+            }
+        }
+    }
+
     public int GetSkinPrice(TopType type)
     {
         for(int i = 0; i < TopSkinList.Count; i++)
@@ -40,29 +51,30 @@ public class TopSkin
     public TopType topType;
     public int price;
     public bool isLock;
+    public bool isEquip;
 }
 
 public enum SkinID
 {
-    Top, Pant, Shield, Set    
+    Top, Pant, Shield, Set 
 }
 
 public enum TopType
 {
-    Arrow, Cowboy, Crown, Hat, Hat_Cap, Headphone
+    Arrow, Cowboy, Crown, Hat, Hat_Cap, Headphone, None
 }
 
 public enum PantType
 {
-    Batman, Chambi, Comy, Dabao, Onion, Pokemon, Rainbow, Skull, Vantim
+    Batman, Chambi, Comy, Dabao, Onion, Pokemon, Rainbow, Skull, Vantim, None
 }
 
 public enum ShieldType
 {
-    Captain, Wakanda
+    Captain, Wakanda, None
 }
 
 public enum SetType
 {
-    Devil, Angle, Witch, Deadpool, Thor
+    Devil, Angle, Witch, Deadpool, Thor, None
 }

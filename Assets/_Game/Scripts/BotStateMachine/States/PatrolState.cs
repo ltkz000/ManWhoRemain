@@ -72,6 +72,14 @@ public class PatrolState : IState<Character>
         character.transform.rotation = Quaternion.LookRotation(direction);
     }
 
+    private void OnTriggerEnter(Collider other, Character character) 
+    {
+        if(other.CompareTag(ConstValues.OBSTACLE_TAG))
+        {
+            SearchWalkPoint(character);
+        }
+    }
+
     public void OnExit(Character character)
     {
 

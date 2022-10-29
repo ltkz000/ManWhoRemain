@@ -12,11 +12,10 @@ public class Character : CharacterCombatAbtract
     public IdleState idleState = new IdleState();
     public PatrolState patrolState = new PatrolState();
     public DeadState deadState = new DeadState();
-    //Needed Component
-    public NavMeshAgent agent;
 
     //Attack
     public Transform throwPoint;
+    public Color skinColor;
 
     //Patrol
     public LayerMask Ground;
@@ -27,11 +26,13 @@ public class Character : CharacterCombatAbtract
         ChangeState(pauseState);
     }
 
-    protected override void InitSkin()
-    {
-        base.InitSkin();
-        skinRenderer.material = SkinManager.Ins.GenerateSkin();
-    }
+    // protected override void InitSkin()
+    // {
+    //     base.InitSkin();
+    //     Skin skin = SkinManager.Ins.GenerateSkin();
+    //     skinColor = skin.skinColor;
+    //     skinRenderer.material = skin.material;
+    // }
 
     private void InitBotWeapon()
     {

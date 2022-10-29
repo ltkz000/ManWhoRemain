@@ -27,6 +27,24 @@ public class SkinDataManager : Singleton<SkinDataManager>
         return setSkinData.GetSkinStatus(type);
     }
 
+    //Unlock
+    public void UnlockSkin(TopType type)
+    {
+        topSkinData.ChangeSkinStatus(type, false);
+    }
+    public void UnlockSkin(PantType type)
+    {
+        pantSkinData.ChangeSkinStatus(type, false);
+    }
+    public void UnlockSkin(ShieldType type)
+    {
+        shieldSkinData.ChangeSkinStatus(type, false);
+    }
+    public void UnlockSkin(SetType type)
+    {
+        setSkinData.ChangeSkinStatus(type, false);
+    }
+
     //GetPice
     public int GetPrice(TopType type)
     {

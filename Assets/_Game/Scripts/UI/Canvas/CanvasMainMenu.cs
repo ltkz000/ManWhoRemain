@@ -5,13 +5,14 @@ using TMPro;
 public class CanvasMainMenu : UICanvas
 {
     [SerializeField] private Text goldText;
-    [SerializeField] private UIButton changNameButton;
+    [SerializeField] private Text nameHolder;
+    [SerializeField] private InputField inputField;
 
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
         UpdateGold();
-        ChangeNameText();
+        UpdateName();
 
         GameManager.Ins.ChangeState(GameState.MainMenu);
     }
@@ -21,6 +22,7 @@ public class CanvasMainMenu : UICanvas
         UIManager.Ins.OpenUI(UICanvasID.GamePlay);
 
         GameManager.Ins.currentgameState = GameState.GamePlay;
+        // GameManager.Ins.OpenGameLevel(PlayerDataManager.Ins.GetPlayerLevel());
         
         SoundManager.Ins.PlayButtonClickSound();
 
@@ -30,6 +32,11 @@ public class CanvasMainMenu : UICanvas
     public void UpdateGold()
     {
         goldText.text = PlayerDataManager.Ins.GetPlayerGold().ToString();
+    }
+
+    public void UpdateName()
+    {
+        nameHolder.text = PlayerDataManager.Ins.GetPlayerName();
     }
 
     public void OpenWeaponShopButton()
@@ -50,8 +57,8 @@ public class CanvasMainMenu : UICanvas
         Close();
     }
 
-    private void ChangeNameText()
+    public void ChangeNameData()
     {
-        changNameButton.changeText(PlayerDataManager.Ins.GetPlayerName());
+        PlayerDataManager.Ins.ChangePlayerName(inputField.text);
     }
 }

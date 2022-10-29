@@ -36,8 +36,50 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
         return playerData.playerName;
     }
 
-    public void changePlayerName(string newName)
+    public void ChangePlayerName(string newName)
     {
         playerData.playerName = newName;
+    }
+
+    public TopType GetPlayerTopID()
+    {
+        return playerData.skinTopID;
+    }
+
+    public void ChangePlayerTopID(TopType type)
+    {
+        playerData.skinTopID = type;
+    }
+    public PantType GetPlayerPantID()
+    {
+        return playerData.skinPantID;
+    }
+
+    public void ChangePlayerPantID(PantType type)
+    {
+        playerData.skinPantID = type;
+    }
+    public ShieldType GetPlayerShieldID()
+    {
+        return playerData.skinShieldID;
+    }
+
+    public void ChangePlayerShieldID(ShieldType type)
+    {
+        playerData.skinShieldID = type;
+    }
+    public SetType GetPlayerSetID()
+    {
+        return playerData.skinSetID;
+    }
+
+    public void ChangePlayerSetID(SetType type)
+    {
+        playerData.skinSetID = type;
+    }
+
+    public int GetPlayerLevel()
+    {
+        return playerData.currentLevel;
     }
 }

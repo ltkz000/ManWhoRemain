@@ -15,21 +15,6 @@ public class CharacterCombat : CharacterCombatAbtract
     private void Start() 
     {
         InitPlayerWeapon();
-
-        nameText.text = PlayerDataManager.Ins.GetPlayerName();
-    }
-
-    protected override void InitSkin()
-    {
-        base.InitSkin();
-        for(int i = 0; i < SkinManager.Ins.skinList.Count; i++)
-        {
-            if(SkinManager.Ins.skinList[i].color == skinColor)
-            {
-                skinRenderer.material = SkinManager.Ins.skinList[i].material;
-                break;
-            }
-        }
     }
 
     public void InitPlayerWeapon()
@@ -120,6 +105,7 @@ public class CharacterCombat : CharacterCombatAbtract
 
     public void ActiveNameText()
     {
+        nameText.text = PlayerDataManager.Ins.GetPlayerName();
         nameText.gameObject.SetActive(true);
     }
     public void DeactiveNameText()

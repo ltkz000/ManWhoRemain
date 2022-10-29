@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3147057527742532172}
   m_Layer: 0
   m_Name: Cup
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,11 +56,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7690172654665913105}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4843607, y: 3.4106493, z: 2.6944313}
-  m_Center: {x: 0.05283451, y: 1.6866217, z: -0.4998865}
+  m_Size: {x: 3.7934713, y: 3.4106493, z: 3.3926659}
+  m_Center: {x: -0.009847641, y: 1.6866217, z: -0.46966267}
 --- !u!1001 &6280954162105185436
 PrefabInstance:
   m_ObjectHideFlags: 0

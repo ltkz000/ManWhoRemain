@@ -6,6 +6,7 @@ public enum GameState {MainMenu, GamePlay, Pause, Result, SkinShop}
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField, NonReorderable] private List<GameObject> levelList;
     public GameState currentgameState;
 
     private void Awake()
@@ -19,6 +20,12 @@ public class GameManager : Singleton<GameManager>
     public void ChangeState(GameState gameState)
     {
         this.currentgameState = gameState;
+    }
+
+    public void OpenGameLevel(int levelIndex)
+    {
+        levelList[levelIndex - 1].SetActive(false);
+        levelList[levelIndex].SetActive(true);
     }
 
     public bool IsState(GameState gameState)

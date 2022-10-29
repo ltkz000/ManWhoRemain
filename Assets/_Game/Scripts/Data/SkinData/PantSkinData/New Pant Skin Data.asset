@@ -16,27 +16,36 @@ MonoBehaviour:
   - pantType: 0
     price: 5
     isLock: 1
+    isEquip: 0
   - pantType: 1
     price: 5
     isLock: 1
+    isEquip: 0
   - pantType: 2
     price: 10
-    isLock: 1
+    isLock: 0
+    isEquip: 0
   - pantType: 3
     price: 10
     isLock: 1
+    isEquip: 0
   - pantType: 4
     price: 15
-    isLock: 1
+    isLock: 0
+    isEquip: 0
   - pantType: 5
     price: 15
     isLock: 1
+    isEquip: 0
   - pantType: 6
     price: 20
     isLock: 1
+    isEquip: 0
   - pantType: 7
     price: 20
     isLock: 1
+    isEquip: 0
   - pantType: 8
     price: 25
     isLock: 1
+    isEquip: 0

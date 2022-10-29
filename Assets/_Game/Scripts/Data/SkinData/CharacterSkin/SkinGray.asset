@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 3
   material: {fileID: 2100000, guid: 444c8af41c3a7d04a930eb55f4dbf0f1, type: 2}
+  skinColor: {r: 0.3018868, g: 0.2802421, b: 0.2802421, a: 1}

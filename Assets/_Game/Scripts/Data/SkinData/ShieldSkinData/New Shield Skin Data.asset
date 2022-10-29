@@ -16,6 +16,8 @@ MonoBehaviour:
   - shieldType: 1
     price: 5
     isLock: 1
+    isEquip: 0
   - shieldType: 0
     price: 10
-    isLock: 1
+    isLock: 0
+    isEquip: 0

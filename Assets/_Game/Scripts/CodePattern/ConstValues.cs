@@ -16,6 +16,7 @@ public class ConstValues
 
     //Tags
     public const string TARGET_TAG = "Target";
+    public const string OBSTACLE_TAG = "Obstacle";
 
     //UI 
     public const string EQUIPPED_TEXT = "EQUIPPED";

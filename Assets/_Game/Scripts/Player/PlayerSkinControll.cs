@@ -95,6 +95,11 @@ public class SetRef
     {
         return setHead;
     }
+
+    public GameObject GetBack()
+    {
+        return setBack;
+    }
 }
 
 public class PlayerSkinControll : MonoBehaviour
@@ -107,22 +112,77 @@ public class PlayerSkinControll : MonoBehaviour
     [SerializeField, NonReorderable] private List<ShieldRef> shieldRefs;
     [SerializeField, NonReorderable] private List<SetRef> setRefs;
 
-    public void ShowPreviewTop(TopType previewType)
+    //ActualSkin
+    [SerializeField] private GameObject topSkin;
+    [SerializeField] private Material pantMaterial;
+    [SerializeField] private GameObject shieldSkin;
+    [SerializeField] private SetRef setRef;
+
+    private void Start() 
     {
-        foreach(var temp in topRefs)
-        {
-            if(temp.GetTopType() == previewType)
-            {
-                temp.GetTopSkin().SetActive(true);
-            }
-            else
-            {
-                temp.GetTopSkin().SetActive(false);
-            }
-        }
+        Debug.Log("Init");
+        GetPlayerDataSkin();
+        ChooseSkinToActive();
     }
 
-    public GameObject GetTop(TopType previewType)
+    public void GetPlayerDataSkin()
+    {
+        topSkin = GetPreviewTop(PlayerDataManager.Ins.GetPlayerTopID());
+        pantMaterial = GetPreviewPant(PlayerDataManager.Ins.GetPlayerPantID());
+        shieldSkin = GetPreviewLeftHand(PlayerDataManager.Ins.GetPlayerShieldID());
+        setRef = GetPreviewSet(PlayerDataManager.Ins.GetPlayerSetID());
+    }
+
+    public void PreviewDefault()
+    {
+        pantRenderer.material = defaultMaterial;
+        setRenderer.material = defaultMaterial;
+    }
+
+    //Get-Set
+    public GameObject GetTopSkin()
+    {
+        return topSkin;
+    }
+    public Material GetPantMaterial()
+    {
+        return pantMaterial;
+    }
+    public GameObject GetShieldSkin()
+    {
+        return shieldSkin;
+    }
+    public SetRef GetSetRef()
+    {
+        return setRef;
+    }
+
+    public void ChangeTopSkin(GameObject newSkin, TopType newType)
+    {
+        topSkin = newSkin;
+
+        PlayerDataManager.Ins.ChangePlayerTopID(newType);
+    }
+    public void ChangePantMaterial(Material newMat, PantType newType)
+    {
+        pantMaterial = newMat;
+
+        PlayerDataManager.Ins.ChangePlayerPantID(newType);
+    }
+    public void ChangeShieldSkin(GameObject newSkin, ShieldType newType)
+    {
+        shieldSkin = newSkin;
+
+        PlayerDataManager.Ins.ChangePlayerShieldID(newType);
+    }
+    public void ChangeSetSkin(SetType newType)
+    {
+        setRef = GetPreviewSet(newType);
+
+        PlayerDataManager.Ins.ChangePlayerSetID(newType);
+    }
+
+    public GameObject GetPreviewTop(TopType previewType)
     {
         foreach(var temp in topRefs)
         {
@@ -131,39 +191,33 @@ public class PlayerSkinControll : MonoBehaviour
                 return temp.GetTopSkin();
             }
         }
-
         return null;
     }
 
-    public void ShowPreviewPant(PantType previewType)
+    public Material GetPreviewPant(PantType previewType)
     {
         foreach(var temp in pantRefs)
         {
             if(temp.GetPantType() == previewType)
             {
-                pantRenderer.material = temp.GetPantMaterial();
-                break;
+                return temp.GetPantMaterial();
             }
         }
+        return null;
     }
 
-    public void ShowPreviewShield(ShieldType previewType)
-    {  
-        foreach(var temp in shieldRefs)
-        {
-            if(temp.GetShieldType() == previewType)
-            {
-                temp.GetShieldSkin().SetActive(true);
-            }
-            else
-            {
-                temp.GetShieldSkin().SetActive(false);
-            }
-        }
-    }
-
-    public GameObject GetLeftHandShield(ShieldType previewType)
+    public void PreviewPant(Material pantMat)
     {
+        pantRenderer.material = pantMat;
+    }
+
+    public void UnequipPant()
+    {
+        pantRenderer.material = defaultMaterial;
+    }
+
+    public GameObject GetPreviewLeftHand(ShieldType previewType)
+    {  
         foreach(var temp in shieldRefs)
         {
             if(temp.GetShieldType() == previewType)
@@ -171,55 +225,82 @@ public class PlayerSkinControll : MonoBehaviour
                 return temp.GetShieldSkin();
             }
         }
-
         return null;
     }
 
-    public void ShowPreviewSet(SetType previewType)
+    public SetRef GetPreviewSet(SetType previewType)
     {
         foreach(var temp in setRefs)
         {
             if(temp.GetSetType() == previewType)
             {
-                temp.ActiveSet();
-
-                if(temp.GetSetMaterial() != null)
-                {
-                    Material[] newMaterials = setRenderer.materials;
-                    newMaterials[0] = temp.GetSetMaterial();
-                    setRenderer.materials = newMaterials;
-                }
-            }
-            else
-            {
-                temp.DeactiveSet();
+                return temp;
             }
         }
-    }
-
-    public GameObject GetTopSet(SetType previewType)
-    {
-        foreach(var temp in setRefs)
-        {
-            if(temp.GetSetType() == previewType)
-            {
-                return temp.GetTop();
-            }
-        }
-
         return null;
     }
 
-    public GameObject GetLeftHandSet(SetType previewType)
+    public void PreviewSet(Material newMat)
     {
-        foreach(var temp in setRefs)
-        {
-            if(temp.GetSetType() == previewType)
-            {
-                return temp.GetLeftHand();
-            }
-        }
+        setRenderer.material = newMat;
+    }
 
-        return null;
+    public void PreviewNotSet()
+    {
+        setRenderer.material = defaultMaterial;
+    }
+
+    public void ActiveSetSkin()
+    {
+        setRef.ActiveSet();
+        setRenderer.material = setRef.GetSetMaterial();
+        pantRenderer.material = pantMaterial;
+    }
+
+    public void DeactiveSetSkin()
+    {
+        setRef.DeactiveSet();
+        setRenderer.material = defaultMaterial;
+    }
+
+    public void ActiveActualSkin()
+    {
+        if(topSkin != null)
+        {
+            topSkin.SetActive(true);
+        }
+        if(pantMaterial != null)
+        {
+            pantRenderer.material = pantMaterial;
+        }
+        if(shieldSkin != null)
+        {
+            shieldSkin.SetActive(true);
+        }
+    }
+
+    public void DeactiveActualSkin()
+    {
+        if(topSkin != null)
+        {
+            topSkin.SetActive(false);
+        }
+        if(shieldSkin != null)
+        {
+            shieldSkin.SetActive(false);
+        }
+    }
+
+    public void ChooseSkinToActive()
+    {
+        if(setRef.GetSetType() != SetType.None)
+        {
+            DeactiveActualSkin();
+            ActiveSetSkin();
+        }
+        else
+        {
+            ActiveActualSkin();
+        }
     }
 }

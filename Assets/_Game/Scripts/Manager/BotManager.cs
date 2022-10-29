@@ -7,6 +7,7 @@ public class BotManager : Singleton<BotManager>
     public Transform player;
     public GameObject botPrefab;
     private Queue<GameObject> botQueue;
+    [SerializeField] private List<GameObject> spawnedList;
     public LayerMask groundLayer;
     private float xPos;
     private float zPos;
@@ -38,7 +39,7 @@ public class BotManager : Singleton<BotManager>
 
     public void SpawnBotFromPool()
     {   
-        while(enemyCount < 7 && botAlive > 10)
+        while(enemyCount < 7 && botAlive >= 7)
         {
             Vector3 playerPos = player.position;
             Vector3 spawnPos;
@@ -54,6 +55,7 @@ public class BotManager : Singleton<BotManager>
             if(Physics.Raycast(spawnPos, -player.transform.up, Mathf.Infinity, groundLayer))
             {
                 GameObject objectToSpawn = botQueue.Dequeue();
+                spawnedList.Add(objectToSpawn);
                 objectToSpawn.SetActive(true);
                 objectToSpawn.transform.position = spawnPos;
 
@@ -65,6 +67,7 @@ public class BotManager : Singleton<BotManager>
     }
     public void ReturnBotToPool(GameObject returnedBot)
     {
+        spawnedList.Remove(returnedBot);
         botQueue.Enqueue(returnedBot);
         enemyCount--;
         botAlive--;

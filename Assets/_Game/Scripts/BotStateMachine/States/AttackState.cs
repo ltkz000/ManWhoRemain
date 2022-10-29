@@ -22,7 +22,10 @@ public class AttackState : IState<Character>
         
         if(character.alreadyAttacked == false)
         {
-            Attack(character, character.targetList[0]);
+            if(character.targetList[0] != null)
+            {
+                Attack(character, character.targetList[0]);
+            }
         }
 
         if(delayAttackAnim < 0)

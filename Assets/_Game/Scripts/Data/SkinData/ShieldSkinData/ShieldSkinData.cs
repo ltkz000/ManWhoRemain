@@ -20,6 +20,17 @@ public class ShieldSkinData : ScriptableObject
         return true;
     }
 
+    public void ChangeSkinStatus(ShieldType type, bool status)
+    {
+        for(int i = 0; i < ShieldSkinList.Count; i++)
+        {
+            if(ShieldSkinList[i].shieldType == type)
+            {
+                ShieldSkinList[i].isLock = status;
+            }
+        }
+    }
+
     public int GetSkinPrice(ShieldType type)
     {
         for(int i = 0; i < ShieldSkinList.Count; i++)
@@ -40,4 +51,5 @@ public class ShieldSkin
     public ShieldType shieldType;
     public int price;
     public bool isLock;
+    public bool isEquip;
 }

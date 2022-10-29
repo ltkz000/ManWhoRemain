@@ -20,6 +20,17 @@ public class SetSkinData : ScriptableObject
         return true;
     }
 
+    public void ChangeSkinStatus(SetType type, bool status)
+    {
+        for(int i = 0; i < SetSkinList.Count; i++)
+        {
+            if(SetSkinList[i].setType == type)
+            {
+                SetSkinList[i].isLock = status;
+            }
+        }
+    }
+
     public int GetSkinPrice(SetType type)
     {
         for(int i = 0; i < SetSkinList.Count; i++)
@@ -40,4 +51,5 @@ public class SetSkin
     public SetType setType;
     public int price;
     public bool isLock;
+    public bool isEquip;
 }

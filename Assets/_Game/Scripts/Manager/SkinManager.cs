@@ -18,10 +18,10 @@ public class SkinManager : Singleton<SkinManager>
 {
     [SerializeField] public List<Skin> skinList;
 
-    public Material GenerateSkin()
+    public Skin GenerateSkin()
     {
         int rdNumber = Random.Range(0, skinList.Count);
         
-        return skinList[rdNumber].material;
+        return skinList[rdNumber];
     }
 }

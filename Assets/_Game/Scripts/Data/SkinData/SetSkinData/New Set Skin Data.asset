@@ -16,15 +16,20 @@ MonoBehaviour:
   - setType: 0
     price: 5
     isLock: 1
+    isEquip: 0
   - setType: 1
     price: 10
     isLock: 1
+    isEquip: 0
   - setType: 2
     price: 15
-    isLock: 1
+    isLock: 0
+    isEquip: 0
   - setType: 3
     price: 20
     isLock: 1
+    isEquip: 0
   - setType: 4
     price: 25
-    isLock: 1
+    isLock: 0
+    isEquip: 0

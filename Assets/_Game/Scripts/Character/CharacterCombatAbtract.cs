@@ -26,7 +26,7 @@ public class CharacterCombatAbtract : MonoBehaviour
     
     //Skin and Data
     [SerializeField, NonReorderable] protected List<WeaponRef> weaponRefs;
-    [SerializeField] protected SkinnedMeshRenderer skinRenderer; 
+    // [SerializeField] protected SkinnedMeshRenderer skinRenderer; 
     public Pooler weaponPooler;
     public WeaponID characterWeaponID;
 

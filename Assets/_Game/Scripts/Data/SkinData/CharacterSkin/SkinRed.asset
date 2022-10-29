@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 0
   material: {fileID: 2100000, guid: 69748621252fc74459426ca28b3ee935, type: 2}
-  price: 0
-  unlock: 0
+  skinColor: {r: 0.9811321, g: 0.022214282, b: 0.022214282, a: 1}

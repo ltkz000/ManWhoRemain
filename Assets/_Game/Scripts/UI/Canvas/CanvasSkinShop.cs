@@ -3,6 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class FunctionButton
+{
+    [SerializeField] private SkinID buttonID;
+    [SerializeField] private UIButton uIButton;
+
+    public SkinID GetButtonID()
+    {
+        return buttonID;
+    }
+
+    public UIButton GetUIButton()
+    {
+        return uIButton;
+    }
+}
+
+
 public class CanvasSkinShop : UICanvas
 {
     [SerializeField] private CharacterCombat characterCombat;
@@ -10,21 +28,51 @@ public class CanvasSkinShop : UICanvas
     [SerializeField] private Text goldText;
     [SerializeField] private List<UITypeButton> UITypeButtonList;
     [SerializeField] private List<UISkinField> UISkinFieldList;
-    [SerializeField] private UIButton selectButton;
-    [SerializeField] private UIButton buyButton;
-
+    [SerializeField, NonReorderable] private List<FunctionButton> buyButtonList;
+    [SerializeField, NonReorderable] private List<FunctionButton> selectButtonList;
+    [SerializeField, NonReorderable] private List<FunctionButton> unequipButtonList;
+    private FunctionButton currentBuyButton;
+    private FunctionButton currentSelectButton;
+    private FunctionButton currentUnequipButton;
 
     //Function Variables
     [SerializeField] private SkinID currentFieldID;
-    [SerializeField] private GameObject topSkin;
-    [SerializeField] private GameObject leftHandSkin;
+    private UIChooseTop chooseTopButton;
+    private UIChoosePant choosePantButton;
+    private UIChooseShield chooseShieldButton;
+    private UIChooseSet chooseSetButton;
+
+    //PreviewSkin
+    [SerializeField] private GameObject previewTopSkin;
+    [SerializeField] private Material previewPantMaterial;
+    [SerializeField] private GameObject previewShieldSkin;
+    [SerializeField] private SetRef previewSetRef;
+
+    //SKinType
+    private TopType currentTopType;
+    private PantType currentPantType;
+    private ShieldType currentShieldType;
+    private SetType currentSetType;
 
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
+        previewTopSkin = playerSkinControll.GetTopSkin();
+        previewPantMaterial = playerSkinControll.GetPantMaterial();
+        previewShieldSkin = playerSkinControll.GetShieldSkin();
+        previewSetRef = playerSkinControll.GetSetRef();
 
-        selectButton.thisButton.SetActive(false);
-        buyButton.thisButton.SetActive(false);
+        playerSkinControll.DeactiveActualSkin();
+        playerSkinControll.DeactiveSetSkin();
+        if(previewSetRef.GetSetType() != SetType.None)
+        {
+            DeactivePreviewSkin();
+            ActivePreviewSet();
+        }
+        else
+        {
+            ActivePreviewSkin();
+        }
 
         currentFieldID = SkinID.Top;
 
@@ -35,11 +83,36 @@ public class CanvasSkinShop : UICanvas
         UpdateGold();
         CheckButtonIsChoose();
         CheckSkinFieldIsChoose();
+        CheckBuyButtonToShow();
+        DeactiveAllButton();
     }
 
     public void UpdateGold()
     {
         goldText.text = PlayerDataManager.Ins.GetPlayerGold().ToString();
+    }
+
+    public void DeactiveAllButton()
+    {
+        for(int i = 0; i < buyButtonList.Count; i++)
+        {
+            buyButtonList[i].GetUIButton().DisableButton();
+            selectButtonList[i].GetUIButton().DisableButton();
+            unequipButtonList[i].GetUIButton().DisableButton();
+        }
+    }
+
+    public void CheckBuyButtonToShow()
+    {
+        for(int i = 0; i < buyButtonList.Count; i++)
+        {
+            if(buyButtonList[i].GetButtonID() == currentFieldID)
+            {
+                currentBuyButton = buyButtonList[i];
+                currentSelectButton = selectButtonList[i];
+                currentUnequipButton = unequipButtonList[i];
+            }
+        }
     }
 
     public void CheckButtonIsChoose()
@@ -72,98 +145,159 @@ public class CanvasSkinShop : UICanvas
         }
     }
 
+    public void EnableBuyButton()
+    {
+        currentBuyButton.GetUIButton().EnableButton();
+        currentSelectButton.GetUIButton().DisableButton();
+        currentUnequipButton.GetUIButton().DisableButton();
+    }
+
+    public void EnableSelectButton()
+    {
+        currentBuyButton.GetUIButton().DisableButton();
+        currentSelectButton.GetUIButton().EnableButton();
+        currentUnequipButton.GetUIButton().DisableButton();
+    }
+
+    public void EnableUnequipButton()
+    {
+        currentBuyButton.GetUIButton().DisableButton();
+        currentSelectButton.GetUIButton().DisableButton();
+        currentUnequipButton.GetUIButton().EnableButton();
+    }
+
     public void CheckButtonToShow(TopType type)
     {   
         if(SkinDataManager.Ins.CheckIsLock(type) == true)
         {
-            buyButton.EnableButton();
-            selectButton.DisableButton();
+            EnableBuyButton();
             ChangePriceButton(SkinDataManager.Ins.GetPrice(type));
         }
         else
         {
-            buyButton.DisableButton();
-            selectButton.EnableButton();
+            EnableSelectButton();
+        }
+
+        if(type == PlayerDataManager.Ins.GetPlayerTopID())
+        {
+            EnableUnequipButton();
         }
     }
     public void CheckButtonToShow(PantType type)
     {   
         if(SkinDataManager.Ins.CheckIsLock(type) == true)
         {
-            buyButton.EnableButton();
-            selectButton.DisableButton();
+            EnableBuyButton();
             ChangePriceButton(SkinDataManager.Ins.GetPrice(type));
         }
         else
         {
-            buyButton.DisableButton();
-            selectButton.EnableButton();
+            EnableSelectButton();
+        }
+
+        if(type == PlayerDataManager.Ins.GetPlayerPantID())
+        {
+            EnableUnequipButton();
         }
     }
     public void CheckButtonToShow(ShieldType type)
     {   
         if(SkinDataManager.Ins.CheckIsLock(type) == true)
         {
-            buyButton.EnableButton();
-            selectButton.DisableButton();
+            EnableBuyButton();
             ChangePriceButton(SkinDataManager.Ins.GetPrice(type));
         }
         else
         {
-            buyButton.DisableButton();
-            selectButton.EnableButton();
+            EnableSelectButton();
+        }
+
+        if(type == PlayerDataManager.Ins.GetPlayerShieldID())
+        {
+            EnableUnequipButton();
         }
     }
     public void CheckButtonToShow(SetType type)
     {   
         if(SkinDataManager.Ins.CheckIsLock(type) == true)
         {
-            buyButton.EnableButton();
-            selectButton.DisableButton();
+            EnableBuyButton();
             ChangePriceButton(SkinDataManager.Ins.GetPrice(type));
         }
         else
         {
-            buyButton.DisableButton();
-            selectButton.EnableButton();
+            EnableSelectButton();
+        }
+
+        if(type == PlayerDataManager.Ins.GetPlayerSetID())
+        {
+            EnableUnequipButton();
         }
     }
 
     public void ChangePriceButton(int price)
     {
-        buyButton.thisText.text = price.ToString();
+        currentBuyButton.GetUIButton().changeText(price.ToString());
     }
 
-    public void ActiveTopSKin()
+    //Active-Deactive Top
+    public void ActivePreviewTopSKin()
     {
-        if(topSkin != null)
+        if(previewTopSkin != null)
         {
-            topSkin.SetActive(true);
+            previewTopSkin.SetActive(true);
         }
     }
 
-    public void ActiveLeftHand()
+    public void DeactivePreviewTopSKin()
     {
-        if(leftHandSkin != null)
+        if(previewTopSkin != null)
         {
-            leftHandSkin.SetActive(true);
+            previewTopSkin.SetActive(false);
         }
     }
 
-    public void DeactiveTopSKin()
+    //Active-Deactive Shield
+    public void ActivePreviewShield()
     {
-        if(topSkin != null)
+        if(previewShieldSkin != null)
         {
-            topSkin.SetActive(false);
+            previewShieldSkin.SetActive(true);
         }
     }
 
-    public void DeactiveLeftHand()
+    public void DeactivePreviewShield()
     {
-        if(leftHandSkin != null)
+        if(previewShieldSkin != null)
         {
-            leftHandSkin.SetActive(false);
+            previewShieldSkin.SetActive(false);
         }
+    }
+
+    //Active-Deactive Set
+    public void ActivePreviewSet()
+    {
+        previewSetRef.ActiveSet();
+        playerSkinControll.PreviewSet(previewSetRef.GetSetMaterial());
+    }
+
+    public void DeactivePreviewSet()
+    {
+        previewSetRef.DeactiveSet();
+        playerSkinControll.PreviewNotSet();
+    }
+
+    //Active-Deactive Skin
+    public void ActivePreviewSkin()
+    {
+        ActivePreviewTopSKin();
+        ActivePreviewShield();
+    }
+
+    public void DeactivePreviewSkin()
+    {
+        DeactivePreviewTopSKin();
+        DeactivePreviewShield();
     }
 
 
@@ -179,12 +313,13 @@ public class CanvasSkinShop : UICanvas
 
     public void PreviewTopButton(UIChooseTop uIChooseTop)
     {
-        DeactiveTopSKin();
+        DeactivePreviewTopSKin();
+        DeactivePreviewSet();
 
-        playerSkinControll.ShowPreviewTop(uIChooseTop.GetSkinType());
+        currentTopType = uIChooseTop.GetSkinType();
+        previewTopSkin = playerSkinControll.GetPreviewTop(currentTopType);
 
-        topSkin = playerSkinControll.GetTop(uIChooseTop.GetSkinType());
-        ActiveTopSKin();
+        ActivePreviewTopSKin();
 
         CheckButtonToShow(uIChooseTop.GetSkinType());
         SoundManager.Ins.PlayButtonClickSound();
@@ -192,7 +327,9 @@ public class CanvasSkinShop : UICanvas
 
     public void PreviewPantButton(UIChoosePant uIChoosePant)
     {   
-        playerSkinControll.ShowPreviewPant(uIChoosePant.GetSkinType());
+        currentPantType = uIChoosePant.GetSkinType();
+        previewPantMaterial = playerSkinControll.GetPreviewPant(currentPantType);
+        playerSkinControll.PreviewPant(previewPantMaterial);
 
         CheckButtonToShow(uIChoosePant.GetSkinType());
         SoundManager.Ins.PlayButtonClickSound();
@@ -200,12 +337,13 @@ public class CanvasSkinShop : UICanvas
 
     public void PreviewShieldButton(UIChooseShield uIChooseShield)
     {
-        DeactiveLeftHand();
+        DeactivePreviewShield();
+        DeactivePreviewSet();
 
-        playerSkinControll.ShowPreviewShield(uIChooseShield.GetSkinType());
+        currentShieldType = uIChooseShield.GetSkinType();
+        previewShieldSkin = playerSkinControll.GetPreviewLeftHand(currentShieldType);
 
-        leftHandSkin = playerSkinControll.GetLeftHandShield(uIChooseShield.GetSkinType());
-        ActiveLeftHand();
+        ActivePreviewShield();
 
         CheckButtonToShow(uIChooseShield.GetSkinType());
         SoundManager.Ins.PlayButtonClickSound();
@@ -213,15 +351,13 @@ public class CanvasSkinShop : UICanvas
 
     public void PreviewSetButton(UIChooseSet uIChooseSet)
     {
-        DeactiveTopSKin();
-        DeactiveLeftHand();
+        DeactivePreviewSkin();
+        DeactivePreviewSet();
 
-        playerSkinControll.ShowPreviewSet(uIChooseSet.GetSkinType());
+        currentSetType = uIChooseSet.GetSkinType();
+        previewSetRef = playerSkinControll.GetPreviewSet(currentSetType);
 
-        topSkin = playerSkinControll.GetTopSet(uIChooseSet.GetSkinType());
-        leftHandSkin = playerSkinControll.GetLeftHandSet(uIChooseSet.GetSkinType());
-        ActiveTopSKin();
-        ActiveLeftHand();
+        ActivePreviewSet();
 
         CheckButtonToShow(uIChooseSet.GetSkinType());
         SoundManager.Ins.PlayButtonClickSound();
@@ -233,22 +369,155 @@ public class CanvasSkinShop : UICanvas
 
         CheckButtonIsChoose();
         CheckSkinFieldIsChoose();
+        CheckBuyButtonToShow();
+        DeactiveAllButton();
         SoundManager.Ins.PlayButtonClickSound();
     }
 
-    public void SelectButton()
+    public void SelectTopButton()
     {
+        playerSkinControll.ChangeTopSkin(previewTopSkin, currentTopType);
+        playerSkinControll.ChangeSetSkin(SetType.None);
 
+        CheckButtonToShow(currentTopType);
+        SoundManager.Ins.PlayButtonClickSound();
     }
 
-    public void BuyButton()
+    public void SelectPantButton()
     {
-        
+        playerSkinControll.ChangePantMaterial(previewPantMaterial, currentPantType);
+
+        CheckButtonToShow(currentPantType);
+        SoundManager.Ins.PlayButtonClickSound();
+    }
+
+    public void SelectSheildButton()
+    {
+        playerSkinControll.ChangeShieldSkin(previewShieldSkin, currentShieldType);
+        playerSkinControll.ChangeSetSkin(SetType.None);
+
+        CheckButtonToShow(currentShieldType);
+        SoundManager.Ins.PlayButtonClickSound();
+    }
+
+    public void SelectSetButton()
+    {
+        playerSkinControll.ChangeTopSkin(null, TopType.None);
+        playerSkinControll.ChangeShieldSkin(null, ShieldType.None);
+        playerSkinControll.ChangeSetSkin(currentSetType);
+
+        CheckButtonToShow(currentSetType);
+        SoundManager.Ins.PlayButtonClickSound();
+    }
+
+    public void UnequipTopButton()
+    {
+        DeactivePreviewTopSKin();
+        playerSkinControll.ChangeTopSkin(null, TopType.None);
+
+        CheckButtonToShow(currentTopType);
+        SoundManager.Ins.PlayButtonClickSound();
+    }
+    public void UnequipPantButton()
+    {
+        playerSkinControll.UnequipPant();
+        playerSkinControll.ChangePantMaterial(null, PantType.None);
+
+        CheckButtonToShow(currentPantType);
+        SoundManager.Ins.PlayButtonClickSound();
+    }
+    public void UnequipShieldButton()
+    {
+        DeactivePreviewShield();
+        playerSkinControll.ChangeShieldSkin(null, ShieldType.None);
+
+        CheckButtonToShow(currentShieldType);
+        SoundManager.Ins.PlayButtonClickSound();
+    }
+    public void UnequipSetButton()
+    {
+        DeactivePreviewSet();
+        playerSkinControll.ChangeSetSkin(SetType.None);
+
+        CheckButtonToShow(currentSetType);
+        SoundManager.Ins.PlayButtonClickSound();
+    }
+
+    public void BuyTopButton()
+    {
+        if(PlayerDataManager.Ins.GetPlayerGold() < SkinDataManager.Ins.GetPrice(currentTopType))
+        {
+            currentBuyButton.GetUIButton().DisableButton();
+        }
+        else
+        {
+            PlayerDataManager.Ins.ChangePlayerGold(SkinDataManager.Ins.GetPrice(currentTopType));
+            SkinDataManager.Ins.UnlockSkin(currentTopType);
+
+            UpdateGold();
+            CheckButtonToShow(currentTopType);
+
+            SoundManager.Ins.PlayButtonClickSound();
+        }
+    }
+    public void BuyPantButton()
+    {
+        if(PlayerDataManager.Ins.GetPlayerGold() < SkinDataManager.Ins.GetPrice(currentPantType))
+        {
+            currentBuyButton.GetUIButton().DisableButton();
+        }
+        else
+        {
+            PlayerDataManager.Ins.ChangePlayerGold(SkinDataManager.Ins.GetPrice(currentPantType));
+            SkinDataManager.Ins.UnlockSkin(currentPantType);
+
+            UpdateGold();
+            CheckButtonToShow(currentPantType);
+
+            SoundManager.Ins.PlayButtonClickSound();
+        }
+    }
+    public void BuyShieldButton()
+    {
+        if(PlayerDataManager.Ins.GetPlayerGold() < SkinDataManager.Ins.GetPrice(currentShieldType))
+        {
+            currentBuyButton.GetUIButton().DisableButton();
+        }
+        else
+        {
+            PlayerDataManager.Ins.ChangePlayerGold(SkinDataManager.Ins.GetPrice(currentShieldType));
+            SkinDataManager.Ins.UnlockSkin(currentShieldType);
+
+            UpdateGold();
+            CheckButtonToShow(currentShieldType);
+
+            SoundManager.Ins.PlayButtonClickSound();
+        }
+    }
+    public void BuySetButton()
+    {
+        if(PlayerDataManager.Ins.GetPlayerGold() < SkinDataManager.Ins.GetPrice(currentSetType))
+        {
+            currentBuyButton.GetUIButton().DisableButton();
+        }
+        else
+        {
+            PlayerDataManager.Ins.ChangePlayerGold(SkinDataManager.Ins.GetPrice(currentSetType));
+            SkinDataManager.Ins.UnlockSkin(currentSetType);
+
+            UpdateGold();
+            CheckButtonToShow(currentSetType);
+
+            SoundManager.Ins.PlayButtonClickSound();
+        }
     }
 
     protected override void OnCloseCanvas()
     {
         base.OnCloseCanvas();
+        DeactivePreviewSet();
+        DeactivePreviewSkin();
+        playerSkinControll.ChooseSkinToActive();
         characterCombat.characterWeaponScript.AppearOnHand();
         GameManager.Ins.ChangeState(GameState.MainMenu);
     }

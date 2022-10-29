@@ -16,18 +16,24 @@ MonoBehaviour:
   - topType: 0
     price: 5
     isLock: 1
+    isEquip: 0
   - topType: 1
     price: 10
     isLock: 1
+    isEquip: 0
   - topType: 2
     price: 15
-    isLock: 1
+    isLock: 0
+    isEquip: 0
   - topType: 3
     price: 20
-    isLock: 1
+    isLock: 0
+    isEquip: 0
   - topType: 4
     price: 25
     isLock: 1
+    isEquip: 0
   - topType: 5
     price: 30
-    isLock: 1
+    isLock: 0
+    isEquip: 0

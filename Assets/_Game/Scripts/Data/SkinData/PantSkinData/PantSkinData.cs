@@ -20,6 +20,17 @@ public class PantSkinData : ScriptableObject
         return true;
     }
 
+    public void ChangeSkinStatus(PantType type, bool status)
+    {
+        for(int i = 0; i < PantSkinList.Count; i++)
+        {
+            if(PantSkinList[i].pantType == type)
+            {
+                PantSkinList[i].isLock = status;
+            }
+        }
+    }
+
     public int GetSkinPrice(PantType type)
     {
         for(int i = 0; i < PantSkinList.Count; i++)
@@ -40,4 +51,5 @@ public class PantSkin
     public PantType pantType;
     public int price;
     public bool isLock;
+    public bool isEquip;
 }

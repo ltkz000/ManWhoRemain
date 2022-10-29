@@ -78,6 +78,11 @@ public class Weapon : MonoBehaviour
         {
             OnTarGet(characterCombat);
         }
+
+        if(other.CompareTag(ConstValues.OBSTACLE_TAG))
+        {
+            _attacker.PoolBackWeapon(this.gameObject);
+        }
     }
 
     private void OnTarGet(CharacterCombatAbtract target)

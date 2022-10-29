@@ -7,4 +7,5 @@ public class Skin : ScriptableObject
 {
     public SkinColor color;
     public Material material;
+    public Color skinColor;
 }
