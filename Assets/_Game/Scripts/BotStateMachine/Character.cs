@@ -14,11 +14,12 @@ public class Character : CharacterCombatAbtract
     public DeadState deadState = new DeadState();
 
     //Attack
-    public Transform throwPoint;
+    public Transform checkCollidePoint;
     public Color skinColor;
 
     //Patrol
     public LayerMask Ground;
+    public LayerMask Obstacle;
 
     private void Start()
     {

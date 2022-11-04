@@ -15,6 +15,7 @@ public class CanvasMainMenu : UICanvas
         UpdateName();
 
         GameManager.Ins.ChangeState(GameState.MainMenu);
+        // GameManager.Ins.OpenGameLevel(PlayerDataManager.Ins.GetPlayerLevel());
     }
 
     public void PlayButton()

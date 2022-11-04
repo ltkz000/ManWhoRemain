@@ -27,7 +27,6 @@ public class CanvasGameplay : UICanvas
         aliveText.text = "Alive: " + BotManager.Ins.GetBotAlive().ToString();
         if(BotManager.Ins.GetBotAlive() == 0)
         {
-            // GameManager.Ins.ChangeState(GameState.Result);
             UIManager.Ins.OpenUI(UICanvasID.Win);
         }
     }

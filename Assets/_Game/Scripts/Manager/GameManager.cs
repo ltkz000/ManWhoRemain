@@ -24,8 +24,15 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenGameLevel(int levelIndex)
     {
-        levelList[levelIndex - 1].SetActive(false);
-        levelList[levelIndex].SetActive(true);
+        Debug.Log(levelList[levelIndex].name);
+        // if(levelList[levelIndex - 1] != null)
+        // {
+        //     levelList[levelIndex - 1].SetActive(false);
+        // }
+        if(levelList[levelIndex] != null)
+        {
+            levelList[levelIndex].SetActive(true);
+        }
     }
 
     public bool IsState(GameState gameState)

@@ -26,6 +26,8 @@ public class PatrolState : IState<Character>
     {
         character.TriggerAnimation(ConstValues.ANIM_TRIGGER_RUN);
 
+        CheckCollide(character);
+
         if(walkPointSet == true)
         {
             Move(character);
@@ -53,6 +55,17 @@ public class PatrolState : IState<Character>
         }
     }
 
+    private void CheckCollide(Character character)
+    {
+        Debug.DrawRay(character.checkCollidePoint.position, character.transform.forward, Color.yellow, 1f);
+        if(Physics.Raycast(character.checkCollidePoint.position, character.transform.forward, 0.5f, character.Obstacle))
+        {
+            Debug.Log("ChangeDirection");
+            // character.ChangeState(character.idleState);
+            SearchWalkPoint(character);
+        }
+    }
+
     private void CheckWalkPoint(Character character)
     {
         float distanceToWalkPoint = Vector3.Distance(character.transform.position, walkPoint);
@@ -70,14 +83,6 @@ public class PatrolState : IState<Character>
 
         Vector3 direction = Vector3.RotateTowards(character.transform.forward, walkDir, rotateSpeed * Time.deltaTime, 0.0f);
         character.transform.rotation = Quaternion.LookRotation(direction);
-    }
-
-    private void OnTriggerEnter(Collider other, Character character) 
-    {
-        if(other.CompareTag(ConstValues.OBSTACLE_TAG))
-        {
-            SearchWalkPoint(character);
-        }
     }
 
     public void OnExit(Character character)

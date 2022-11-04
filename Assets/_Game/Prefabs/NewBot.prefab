@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c45c150ecf26e44a1452f6bf7dc92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterCombat: {fileID: 1470167231265950714, guid: f46bdc1ff0850114185847193855958f, type: 3}
+  characterCombat: {fileID: 7726924146952657268}
 --- !u!1 &6450819302845746518
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,11 +936,14 @@ MonoBehaviour:
   weaponPooler: {fileID: 1612326403947859257}
   characterWeaponID: 0
   characterWeaponScript: {fileID: 0}
-  throwPoint: {fileID: 0}
+  checkCollidePoint: {fileID: 7024898837416405681}
   skinColor: {r: 0, g: 0, b: 0, a: 0}
   Ground:
     serializedVersion: 2
     m_Bits: 8
+  Obstacle:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &3439467275296079649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2635,7 +2638,7 @@ GameObject:
   - component: {fileID: 7024898837416405681}
   - component: {fileID: 1612326403947859257}
   m_Layer: 3
-  m_Name: throwPoint
+  m_Name: colliderPoint
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

@@ -12,9 +12,15 @@ public class CharacterCombat : CharacterCombatAbtract
     //Skin
     [SerializeField] private SkinnedMeshRenderer pantSkin;
 
+    private float delayThrowWeapon;
+    private float attackAnimTime;
+    private bool throwing;
+
     private void Start() 
     {
         InitPlayerWeapon();
+        delayThrowWeapon = ConstValues.DELAY_THROWWEAPON_TIME;
+        attackAnimTime = ConstValues.ATTACK_ANIM_TIME;
     }
 
     public void InitPlayerWeapon()
@@ -35,7 +41,7 @@ public class CharacterCombat : CharacterCombatAbtract
 
     private void Update() 
     {
-        SelectTarget();
+        SelectTarget(); 
     }
 
     private void SelectTarget()
@@ -49,7 +55,60 @@ public class CharacterCombat : CharacterCombatAbtract
                 Attack(targetList[0]);
             }
         }
+        // else
+        // {
+        //     alreadyAttacked = false;
+        //     characterWeaponScript.AppearOnHand();
+        //     attackIng = false;
+        //     delayThrowWeapon = ConstValues.DELAY_THROWWEAPON_TIME;
+        //     attackAnimTime = ConstValues.ATTACK_ANIM_TIME;
+        // }
     }
+
+    // private void Attack(CharacterCombatAbtract target)
+    // {
+    //     attackIng = true;
+    //     if(delayThrowWeapon > 0)
+    //     {
+    //         delayThrowWeapon -= Time.deltaTime;
+    //     }
+    //     if(attackAnimTime > 0)
+    //     {
+    //         attackAnimTime -= Time.deltaTime;
+    //     }
+
+    //     characterTransform.LookAt(target.transform.position);
+
+    //     if(delayThrowWeapon < 0)
+    //     {
+    //         Debug.Log("throw");
+    //         characterWeaponScript.DisappearOnHand();
+
+    //         PlaySound(throwSound);
+
+    //         GameObject throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.transform);
+    //         throwWeapon.transform.localScale = characterTransform.localScale;
+
+    //         Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
+    //         weaponScipt.Fly(this ,target.characterTransform);
+
+    //         delayThrowWeapon = 0;
+    //     }
+
+    //     if(target.isDead == true)
+    //     {
+    //         RemoveTarget(target);
+    //     }
+        
+    //     if(attackAnimTime < 0)
+    //     {
+    //         characterWeaponScript.AppearOnHand();
+    //         alreadyAttacked = true;
+    //         attackIng = false;
+    //         delayThrowWeapon = ConstValues.DELAY_THROWWEAPON_TIME;
+    //         attackAnimTime = ConstValues.ATTACK_ANIM_TIME;
+    //     }
+    // }
 
     private void Attack(CharacterCombatAbtract target)
     {
@@ -59,17 +118,44 @@ public class CharacterCombat : CharacterCombatAbtract
 
         StartCoroutine(TriggerAttack());
 
-        GameObject throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.transform);
+        // GameObject throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.transform);
 
-        throwWeapon.transform.localScale = characterTransform.localScale;
+        // throwWeapon.transform.localScale = characterTransform.localScale;
         
-        Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
-        weaponScipt.Fly(this ,target.characterTransform);
+        // Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
+        // weaponScipt.Fly(this ,target.characterTransform);
+        StartCoroutine(ThrowWeapon(target));
 
         if(target.isDead == true)
         {
             RemoveTarget(target);
         }
+    }
+
+    IEnumerator ThrowWeapon(CharacterCombatAbtract target)
+    {
+        yield return new WaitForSeconds(ConstValues.DELAY_THROWWEAPON_TIME);
+
+        characterWeaponScript.DisappearOnHand();
+
+        GameObject throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.transform);
+        throwWeapon.transform.localScale = characterTransform.localScale;
+
+        Weapon weaponScript = throwWeapon.GetComponent<Weapon>();
+        weaponScript.Fly(this, target.characterTransform);
+    }
+
+    IEnumerator TriggerAttack()
+    {
+        attackIng = true;
+        // characterWeaponScript.DisappearOnHand();
+
+        // PlaySound(throwSound);
+
+        yield return new WaitForSeconds(ConstValues.ATTACK_ANIM_TIME);
+
+        attackIng = false;
+        characterWeaponScript.AppearOnHand();
     }
 
     public override void UpdateOnKill(CharacterCombatAbtract target)
@@ -82,19 +168,6 @@ public class CharacterCombat : CharacterCombatAbtract
         }
 
         PlayerDataManager.Ins.UpdatePlayerGold();
-    }
-
-    IEnumerator TriggerAttack()
-    {
-        attackIng = true;
-        characterWeaponScript.DisappearOnHand();
-
-        PlaySound(throwSound);
-
-        yield return new WaitForSeconds(ConstValues.ATTACK_ANIM_TIME);
-
-        attackIng = false;
-        characterWeaponScript.AppearOnHand();
     }
 
     public override void DisappearAfterKilled()

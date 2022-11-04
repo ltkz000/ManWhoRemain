@@ -49,7 +49,7 @@ public class OffScreenIndicator : MonoBehaviour
 
             if(target.NeedBoxIndicator && isTargetVisible)
             {
-                screenPosition.y += 50;
+                // screenPosition.y += 50;
                 screenPosition.z = 0;
                 indicator = GetIndicator(ref target.indicator, IndicatorType.BOX); // Gets the box indicator from the pool.
             }

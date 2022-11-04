@@ -42,5 +42,6 @@ public class CanvasVictory : UICanvas
     protected override void OnCloseCanvas()
     {
         base.OnCloseCanvas();
+        Time.timeScale = 1;
     }
 }
