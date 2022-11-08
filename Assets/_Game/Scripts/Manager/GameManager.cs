@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.AI;
 
 public enum GameState {MainMenu, GamePlay, Pause, Result, SkinShop}
 
@@ -25,14 +26,23 @@ public class GameManager : Singleton<GameManager>
     public void OpenGameLevel(int levelIndex)
     {
         Debug.Log(levelList[levelIndex].name);
-        // if(levelList[levelIndex - 1] != null)
-        // {
-        //     levelList[levelIndex - 1].SetActive(false);
-        // }
-        if(levelList[levelIndex] != null)
+        for(int i = 0; i < levelList.Count; i++)
         {
-            levelList[levelIndex].SetActive(true);
+            if(i != levelIndex)
+            {
+                levelList[i].SetActive(false);
+            }
+            else
+            {
+                levelList[i].SetActive(true);
+            }
         }
+        NavMeshBuilder.BuildNavMesh();
+    }
+
+    public int GetMaxLevel()
+    {
+        return levelList.Count - 1;
     }
 
     public bool IsState(GameState gameState)

@@ -16,8 +16,8 @@ MonoBehaviour:
   skinTopID: 6
   skinPantID: 2
   skinShieldID: 2
-  skinSetID: 5
+  skinSetID: 3
   currentLevel: 0
   highestScore: 0
-  playerGold: 200
+  playerGold: 445
   playerName: Deptrai

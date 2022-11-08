@@ -415,7 +415,8 @@ public class CanvasSkinShop : UICanvas
         DeactivePreviewTopSKin();
         playerSkinControll.ChangeTopSkin(null, TopType.None);
 
-        CheckButtonToShow(currentTopType);
+        // CheckButtonToShow(currentTopType);
+        DeactiveAllButton();
         SoundManager.Ins.PlayButtonClickSound();
     }
     public void UnequipPantButton()
@@ -423,7 +424,8 @@ public class CanvasSkinShop : UICanvas
         playerSkinControll.UnequipPant();
         playerSkinControll.ChangePantMaterial(null, PantType.None);
 
-        CheckButtonToShow(currentPantType);
+        // CheckButtonToShow(currentPantType);
+        DeactiveAllButton();
         SoundManager.Ins.PlayButtonClickSound();
     }
     public void UnequipShieldButton()
@@ -431,7 +433,8 @@ public class CanvasSkinShop : UICanvas
         DeactivePreviewShield();
         playerSkinControll.ChangeShieldSkin(null, ShieldType.None);
 
-        CheckButtonToShow(currentShieldType);
+        // CheckButtonToShow(currentShieldType);
+        DeactiveAllButton();
         SoundManager.Ins.PlayButtonClickSound();
     }
     public void UnequipSetButton()
@@ -439,7 +442,8 @@ public class CanvasSkinShop : UICanvas
         DeactivePreviewSet();
         playerSkinControll.ChangeSetSkin(SetType.None);
 
-        CheckButtonToShow(currentSetType);
+        // CheckButtonToShow(currentSetType);
+        DeactiveAllButton();
         SoundManager.Ins.PlayButtonClickSound();
     }
 

@@ -6,12 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class CanvasLose : UICanvas
 {
+    [SerializeField] private CharacterCombat player;
     [SerializeField] private Text topText;
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
-
-        // Time.timeScale = 0;
 
         topText.text = "#" + (BotManager.Ins.GetBotAlive() + 1).ToString();
     }
@@ -19,6 +18,7 @@ public class CanvasLose : UICanvas
     public void ContinueButton()
     {
         SceneManager.LoadScene(sceneBuildIndex: 0);
+        // UIManager.Ins.OpenUI(UICanvasID.MainMenu);
 
         SoundManager.Ins.PlayButtonClickSound();
 
@@ -27,7 +27,10 @@ public class CanvasLose : UICanvas
 
     public void RestartButton()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // UIManager.Ins.OpenUI(UICanvasID.MainMenu);
+        player.Revive();
+        BotManager.Ins.Restart();
 
         SoundManager.Ins.PlayButtonClickSound();
     }

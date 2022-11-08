@@ -23,7 +23,6 @@ public class BotManager : Singleton<BotManager>
         {
             GameObject newBot = GenerateNewBot();
 
-            // Character botScript = newBot.GetComponent<Character>();
             botQueue.Enqueue(newBot);
         }
     }
@@ -71,6 +70,16 @@ public class BotManager : Singleton<BotManager>
         botQueue.Enqueue(returnedBot);
         enemyCount--;
         botAlive--;
+    }
+
+    public void Restart()
+    {
+        for(int i = 0; i < spawnedList.Count; i++)
+        {
+            spawnedList[i].SetActive(false);
+            botQueue.Enqueue(spawnedList[i]);
+        }
+        spawnedList.Clear();
     }
 
     public int GetBotAlive()

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Assign this script to the indicator prefabs.
@@ -8,7 +9,8 @@ public class Indicator : MonoBehaviour
 {
     [SerializeField] private IndicatorType indicatorType;
     private Image indicatorImage;
-    private Text distanceText;
+    [SerializeField] private TMP_Text distanceText;
+    // private Text distanceText;
 
     /// <summary>
     /// Gets if the game object is active in hierarchy.
@@ -35,7 +37,7 @@ public class Indicator : MonoBehaviour
     void Awake()
     {
         indicatorImage = transform.GetComponent<Image>();
-        distanceText = transform.GetComponentInChildren<Text>();
+        // distanceText = transform.GetComponentInChildren<Te>();
     }
 
     /// <summary>
@@ -56,9 +58,10 @@ public class Indicator : MonoBehaviour
     /// Sets the distance text for the indicator.
     /// </summary>
     /// <param name="value"></param>
-    public void SetDistanceText(float value)
+    public void SetDistanceText(float value, Color color)
     {
         distanceText.text = value >= 0 ? Mathf.Floor(value) + " m" : "";
+        distanceText.color = color; 
     }
 
     /// <summary>

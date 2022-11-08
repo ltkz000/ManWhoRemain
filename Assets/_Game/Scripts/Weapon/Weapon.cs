@@ -74,7 +74,7 @@ public class Weapon : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         CharacterCombatAbtract characterCombat = CachedCollision.GetCharacterCombatCollider(other);
-        if(characterCombat != _attacker)
+        if(characterCombat != null && characterCombat != _attacker)
         {
             OnTarGet(characterCombat);
         }

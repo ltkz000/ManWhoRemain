@@ -125,6 +125,19 @@ public class CharacterCombatAbtract : MonoBehaviour
         Invoke(nameof(DisappearAfterKilled), ConstValues.DEAD_ANIM_TIME);
     }
 
+    public void Revive()
+    {
+        characterTransform.gameObject.SetActive(true);
+        characterTransform.position = Vector3.zero;
+
+        isDead = false;
+        capsuleCollider.enabled = true;
+        attackRangeScript.enabled = true;
+        characterTransform.localScale = Vector3.one;
+
+        TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
+    }
+
     public virtual void DisappearAfterKilled()
     {
         gameObject.SetActive(false);
@@ -155,9 +168,4 @@ public class CharacterCombatAbtract : MonoBehaviour
     {
         animator.SetTrigger(animTrigger);
     }
-
-    // public AnimationController GetAnimationController()
-    // {
-    //     return _animationController;
-    // }
 }

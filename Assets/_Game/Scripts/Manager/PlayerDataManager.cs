@@ -82,4 +82,13 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
     {
         return playerData.currentLevel;
     }
+
+    public void ChangePlayerLevel()
+    {
+        playerData.currentLevel++;
+        if(playerData.currentLevel > GameManager.Ins.GetMaxLevel())
+        {
+            playerData.currentLevel = 0;
+        }
+    }
 }

@@ -135,6 +135,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1999086226}
     m_Modifications:
+    - target: {fileID: 6836089074202062461, guid: 82529bbcaa7257243ba3ee12d41723fc, type: 3}
+      propertyPath: characterCombat
+      value: 
+      objectReference: {fileID: 1319982612}
     - target: {fileID: 7671947785854292754, guid: 82529bbcaa7257243ba3ee12d41723fc, type: 3}
       propertyPath: m_Name
       value: UIStartMenu

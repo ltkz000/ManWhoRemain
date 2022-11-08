@@ -8,14 +8,19 @@ public class CanvasMainMenu : UICanvas
     [SerializeField] private Text nameHolder;
     [SerializeField] private InputField inputField;
 
+    [SerializeField] private CharacterCombat characterCombat;
+
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
+        characterCombat.Revive();
+        characterCombat.DeactiveNameText();
         UpdateGold();
         UpdateName();
 
+        // BotManager.Ins.OnMainMenu();
         GameManager.Ins.ChangeState(GameState.MainMenu);
-        // GameManager.Ins.OpenGameLevel(PlayerDataManager.Ins.GetPlayerLevel());
+        GameManager.Ins.OpenGameLevel(PlayerDataManager.Ins.GetPlayerLevel());
     }
 
     public void PlayButton()

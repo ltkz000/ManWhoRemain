@@ -118,12 +118,6 @@ public class CharacterCombat : CharacterCombatAbtract
 
         StartCoroutine(TriggerAttack());
 
-        // GameObject throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.transform);
-
-        // throwWeapon.transform.localScale = characterTransform.localScale;
-        
-        // Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
-        // weaponScipt.Fly(this ,target.characterTransform);
         StartCoroutine(ThrowWeapon(target));
 
         if(target.isDead == true)
@@ -184,5 +178,11 @@ public class CharacterCombat : CharacterCombatAbtract
     public void DeactiveNameText()
     {
         nameText.gameObject.SetActive(false);
+    }
+
+    public void PlayerOnMainMenu()
+    {
+        DeactiveNameText();
+        characterTransform.position = Vector3.zero;
     }
 }
