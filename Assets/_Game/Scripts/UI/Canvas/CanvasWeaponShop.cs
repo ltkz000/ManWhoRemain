@@ -6,9 +6,10 @@ public class CanvasWeaponShop : UICanvas
 {
     private int currentWeaponIndex;
     private int currentSkinIndex;
-    [SerializeField] private CharacterCombat player;
+    // [SerializeField] private CharacterCombat player;
 
     //UI
+    [SerializeField] private Canvas shopCanvas;
     [SerializeField] private Text weaponNameText;
     [SerializeField] private Text goldText;
     [SerializeField] private UIButton selectButton;
@@ -21,13 +22,14 @@ public class CanvasWeaponShop : UICanvas
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
+        shopCanvas.worldCamera = UIManager.Ins.GetCanvasCamera();
         UpdateGold();
-        ChangeWeaponNameText();
         InitSkinButton();
         InitSelectedWeapon();
         SetActiveWeaponAndSkin();
         ChangSelectText();
         ChangeWeaponButton();
+        ChangeWeaponNameText();
     }
 
     public void InitSkinButton()
@@ -141,7 +143,7 @@ public class CanvasWeaponShop : UICanvas
         PlayerDataManager.Ins.ChangePlayerWeaponID(WeaponDataManager.Ins.GetWeaponID(currentWeaponIndex));
         WeaponDataManager.Ins.ChangeCurrentSkinIndex(currentWeaponIndex, currentSkinIndex);
 
-        player.ChangePlayerWeapon();
+        PlayerDataManager.Ins.GetCharacterCombat().ChangePlayerWeapon();
 
         // selectButton.thisText.text = ConstValues.EQUIPPED_TEXT;
         ChangSelectText();
@@ -160,6 +162,7 @@ public class CanvasWeaponShop : UICanvas
             currentSkinIndex = WeaponDataManager.Ins.GetCurrentSkinIndex(currentWeaponIndex);
             Destroy(previewWeapon);
             ShowPreviewWeapon(WeaponDataManager.Ins.GetUIWeaponPrefab(currentWeaponIndex));
+            
             PlayerDataManager.Ins.ChangePlayerGold(WeaponDataManager.Ins.GetWeaponPrice(currentWeaponIndex));
 
             WeaponDataManager.Ins.ChangeWeaponStatus(currentWeaponIndex);

@@ -6,21 +6,12 @@ public class CharacterCombat : CharacterCombatAbtract
 {
     [SerializeField] private Transform throwPoint;
     [SerializeField] private SkinColor skinColor;
-    [SerializeField] private CameraController cameraController;
     [SerializeField] private TextMeshPro nameText;
-
-    //Skin
-    [SerializeField] private SkinnedMeshRenderer pantSkin;
-
-    private float delayThrowWeapon;
-    private float attackAnimTime;
-    private bool throwing;
+    private int mapGold;
 
     private void Start() 
     {
         InitPlayerWeapon();
-        delayThrowWeapon = ConstValues.DELAY_THROWWEAPON_TIME;
-        attackAnimTime = ConstValues.ATTACK_ANIM_TIME;
     }
 
     public void InitPlayerWeapon()
@@ -37,119 +28,77 @@ public class CharacterCombat : CharacterCombatAbtract
         characterWeaponID = PlayerDataManager.Ins.GetPlayerWeaponID();
 
         InitWeapon(WeaponDataManager.Ins.GetWeaponByID(characterWeaponID));
+
+        weaponPooler.ResetPool(WeaponDataManager.Ins.GetWeaponByID(characterWeaponID));
     }
+
+    private float timer = 0;
 
     private void Update() 
     {
         SelectTarget(); 
+
+        if(!isAttackalbe)
+        {
+            timer = 0;
+            isAttacking = false;
+
+            characterWeaponScript.AppearOnHand();
+        }
+
+        if(isAttackalbe && isAttacked == false && targetList.Count > 0)
+        {
+            timer += Time.deltaTime;
+            isAttacking = true;
+
+            if(targetList.Count > 0)
+            {
+                characterTransform.LookAt(targetList[0].characterTransform);
+            }
+            
+            if(timer >= ConstValues.DELAY_THROWWEAPON_TIME && isThrowalbe == true && targetList.Count > 0)
+            {
+                ThrowWeapon(targetList[0]);
+            }
+
+            if(timer >= ConstValues.ATTACK_ANIM_TIME)
+            {
+                timer = 0;
+                isAttackalbe = false;
+                isAttacking = false;
+                isAttacked = true;
+
+                characterWeaponScript.AppearOnHand();
+            }
+        }
     }
 
     private void SelectTarget()
     {
         if(targetList.Count > 0)
         {
-            targetList[0].BeingLocked();
-
-            if(alreadyAttacked == false && isAttackalbe == true)
+            if(targetList[0].isDead)
             {
-                Attack(targetList[0]);
+                RemoveTarget(targetList[0]);
+            }
+            else
+            {
+                targetList[0].BeingLocked();
             }
         }
-        // else
-        // {
-        //     alreadyAttacked = false;
-        //     characterWeaponScript.AppearOnHand();
-        //     attackIng = false;
-        //     delayThrowWeapon = ConstValues.DELAY_THROWWEAPON_TIME;
-        //     attackAnimTime = ConstValues.ATTACK_ANIM_TIME;
-        // }
     }
 
-    // private void Attack(CharacterCombatAbtract target)
-    // {
-    //     attackIng = true;
-    //     if(delayThrowWeapon > 0)
-    //     {
-    //         delayThrowWeapon -= Time.deltaTime;
-    //     }
-    //     if(attackAnimTime > 0)
-    //     {
-    //         attackAnimTime -= Time.deltaTime;
-    //     }
-
-    //     characterTransform.LookAt(target.transform.position);
-
-    //     if(delayThrowWeapon < 0)
-    //     {
-    //         Debug.Log("throw");
-    //         characterWeaponScript.DisappearOnHand();
-
-    //         PlaySound(throwSound);
-
-    //         GameObject throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.transform);
-    //         throwWeapon.transform.localScale = characterTransform.localScale;
-
-    //         Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
-    //         weaponScipt.Fly(this ,target.characterTransform);
-
-    //         delayThrowWeapon = 0;
-    //     }
-
-    //     if(target.isDead == true)
-    //     {
-    //         RemoveTarget(target);
-    //     }
-        
-    //     if(attackAnimTime < 0)
-    //     {
-    //         characterWeaponScript.AppearOnHand();
-    //         alreadyAttacked = true;
-    //         attackIng = false;
-    //         delayThrowWeapon = ConstValues.DELAY_THROWWEAPON_TIME;
-    //         attackAnimTime = ConstValues.ATTACK_ANIM_TIME;
-    //     }
-    // }
-
-    private void Attack(CharacterCombatAbtract target)
+    private void ThrowWeapon(CharacterCombatAbtract target)
     {
-        alreadyAttacked = true;
-        
-        characterTransform.LookAt(target.transform.position);
-
-        StartCoroutine(TriggerAttack());
-
-        StartCoroutine(ThrowWeapon(target));
-
-        if(target.isDead == true)
-        {
-            RemoveTarget(target);
-        }
-    }
-
-    IEnumerator ThrowWeapon(CharacterCombatAbtract target)
-    {
-        yield return new WaitForSeconds(ConstValues.DELAY_THROWWEAPON_TIME);
-
+        isThrowalbe = false;
         characterWeaponScript.DisappearOnHand();
 
-        GameObject throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.transform);
+        
+        throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.weaponParentTrans);
         throwWeapon.transform.localScale = characterTransform.localScale;
 
         Weapon weaponScript = throwWeapon.GetComponent<Weapon>();
         weaponScript.Fly(this, target.characterTransform);
-    }
-
-    IEnumerator TriggerAttack()
-    {
-        attackIng = true;
-        // characterWeaponScript.DisappearOnHand();
-
-        // PlaySound(throwSound);
-
-        yield return new WaitForSeconds(ConstValues.ATTACK_ANIM_TIME);
-
-        attackIng = false;
-        characterWeaponScript.AppearOnHand();
     }
 
     public override void UpdateOnKill(CharacterCombatAbtract target)
@@ -158,16 +107,64 @@ public class CharacterCombat : CharacterCombatAbtract
 
         if(level < ConstValues.MAX_LEVEL)
         {
-            cameraController.UpdateOffset();
+            CameraController.Ins.UpdateOffset();
         }
 
+        mapGold += ConstValues.KILL_GOLD;
         PlayerDataManager.Ins.UpdatePlayerGold();
+    }
+
+    public override void BeingKilled()
+    {
+        base.BeingKilled();
+        UIManager.Ins.OpenUI(UICanvasID.BlockRay);
     }
 
     public override void DisappearAfterKilled()
     {
         base.DisappearAfterKilled();
+        UIManager.Ins.CloseUI(UICanvasID.GamePlay);
+        UIManager.Ins.CloseUI(UICanvasID.BlockRay);
         UIManager.Ins.OpenUI(UICanvasID.Lose);
+    }
+
+    // public void Revive()
+    // {
+    //     PlayerDataManager.Ins.GetPlayer().StopMove();
+
+    //     characterTransform.position = Vector3.zero;
+    //     characterTransform.rotation = Quaternion.Euler(0, 180, 0);
+    //     characterTransform.localScale = Vector3.one;
+
+    //     targetList.Clear();
+    //     isDead = false;
+    //     capsuleCollider.enabled = true;
+    //     attackRange = ConstValues.ATTACK_RANGE_DEFAULT;
+    //     attackRangeObject.SetActive(true);
+    //     lockedObj.SetActive(false);
+    //     weaponPooler.ResetPool(WeaponDataManager.Ins.GetWeaponByID(characterWeaponID));
+
+    //     characterTransform.gameObject.SetActive(true);
+
+    //     CameraController.Ins.Restart();
+    //     BotManager.Ins.Restart();
+    //     TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
+    // }
+
+    public override GameObject GetCharacterWeapon()
+    {
+        base.GetCharacterWeapon();
+        return WeaponDataManager.Ins.GetWeaponByID(characterWeaponID);
+    }
+
+    public void ResetMapGold()
+    {
+        mapGold = 0;
+    }
+
+    public int GetMapGold()
+    {
+        return mapGold;
     }
 
     public void ActiveNameText()
@@ -178,6 +175,11 @@ public class CharacterCombat : CharacterCombatAbtract
     public void DeactiveNameText()
     {
         nameText.gameObject.SetActive(false);
+    }
+
+    public bool IsHaveUlti()
+    {
+        return haveUlti;
     }
 
     public void PlayerOnMainMenu()

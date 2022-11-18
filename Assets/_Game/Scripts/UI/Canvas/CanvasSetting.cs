@@ -42,7 +42,9 @@ public class CanvasSetting : UICanvas
 
     public void HomeButton()
     {
-        SceneManager.LoadScene(sceneBuildIndex: 0);
+        // PlayerDataManager.Ins.GetCharacterCombat().Revive();
+        GameManager.Ins.BackToMainMenu();
+        UIManager.Ins.OpenUI(UICanvasID.MainMenu);
 
         SoundManager.Ins.PlayButtonClickSound();
 
@@ -60,7 +62,6 @@ public class CanvasSetting : UICanvas
 
     public void RestartButton()
     {
-        // UIManager.Ins.OpenUI(UICanvasID.GamePlay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         SoundManager.Ins.PlayButtonClickSound();

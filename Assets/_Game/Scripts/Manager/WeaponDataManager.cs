@@ -52,6 +52,19 @@ public class WeaponDataManager : Singleton<WeaponDataManager>
         return weaponDataList[0].currentSkin;
     }
 
+    public GameObject GetBotWeapon(WeaponID weaponID)
+    {
+        for(int i = 0; i < weaponDataList.Count; i++)
+        {
+            if(weaponID == weaponDataList[i].weaponID)
+            {
+                int rd = Random.Range(0, weaponDataList[i].WeaponSkins.Count - 1);
+                return weaponDataList[i].WeaponSkins[rd].skinPrefab;
+            }
+        }
+        return weaponDataList[0].currentSkin;
+    }
+
     public int GetCurrentSkinIndex(int weaponIndex)
     {
         return weaponDataList[weaponIndex].currentSkinIndex;

@@ -3,87 +3,136 @@ using UnityEngine;
 
 public class BotManager : Singleton<BotManager>
 {
-    public Transform transform;
-    public Transform player;
-    public GameObject botPrefab;
-    private Queue<GameObject> botQueue;
-    [SerializeField] private List<GameObject> spawnedList;
+    [SerializeField] LevelData levelData;
+    public Transform botParentTranform;
+    public Transform playerTrans;
+    public Character botPrefab;
+    private Queue<Character> botQueue;
     public LayerMask groundLayer;
     private float xPos;
     private float zPos;
+    [SerializeField] private List<Character> spawnedList;
     [SerializeField] private int enemyCount;
     [SerializeField] private int botAlive;
+    [SerializeField] private int botOnTime;
     [SerializeField] private int poolSize;
 
     private void Start() 
     {
-        botQueue = new Queue<GameObject>();
+        Init();
+    }
+
+    public void Init()
+    {
+        enemyCount = 0;
+        botOnTime = levelData.GetBotOnTimeData(PlayerDataManager.Ins.GetPlayerLevel());
+        botAlive = levelData.GetBotAliveData(PlayerDataManager.Ins.GetPlayerLevel());
+        playerTrans = PlayerDataManager.Ins.GetCharacterCombat().GetCharacterTranform();
+
+        botQueue = new Queue<Character>();
 
         for(int i = 0; i < poolSize; i++)
         {
-            GameObject newBot = GenerateNewBot();
+            Character newBot = GenerateNewBot();
 
             botQueue.Enqueue(newBot);
         }
     }
 
-    public GameObject GenerateNewBot()
+    public Character GenerateNewBot()
     {
-        GameObject gameObject = Instantiate(botPrefab);
-        gameObject.SetActive(false);
-        gameObject.transform.position = player.position;
-        gameObject.transform.parent = transform;
-        return gameObject;
+        Character character = Instantiate(botPrefab);
+        character.gameObject.SetActive(false);
+        character.transform.position = playerTrans.position;
+        character.transform.parent = botParentTranform;
+        return character;
     }
 
     public void SpawnBotFromPool()
     {   
-        while(enemyCount < 7 && botAlive >= 7)
+        if(playerTrans == null)
         {
-            Vector3 playerPos = player.position;
+            playerTrans = PlayerDataManager.Ins.GetCharacterCombat().GetCharacterTranform();
+        }
+        while(enemyCount < botOnTime && botAlive >= botOnTime)
+        {
+            Vector3 playerPos = playerTrans.position;
             Vector3 spawnPos;
 
-            playerPos = player.position;
+            playerPos = playerTrans.position;
             Vector2 randomPos = Random.insideUnitCircle.normalized;
-            int randomRange = Random.Range(10, 40);
+            int randomRange = Random.Range(10, 45);
             xPos = randomPos.x * randomRange;
             zPos = randomPos.y * randomRange;
 
             spawnPos = new Vector3(playerPos.x + xPos, playerPos.y, playerPos.z + zPos); 
 
-            if(Physics.Raycast(spawnPos, -player.transform.up, Mathf.Infinity, groundLayer))
+            if(Physics.Raycast(spawnPos, -playerTrans.transform.up, Mathf.Infinity, groundLayer))
             {
-                GameObject objectToSpawn = botQueue.Dequeue();
-                spawnedList.Add(objectToSpawn);
-                objectToSpawn.SetActive(true);
-                objectToSpawn.transform.position = spawnPos;
+                if(botQueue.Count == 0)
+                {
+                    Character newBot = GenerateNewBot();
+                    botQueue.Enqueue(newBot);
+                }
 
-                Character botScript = objectToSpawn.GetComponent<Character>();
-                botScript.BotOnSpawn();
+                Character objectToSpawn = botQueue.Dequeue();
+                spawnedList.Add(objectToSpawn);
+                objectToSpawn.gameObject.SetActive(true);
+                objectToSpawn.transform.position = spawnPos;
+                objectToSpawn.BotOnSpawn();
+
                 enemyCount++;
             }
         }
     }
-    public void ReturnBotToPool(GameObject returnedBot)
+   
+    public void ReturnBotToPool(Character returnedBot)
     {
         spawnedList.Remove(returnedBot);
         botQueue.Enqueue(returnedBot);
-        enemyCount--;
-        botAlive--;
     }
 
     public void Restart()
     {
         for(int i = 0; i < spawnedList.Count; i++)
         {
-            spawnedList[i].SetActive(false);
-            botQueue.Enqueue(spawnedList[i]);
+            Destroy(spawnedList[i].gameObject);
         }
         spawnedList.Clear();
+
+        foreach(Character temp in botQueue)
+        {
+            Destroy(temp.gameObject);
+        }
+        botQueue.Clear();
+
+        Init();
     }
+
+    // public void Restart()
+    // {
+    //     CancelInvoke();
+    //     for(int i = 0; i < spawnedList.Count; i++)
+    //     {
+    //         spawnedList[i].characterTransform.localScale = Vector3.one;
+    //         spawnedList[i].gameObject.SetActive(false);
+    //         botQueue.Enqueue(spawnedList[i]);
+    //     }
+    //     spawnedList.Clear();
+
+    //     enemyCount = 0;
+    //     botOnTime = levelData.GetBotOnTimeData(PlayerDataManager.Ins.GetPlayerLevel());
+    //     botAlive = levelData.GetBotAliveData(PlayerDataManager.Ins.GetPlayerLevel());
+    // }
 
     public int GetBotAlive()
     {
         return botAlive;
+    }
+
+    public void BotDead()
+    {
+        botAlive--;
+        enemyCount--;
     }
 }

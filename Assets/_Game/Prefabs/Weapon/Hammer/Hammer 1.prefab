@@ -61,8 +61,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2033175, y: 0.4938571, z: 0.26298633}
-  m_Center: {x: -0.0052204877, y: 0.00071164966, z: 0.386473}
+  m_Size: {x: 0.50101906, y: 0.24974155, z: 0.26794058}
+  m_Center: {x: -0.00037789345, y: 0.0014165585, z: 0.3839959}
 --- !u!114 &4509874608135774532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,9 +77,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 4697239023972356868}
   rigidbody: {fileID: 7696264573061176340}
-  transform: {fileID: 4605839028066582388}
+  weaponTransform: {fileID: 4605839028066582388}
   weaponObj: {fileID: 1166226599677329739}
-  flySpeed: 8
+  flySpeed: 6
 --- !u!1001 &2740471821539938255
 PrefabInstance:
   m_ObjectHideFlags: 0

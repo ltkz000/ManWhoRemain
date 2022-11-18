@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f4c34dc1f6d64e84b0567be88f7ef, type: 3}
+  m_Name: LevelData
+  m_EditorClassIdentifier: 
+  levelList:
+  - botAlive: 15
+    botOnTime: 10
+    poolSize: 15
+    levelMap: {fileID: 2500665155193743254, guid: e1a147066208e8147b3f8c2dec513200, type: 3}
+  - botAlive: 20
+    botOnTime: 12
+    poolSize: 15
+    levelMap: {fileID: 5113624635288435150, guid: f64e5c7b00ab10b41ac3e42ab66e97f4, type: 3}
+  - botAlive: 30
+    botOnTime: 12
+    poolSize: 20
+    levelMap: {fileID: 642145776050031083, guid: 58395ee672b40314e9730e351a49dd8e, type: 3}

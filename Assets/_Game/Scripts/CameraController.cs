@@ -2,30 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Singleton<CameraController>
 {
-    public static CameraController instance;
-    public Transform playerObj;
+    [SerializeField] private Transform camTrans;
+    [SerializeField] private Transform playerTrans;
     [SerializeField] private Vector3 offset;
-    private Quaternion camRotate;
     [SerializeField] private Vector3 ingameOffset;
+    [SerializeField] private Vector3 defaultIngameOffset;
     [SerializeField] private Vector3 shopOffset;
+    
+    private Quaternion camRotate;
     public float smoothSpeed = 0.125f;
 
     //Const
     [SerializeField] private Quaternion shopRotate;
     [SerializeField] private Quaternion ingameRotate;
-    
-    private void Awake() 
-    {
-        if(instance == null)
-        {
-            instance = this;
-        }    
 
-        // ingameOffset = new Vector3(0, 11, -12);
-        // shopOffset = new Vector3(0, 5, -6);
-        // offset = ingameOffset;
+    private void Start() 
+    {
+        Init();
+    }
+
+    private void Init()
+    {
+        playerTrans = PlayerDataManager.Ins.GetCharacterCombat().GetCharacterTranform();
     }
 
     private void LateUpdate() 
@@ -41,15 +41,29 @@ public class CameraController : MonoBehaviour
             camRotate = ingameRotate;
         }   
 
-        Vector3 desiredPos = playerObj.position + offset;
-        Vector3 smoothPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
-        
-        transform.position = smoothPos;
-        transform.rotation = camRotate;
+        if(playerTrans == null)
+        {
+            Init();
+        }
+
+        if(playerTrans != null) 
+        {
+            Vector3 desiredPos = playerTrans.position + offset;
+            Vector3 smoothPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
+            camTrans.position = smoothPos;
+            camTrans.rotation = camRotate;
+        }
     }   
 
     public void UpdateOffset()
     {
-        ingameOffset += ingameOffset * 0.05f;
+        ingameOffset += ingameOffset * 0.1f;
+        Debug.Log("Update");
     } 
+
+    public void Restart()
+    {
+        Init();
+        ingameOffset = defaultIngameOffset;
+    }
 }

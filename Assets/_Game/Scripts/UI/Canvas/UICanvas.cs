@@ -10,7 +10,8 @@ public enum UICanvasID
     Lose,
     Win,
     Setting,
-    GamePlay
+    GamePlay,
+    BlockRay
 }
 
 public class UICanvas : MonoBehaviour

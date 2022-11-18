@@ -8,81 +8,43 @@ public class PatrolState : IState<Character>
     private float moveSpeed = 5f;
     private float rotateSpeed = 9f;
     private bool walkPointSet;
-    private Vector3 walkPoint;
 
     public void OnEnter(Character character)
     {
-        Debug.Log("PATROL");
-
-        walkPointSet = false;
-
-        character.EnableAttack(false);
-        character.ChangeAttackStatus(false);
-
-        SearchWalkPoint(character);
+        character.IsAttackalbe(false);
+        character.IsAttacked(false);
+        character.IsThrowable(true);
     }
 
     public void OnExecute(Character character)
     {
         character.TriggerAnimation(ConstValues.ANIM_TRIGGER_RUN);
 
-        CheckCollide(character);
+        Move(character);
+    }
 
-        if(walkPointSet == true)
-        {
-            Move(character);
+    private void CheckWalkPoint(Character character)
+    {
+        float distanceToWalkPoint = Vector3.Distance(character.transform.position, character.walkPoint);
 
-            CheckWalkPoint(character);
-        }
-        else
+        if(distanceToWalkPoint < 2f)
         {
             character.ChangeState(character.idleState);
         }
     }
 
-    //Get random position for bot to move
-    private void SearchWalkPoint(Character character)
-    {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-
-        walkPoint = new Vector3(character.transform.position.x + randomX, character.transform.position.y, character.transform.position.z + randomZ);
-
-        if(Physics.Raycast(walkPoint, -character.transform.up, Mathf.Infinity, character.Ground))
-        {
-            Debug.DrawRay(walkPoint, -character.transform.up, Color.black, Mathf.Infinity);
-            walkPointSet = true;
-        }
-    }
-
-    private void CheckCollide(Character character)
-    {
-        Debug.DrawRay(character.checkCollidePoint.position, character.transform.forward, Color.yellow, 1f);
-        if(Physics.Raycast(character.checkCollidePoint.position, character.transform.forward, 0.5f, character.Obstacle))
-        {
-            Debug.Log("ChangeDirection");
-            // character.ChangeState(character.idleState);
-            SearchWalkPoint(character);
-        }
-    }
-
-    private void CheckWalkPoint(Character character)
-    {
-        float distanceToWalkPoint = Vector3.Distance(character.transform.position, walkPoint);
-
-        if(distanceToWalkPoint < 1f)
-        {
-            walkPointSet = false;
-        }
-    }
-
     private void Move(Character character)
     {
-        Vector3 walkDir = (walkPoint - character.transform.position).normalized;
-        character.transform.position = Vector3.MoveTowards(character.transform.position, character.transform.position + walkDir, Time.deltaTime * moveSpeed);
+        // Vector3 walkDir = (character.walkPoint - character.transform.position).normalized;
+        Vector3 walkDir = character.walkPoint - character.transform.position;
+        walkDir.y = 0;
+        walkDir = walkDir.normalized;
+        character.characterTransform.position = Vector3.MoveTowards(character.transform.position, character.transform.position + walkDir, Time.deltaTime * moveSpeed);
 
         Vector3 direction = Vector3.RotateTowards(character.transform.forward, walkDir, rotateSpeed * Time.deltaTime, 0.0f);
-        character.transform.rotation = Quaternion.LookRotation(direction);
+        character.characterTransform.rotation = Quaternion.LookRotation(direction);
+
+        CheckWalkPoint(character);
     }
 
     public void OnExit(Character character)

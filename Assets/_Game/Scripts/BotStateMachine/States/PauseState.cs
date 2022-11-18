@@ -6,7 +6,6 @@ public class PauseState : IState<Character>
 {
     public void OnEnter(Character character)
     {
-        Debug.Log("PAUSE");
     }
 
     public void OnExecute(Character character)

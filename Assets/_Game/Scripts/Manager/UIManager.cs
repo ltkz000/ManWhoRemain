@@ -14,6 +14,8 @@ public class UICanvasRef
 
 public class UIManager : Singleton<UIManager>
 {
+    public Camera canvasCamera;
+    public Camera mainCamera;
     public Dictionary<UICanvasID, UICanvas> UICanvasReferenceDict = new Dictionary<UICanvasID, UICanvas>();
     [NonReorderable]
     public List<UICanvasRef> UIRefList;
@@ -66,5 +68,15 @@ public class UIManager : Singleton<UIManager>
     public bool IsUICanvasOpened(UICanvasID id)
     {
         return UICanvasDict.ContainsKey(id) && UICanvasDict[id] != null && UICanvasDict[id].gameObject.activeInHierarchy;
+    }
+
+    public Camera GetCanvasCamera()
+    {
+        return canvasCamera;
+    }
+
+    public Camera GetMainCamera()
+    {
+        return mainCamera;
     }
 }

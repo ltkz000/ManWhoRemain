@@ -430,7 +430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8018000310084919275
 RectTransform:
   m_ObjectHideFlags: 0
@@ -527,8 +527,6 @@ MonoBehaviour:
   CanvasObj: {fileID: 8018000310084919272}
   isDestroy: 0
   _joystick: {fileID: 2172880558793045655}
-  player: {fileID: 0}
-  characterCombat: {fileID: 0}
   aliveText: {fileID: 5958453988338797848}
 --- !u!1001 &8018000310135490710
 PrefabInstance:

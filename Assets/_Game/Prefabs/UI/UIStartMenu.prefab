@@ -847,6 +847,8 @@ GameObject:
   - component: {fileID: 7671947785854292752}
   - component: {fileID: 7671947785854292753}
   - component: {fileID: 6836089074202062461}
+  - component: {fileID: 2730444244699235060}
+  - component: {fileID: 8325130736149012757}
   m_Layer: 0
   m_Name: UIStartMenu
   m_TagString: Untagged
@@ -952,7 +954,34 @@ MonoBehaviour:
   goldText: {fileID: 4712801014339521516}
   nameHolder: {fileID: 6986975783547995674}
   inputField: {fileID: 2356773849867570423}
-  characterCombat: {fileID: 0}
+--- !u!111 &2730444244699235060
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671947785854292754}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 9cbdae7ebb752504993df86f7e4bdf1e, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 9cbdae7ebb752504993df86f7e4bdf1e, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!225 &8325130736149012757
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671947785854292754}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7671947786166813749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,7 +1304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 62.429108, y: 9.8019}
+  m_AnchoredPosition: {x: 62.429108, y: -0.000015258789}
   m_SizeDelta: {x: -124.8582, y: -19.6039}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7671947786984371991
@@ -1486,6 +1515,7 @@ GameObject:
   - component: {fileID: 7671947787435991877}
   - component: {fileID: 7671947787435991878}
   - component: {fileID: 7671947787435991879}
+  - component: {fileID: 6097936748217367968}
   m_Layer: 0
   m_Name: PlayButton
   m_TagString: Untagged
@@ -1608,6 +1638,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!111 &6097936748217367968
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671947787435991873}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 55ea6ddf85b0bf2428afda4f2c33c69b, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 55ea6ddf85b0bf2428afda4f2c33c69b, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &7671947787499867665
 GameObject:
   m_ObjectHideFlags: 0

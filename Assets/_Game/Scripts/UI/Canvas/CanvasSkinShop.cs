@@ -23,8 +23,9 @@ public class FunctionButton
 
 public class CanvasSkinShop : UICanvas
 {
-    [SerializeField] private CharacterCombat characterCombat;
-    [SerializeField] private PlayerSkinControll playerSkinControll;
+    private CharacterCombat characterCombat;
+    private PlayerSkinControll playerSkinControll;
+    [SerializeField] private Canvas shopCanvas;
     [SerializeField] private Text goldText;
     [SerializeField] private List<UITypeButton> UITypeButtonList;
     [SerializeField] private List<UISkinField> UISkinFieldList;
@@ -57,6 +58,10 @@ public class CanvasSkinShop : UICanvas
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
+        shopCanvas.worldCamera = UIManager.Ins.GetCanvasCamera();
+        characterCombat = PlayerDataManager.Ins.GetCharacterCombat();
+        playerSkinControll = PlayerDataManager.Ins.GetPlayerSkinControll();
+
         previewTopSkin = playerSkinControll.GetTopSkin();
         previewPantMaterial = playerSkinControll.GetPantMaterial();
         previewShieldSkin = playerSkinControll.GetShieldSkin();
@@ -523,6 +528,6 @@ public class CanvasSkinShop : UICanvas
         DeactivePreviewSkin();
         playerSkinControll.ChooseSkinToActive();
         characterCombat.characterWeaponScript.AppearOnHand();
-        GameManager.Ins.ChangeState(GameState.MainMenu);
+        // GameManager.Ins.ChangeState(GameState.MainMenu);
     }
 }

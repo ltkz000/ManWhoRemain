@@ -11,7 +11,6 @@ public class PlayerData : ScriptableObject
    public ShieldType skinShieldID;
    public SetType skinSetID;
    public int currentLevel;
-   public int highestScore;
    public int playerGold;
    public string playerName;
 }

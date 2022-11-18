@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
+
+public enum VFX
+{
+    hitEffect,
+    deadEffect,
+    upgradeEffect
+}
 
 public class VFXManager : Singleton<VFXManager>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private ParticleSystem hitEffect;
 
-    // Update is called once per frame
-    void Update()
+    public void PlayHitEffect()
     {
-        
+        hitEffect.Play();
     }
 }

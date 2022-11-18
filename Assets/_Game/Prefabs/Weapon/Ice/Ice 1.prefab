@@ -77,9 +77,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 9053071301038746790}
   rigidbody: {fileID: 301281280558726435}
-  transform: {fileID: 3626442471545374677}
+  weaponTransform: {fileID: 3626442471545374677}
   weaponObj: {fileID: 1095677657913207717}
-  flySpeed: 11
+  flySpeed: 9
 --- !u!1001 &8404373352631395959
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,20 +3,27 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public BoxCollider boxCollider;
-    public Rigidbody rigidbody;
-    public Transform transform;
+    public Transform weaponTransform;
 
-    [SerializeField] private GameObject weaponObj;
+    [SerializeField] protected GameObject weaponObj;
 
-    private CharacterCombatAbtract _attacker;
-    private Vector3 rotate;
-    private Vector3 lastPosition;
-    private float rotateSpeed;
+    protected CharacterCombatAbtract _attacker;
+    protected Vector2 targetPos;
+    protected Transform _target;
+    protected Vector3 rotate;
+    protected Vector3 flyVector;
+    protected Vector3 lastPosition;
+    protected float rotateSpeed;
+    protected bool isStuck;
+    [SerializeField] protected bool isFlyback;
+    protected float timerStuck;
+    protected float timerComeback;
 
     [SerializeField] private float flySpeed;
 
     private void Start() 
     {
+        isFlyback = false;
         rotate = new Vector3(0, 1, 0);
     }
 
@@ -38,33 +45,72 @@ public class Weapon : MonoBehaviour
 
     private void Update() 
     {
-        FlyRotate();
+        if(!isStuck)
+        {
+            FlyRotate();
+        }  
+
         OutOfRange();
+
+        if(isStuck)
+        {
+            timerStuck += Time.deltaTime;
+
+            if(timerStuck >= ConstValues.WEAPONSTUCK_TIME)
+            {
+                _attacker.PoolBackWeapon(this.gameObject);
+                timerStuck = 0;
+                isStuck = false;
+            }
+        }
     }
 
-    public void Fly(CharacterCombatAbtract attacker, Transform target)
+    public void  Fly(CharacterCombatAbtract attacker, Transform target)
     {
-        _attacker = attacker;
-        var velo = (target.position - transform.position).normalized * flySpeed;
-        velo.y = 0;
-        rigidbody.velocity = velo;   
+        isFlyback = false;
         rotateSpeed = 600f;
 
-        lastPosition = transform.position;
+        _attacker = attacker;
+        flyVector = Vector3.zero;
+        flyVector.x = target.position.x - _attacker.characterTransform.position.x;
+        flyVector.z = target.position.z - _attacker.characterTransform.position.z;
+        flyVector = flyVector.normalized;
+
+        lastPosition = weaponTransform.position;
     }
 
     public void FlyRotate()
     {
-        transform.Rotate(rotate * rotateSpeed * Time.deltaTime);
+        weaponTransform.Rotate(rotate * rotateSpeed * Time.deltaTime);
+        if(isFlyback)
+        {
+            timerComeback += Time.deltaTime;
+
+            Vector3 comebackPos = _attacker.characterTransform.position;
+            comebackPos.y = weaponTransform.position.y;
+
+            weaponTransform.position = Vector3.MoveTowards(weaponTransform.position, comebackPos, Time.deltaTime * flySpeed);
+
+            if(timerComeback > ConstValues.WEAPONSTUCK_TIME)
+            {
+                _attacker.PoolBackWeapon(gameObject);
+                timerComeback = 0;
+            }
+        }
+        else
+        {
+            weaponTransform.position = Vector3.MoveTowards(weaponTransform.position, weaponTransform.position + flyVector, Time.deltaTime * flySpeed);
+        }
+        
     }
 
-    public void OutOfRange()
+    public virtual void OutOfRange()
     {
         if(_attacker != null)
         {
-            float distance = Vector3.Distance(transform.position, lastPosition);
+            float distance = Vector3.Distance(weaponTransform.position, lastPosition);
 
-            if(distance - 0.5f > _attacker.attackRange)
+            if(distance > _attacker.attackRange - 1f)
             {
                 _attacker.PoolBackWeapon(gameObject);
             }
@@ -74,21 +120,36 @@ public class Weapon : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         CharacterCombatAbtract characterCombat = CachedCollision.GetCharacterCombatCollider(other);
+        
         if(characterCombat != null && characterCombat != _attacker)
         {
             OnTarGet(characterCombat);
         }
 
-        if(other.CompareTag(ConstValues.OBSTACLE_TAG))
+        if(characterCombat == _attacker)
         {
             _attacker.PoolBackWeapon(this.gameObject);
+            isFlyback = false;
+            timerComeback = 0;
         }
+
+        if(other.CompareTag(ConstValues.OBSTACLE_TAG))
+        {
+            isStuck = true;
+        }
+
+        // IHit hit = other.GetComponent<IHit>();
+
+        // if(hit != null)
+        // {
+        //     hit.OnHit();
+        // }
     }
 
     private void OnTarGet(CharacterCombatAbtract target)
     {
         target.BeingKilled();
-        target.PoolBackWeapon(gameObject);
+        _attacker.PoolBackWeapon(gameObject);
         _attacker.UpdateOnKill(target);
     }   
 }

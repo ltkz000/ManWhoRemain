@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.AI;
 using TMPro;
 
 public class CanvasMainMenu : UICanvas
@@ -8,19 +9,20 @@ public class CanvasMainMenu : UICanvas
     [SerializeField] private Text nameHolder;
     [SerializeField] private InputField inputField;
 
-    [SerializeField] private CharacterCombat characterCombat;
-
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
-        characterCombat.Revive();
-        characterCombat.DeactiveNameText();
+        PlayerDataManager.Ins.GetCharacterCombat().DeactiveNameText();
         UpdateGold();
         UpdateName();
 
-        // BotManager.Ins.OnMainMenu();
         GameManager.Ins.ChangeState(GameState.MainMenu);
-        GameManager.Ins.OpenGameLevel(PlayerDataManager.Ins.GetPlayerLevel());
+        if(PlayerDataManager.Ins.GetPlayerLevel() > 0)
+        {
+            LevelManager.Ins.CloseMap(PlayerDataManager.Ins.GetPlayerLevel() - 1);
+        }
+        LevelManager.Ins.OpenMap(PlayerDataManager.Ins.GetPlayerLevel());
+        NavMeshBuilder.BuildNavMesh();
     }
 
     public void PlayButton()
@@ -28,7 +30,6 @@ public class CanvasMainMenu : UICanvas
         UIManager.Ins.OpenUI(UICanvasID.GamePlay);
 
         GameManager.Ins.currentgameState = GameState.GamePlay;
-        // GameManager.Ins.OpenGameLevel(PlayerDataManager.Ins.GetPlayerLevel());
         
         SoundManager.Ins.PlayButtonClickSound();
 
@@ -65,6 +66,9 @@ public class CanvasMainMenu : UICanvas
 
     public void ChangeNameData()
     {
-        PlayerDataManager.Ins.ChangePlayerName(inputField.text);
+        if(inputField.text != "")
+        {
+            PlayerDataManager.Ins.ChangePlayerName(inputField.text);
+        }
     }
 }

@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   playerWeaponID: 4
-  skinTopID: 6
-  skinPantID: 2
-  skinShieldID: 2
-  skinSetID: 3
-  currentLevel: 0
-  highestScore: 0
-  playerGold: 445
-  playerName: Deptrai
+  skinTopID: 0
+  skinPantID: 7
+  skinShieldID: 0
+  skinSetID: 5
+  currentLevel: 1
+  playerGold: 245
+  playerName: Hoang

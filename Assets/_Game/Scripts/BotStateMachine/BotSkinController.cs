@@ -17,19 +17,6 @@ public class BotSkinController : MonoBehaviour
     private void Start() 
     {
         GenerateSkinColor();
-        // GenerateSet();
-
-        // if(setSkin.GetSetType() != SetType.None)
-        // {
-        //     setSkin.ActiveSet();
-        //     skinRenderer.material = setSkin.GetSetMaterial();
-        // }
-        // else
-        // {
-        //     GenerateTop();
-        //     GeneratePant();
-        //     GenerateShield();
-        // }
 
         GenerateTop();
         GeneratePant();
@@ -45,7 +32,7 @@ public class BotSkinController : MonoBehaviour
 
     private void GenerateTop()
     {
-        int randomNum = Random.Range(0, topRefs.Count - 1);
+        int randomNum = Random.Range(0, topRefs.Count);
         if(topRefs[randomNum].GetTopType() != TopType.None)
         {
             topRefs[randomNum].GetTopSkin().SetActive(true);
@@ -61,7 +48,7 @@ public class BotSkinController : MonoBehaviour
     }
     private void GenerateShield()
     {
-        int randomNum = Random.Range(0, shieldRefs.Count - 1);
+        int randomNum = Random.Range(0, shieldRefs.Count);
         if(shieldRefs[randomNum].GetShieldType() != ShieldType.None)
         {
             shieldRefs[randomNum].GetShieldSkin().SetActive(true);
@@ -69,7 +56,7 @@ public class BotSkinController : MonoBehaviour
     }
     private void GenerateSet()
     {
-        int randomNum = Random.Range(0, setRefs.Count - 1);
+        int randomNum = Random.Range(0, setRefs.Count);
         setSkin = setRefs[randomNum];
     }
 }

@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class DeadState : IState<Character>
 {
-    public void OnEnter(Character character)
-    {
-        Debug.Log("DEAD");
-    }
+    public void OnEnter(Character character){}
 
     public void OnExecute(Character character)
     {
         character.TriggerAnimation(ConstValues.ANIM_TRIGGER_DEAD);
     }
 
-    public void OnExit(Character character)
-    {
-
-    }
+    public void OnExit(Character character){}
 }

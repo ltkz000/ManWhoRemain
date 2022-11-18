@@ -120,7 +120,6 @@ public class PlayerSkinControll : MonoBehaviour
 
     private void Start() 
     {
-        Debug.Log("Init");
         GetPlayerDataSkin();
         ChooseSkinToActive();
     }
@@ -163,7 +162,7 @@ public class PlayerSkinControll : MonoBehaviour
 
         PlayerDataManager.Ins.ChangePlayerTopID(newType);
     }
-    public void ChangePantMaterial(Material newMat, PantType newType)
+    public void  ChangePantMaterial(Material newMat, PantType newType)
     {
         pantMaterial = newMat;
 

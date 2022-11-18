@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Pooler : MonoBehaviour
 {
-    private GameObject prefab;
-    [SerializeField] Transform transform;
+    [SerializeField] private GameObject prefab;
+    [SerializeField] Transform poolerTransform;
     [SerializeField] private CharacterCombatAbtract character;
     [SerializeField] private int poolSize;
     [SerializeField] private bool expanable;
@@ -37,7 +37,7 @@ public class Pooler : MonoBehaviour
     public void ReturnObject(GameObject obj)
     {
         obj.SetActive(false);
-        obj.transform.parent = transform;
+        obj.transform.parent = poolerTransform;
         obj.transform.rotation = Quaternion.Euler(Vector3.zero);
         obj.transform.position = Vector3.zero;
         obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -53,6 +53,18 @@ public class Pooler : MonoBehaviour
         freeList.Add(g);
     }
 
+    public void DestroyPool()
+    {
+        foreach(var temp in freeList)
+        {
+            Destroy(temp);
+        }
+        foreach(var temp in usedList)
+        {
+            Destroy(temp);
+        }
+    }
+
     public void ResetPool(GameObject newPrefab)
     {
         prefab = newPrefab;
@@ -66,8 +78,8 @@ public class Pooler : MonoBehaviour
             Destroy(temp);
         }
 
-        freeList.RemoveAll(null);
-        usedList.RemoveAll(null);
+        freeList.Clear();
+        usedList.Clear();
 
         for(int i = 0; i < poolSize; i++)
         {
