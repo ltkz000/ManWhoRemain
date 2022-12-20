@@ -71,6 +71,8 @@ public class CharacterCombat : CharacterCombatAbtract
                 characterWeaponScript.AppearOnHand();
             }
         }
+
+
     }
 
     private void SelectTarget()
@@ -95,9 +97,9 @@ public class CharacterCombat : CharacterCombatAbtract
 
         
         throwWeapon = weaponPooler.GetObject(WeaponManager.Ins.weaponParentTrans);
-        throwWeapon.transform.localScale = characterTransform.localScale;
 
         Weapon weaponScript = throwWeapon.GetComponent<Weapon>();
+        weaponScript.weaponTransform.localScale = characterTransform.localScale;
         weaponScript.Fly(this, target.characterTransform);
     }
 
@@ -123,36 +125,14 @@ public class CharacterCombat : CharacterCombatAbtract
     public override void DisappearAfterKilled()
     {
         base.DisappearAfterKilled();
+        
         UIManager.Ins.CloseUI(UICanvasID.GamePlay);
         UIManager.Ins.CloseUI(UICanvasID.BlockRay);
         UIManager.Ins.OpenUI(UICanvasID.Lose);
     }
 
-    // public void Revive()
-    // {
-    //     PlayerDataManager.Ins.GetPlayer().StopMove();
-
-    //     characterTransform.position = Vector3.zero;
-    //     characterTransform.rotation = Quaternion.Euler(0, 180, 0);
-    //     characterTransform.localScale = Vector3.one;
-
-    //     targetList.Clear();
-    //     isDead = false;
-    //     capsuleCollider.enabled = true;
-    //     attackRange = ConstValues.ATTACK_RANGE_DEFAULT;
-    //     attackRangeObject.SetActive(true);
-    //     lockedObj.SetActive(false);
-    //     weaponPooler.ResetPool(WeaponDataManager.Ins.GetWeaponByID(characterWeaponID));
-
-    //     characterTransform.gameObject.SetActive(true);
-
-    //     CameraController.Ins.Restart();
-    //     BotManager.Ins.Restart();
-    //     TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
-    // }
-
     public override GameObject GetCharacterWeapon()
-    {
+    { 
         base.GetCharacterWeapon();
         return WeaponDataManager.Ins.GetWeaponByID(characterWeaponID);
     }
@@ -175,11 +155,6 @@ public class CharacterCombat : CharacterCombatAbtract
     public void DeactiveNameText()
     {
         nameText.gameObject.SetActive(false);
-    }
-
-    public bool IsHaveUlti()
-    {
-        return haveUlti;
     }
 
     public void PlayerOnMainMenu()

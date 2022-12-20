@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "My Assets/TopSkin Data")]
-
+[System.Serializable]
 public class TopSkinData : ScriptableObject
 {
-    [SerializeField, NonReorderable] private List<TopSkin> TopSkinList;
+    public TopData topData;
 
     public bool GetSkinStatus(TopType type)
     {
-        for(int i = 0; i < TopSkinList.Count; i++)
+        for(int i = 0; i < topData.TopSkinList.Count; i++)
         {
-            if(TopSkinList[i].topType == type)
+            if(topData.TopSkinList[i].topType == type)
             {
-                return TopSkinList[i].isLock;
+                return topData.TopSkinList[i].isLock;
             }
         }
 
@@ -22,22 +22,22 @@ public class TopSkinData : ScriptableObject
 
     public void ChangeSkinStatus(TopType type, bool status)
     {
-        for(int i = 0; i < TopSkinList.Count; i++)
+        for(int i = 0; i < topData.TopSkinList.Count; i++)
         {
-            if(TopSkinList[i].topType == type)
+            if(topData.TopSkinList[i].topType == type)
             {
-                TopSkinList[i].isLock = status;
+                topData.TopSkinList[i].isLock = status;
             }
         }
     }
 
     public int GetSkinPrice(TopType type)
     {
-        for(int i = 0; i < TopSkinList.Count; i++)
+        for(int i = 0; i < topData.TopSkinList.Count; i++)
         {
-            if(TopSkinList[i].topType == type)
+            if(topData.TopSkinList[i].topType == type)
             {
-                return TopSkinList[i].price;
+                return topData.TopSkinList[i].price;
             }
         }
 
@@ -46,12 +46,17 @@ public class TopSkinData : ScriptableObject
 }
 
 [System.Serializable]
+public class TopData
+{
+    [SerializeField, NonReorderable] public List<TopSkin> TopSkinList;
+}
+
+[System.Serializable]
 public class TopSkin
 {
     public TopType topType;
     public int price;
     public bool isLock;
-    public bool isEquip;
 }
 
 public enum SkinID

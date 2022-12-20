@@ -17,12 +17,12 @@ public class SkinHolder : MonoBehaviour
         this.ID = id;
     }
 
-    public void enableSkin(int index)
+    public void EnableSkin(int index)
     {
         skins[index].SetActive(true);
     }
 
-    public void disableSkin(int index)
+    public void DisableSkin(int index)
     {
         skins[index].SetActive(false);
     }

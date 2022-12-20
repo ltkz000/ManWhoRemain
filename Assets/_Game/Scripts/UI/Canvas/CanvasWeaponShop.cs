@@ -6,7 +6,6 @@ public class CanvasWeaponShop : UICanvas
 {
     private int currentWeaponIndex;
     private int currentSkinIndex;
-    // [SerializeField] private CharacterCombat player;
 
     //UI
     [SerializeField] private Canvas shopCanvas;
@@ -102,7 +101,7 @@ public class CanvasWeaponShop : UICanvas
         ShowPreviewWeapon(WeaponDataManager.Ins.GetUIWeaponPrefab(currentWeaponIndex));
         foreach(var temp in skinButtonList)
         {
-            temp.enableSkin(currentWeaponIndex);
+            temp.EnableSkin(currentWeaponIndex);
         }
     }
 
@@ -111,7 +110,7 @@ public class CanvasWeaponShop : UICanvas
         Destroy(previewWeapon);
         foreach(var temp in skinButtonList)
         {
-            temp.disableSkin(currentWeaponIndex);
+            temp.DisableSkin(currentWeaponIndex);
         }
     }
 
@@ -145,7 +144,6 @@ public class CanvasWeaponShop : UICanvas
 
         PlayerDataManager.Ins.GetCharacterCombat().ChangePlayerWeapon();
 
-        // selectButton.thisText.text = ConstValues.EQUIPPED_TEXT;
         ChangSelectText();
 
         SoundManager.Ins.PlayButtonClickSound();
@@ -183,8 +181,6 @@ public class CanvasWeaponShop : UICanvas
         else
         {
             PlayerDataManager.Ins.ChangePlayerGold(WeaponDataManager.Ins.GetSkinPrice(currentWeaponIndex, currentSkinIndex));
-
-            // WeaponDataManager.Ins.ChangeCurrentSkin(currentWeaponIndex, currentSkinIndex);
 
             WeaponDataManager.Ins.ChangeCurrentSkinIndex(currentWeaponIndex, currentSkinIndex); 
 

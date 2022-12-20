@@ -17,14 +17,6 @@ public class WeaponRef
     public Transform weaponTranform;
 }
 
-[System.Serializable]
-public class WeaponPool
-{
-    public WeaponID weaponID;
-    public GameObject weaponPrefab;
-    public int poolSize;
-}
-
 public class WeaponManager : Singleton<WeaponManager>
 {
     public Transform weaponParentTrans;

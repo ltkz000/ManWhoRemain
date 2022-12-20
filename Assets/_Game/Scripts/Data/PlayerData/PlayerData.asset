@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db5bc8c0af869e428526d30dcd27385, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  playerWeaponID: 4
-  skinTopID: 0
-  skinPantID: 7
-  skinShieldID: 0
-  skinSetID: 5
-  currentLevel: 1
-  playerGold: 245
-  playerName: Hoang
+  playerProfile:
+    playerName: Hello
+    playerGold: 120
+    currentLevel: 1
+    playerWeaponID: 1
+    skinTopID: 6
+    skinPantID: 2
+    skinShieldID: 2
+    skinSetID: 3

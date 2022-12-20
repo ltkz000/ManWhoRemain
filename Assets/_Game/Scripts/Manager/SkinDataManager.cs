@@ -9,6 +9,31 @@ public class SkinDataManager : Singleton<SkinDataManager>
     [SerializeField] private ShieldSkinData shieldSkinData;
     [SerializeField] private SetSkinData setSkinData;
 
+    private void Start() 
+    {
+        // topSkinData.topData = SaveData.current.topData;
+        // pantSkinData.pantData = SaveData.current.pantData;
+        // shieldSkinData.shieldData = SaveData.current.shieldData;
+        // setSkinData.setData = SaveData.current.setData;
+    }
+
+    public TopData GetTopData()
+    {
+        return topSkinData.topData;
+    }
+    public PantData GetPantData()
+    {
+        return pantSkinData.pantData;
+    }
+    public ShieldData GetShieldData()
+    {
+        return shieldSkinData.shieldData;
+    }
+    public SetData GetSetData()
+    {
+        return setSkinData.setData;
+    }
+
     //GetStatus
     public bool CheckIsLock(TopType type)
     {
@@ -62,4 +87,5 @@ public class SkinDataManager : Singleton<SkinDataManager>
     {
         return setSkinData.GetSkinPrice(type);
     }
+
 }

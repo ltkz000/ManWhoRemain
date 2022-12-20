@@ -13,6 +13,7 @@ public class IdleState : IState<Character>
     public void OnEnter(Character character)
     {
         // Debug.Log("IDLE");
+        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
 
         delayIdleToPatrol = UnityEngine.Random.Range(delayRangeMin, delayRangeMax);
 
@@ -21,7 +22,7 @@ public class IdleState : IState<Character>
 
     public void OnExecute(Character character)
     {
-        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
+        // character.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
 
         delayIdleToPatrol -= Time.deltaTime;
 

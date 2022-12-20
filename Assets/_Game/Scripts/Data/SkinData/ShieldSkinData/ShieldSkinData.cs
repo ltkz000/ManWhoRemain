@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "My Assets/ShieldSkin Data")]
-
+[System.Serializable]
 public class ShieldSkinData : ScriptableObject
 {
-    [SerializeField, NonReorderable] private List<ShieldSkin> ShieldSkinList;
+    public ShieldData shieldData;
 
     public bool GetSkinStatus(ShieldType type)
     {
-        for(int i = 0; i < ShieldSkinList.Count; i++)
+        for(int i = 0; i < shieldData.ShieldSkinList.Count; i++)
         {
-            if(ShieldSkinList[i].shieldType == type)
+            if(shieldData.ShieldSkinList[i].shieldType == type)
             {
-                return ShieldSkinList[i].isLock;
+                return shieldData.ShieldSkinList[i].isLock;
             }
         }
 
@@ -22,22 +22,22 @@ public class ShieldSkinData : ScriptableObject
 
     public void ChangeSkinStatus(ShieldType type, bool status)
     {
-        for(int i = 0; i < ShieldSkinList.Count; i++)
+        for(int i = 0; i < shieldData.ShieldSkinList.Count; i++)
         {
-            if(ShieldSkinList[i].shieldType == type)
+            if(shieldData.ShieldSkinList[i].shieldType == type)
             {
-                ShieldSkinList[i].isLock = status;
+                shieldData.ShieldSkinList[i].isLock = status;
             }
         }
     }
 
     public int GetSkinPrice(ShieldType type)
     {
-        for(int i = 0; i < ShieldSkinList.Count; i++)
+        for(int i = 0; i < shieldData.ShieldSkinList.Count; i++)
         {
-            if(ShieldSkinList[i].shieldType == type)
+            if(shieldData.ShieldSkinList[i].shieldType == type)
             {
-                return ShieldSkinList[i].price;
+                return shieldData.ShieldSkinList[i].price;
             }
         }
 
@@ -46,10 +46,15 @@ public class ShieldSkinData : ScriptableObject
 }
 
 [System.Serializable]
+public class ShieldData
+{
+    [SerializeField, NonReorderable] public List<ShieldSkin> ShieldSkinList;
+}
+
+[System.Serializable]
 public class ShieldSkin
 {
     public ShieldType shieldType;
     public int price;
     public bool isLock;
-    public bool isEquip;
 }

@@ -8,13 +8,14 @@ public class AttackState : IState<Character>
     public void OnEnter(Character character)
     {
         timer = 0;
+        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_ATTACK);
     }
 
     public void OnExecute(Character character)
     {
         timer += Time.deltaTime;
 
-        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_ATTACK);
+        // character.TriggerAnimation(ConstValues.ANIM_TRIGGER_ATTACK);
         if(character.targetList.Count > 0)
         {
             character.characterTransform.LookAt(character.targetList[0].characterTransform);
@@ -52,6 +53,7 @@ public class AttackState : IState<Character>
         GameObject throwWeapon = character.weaponPooler.GetObject(WeaponManager.Ins.weaponParentTrans);
         
         Weapon weaponScipt = throwWeapon.GetComponent<Weapon>();
+        weaponScipt.weaponTransform.localScale = character.GetCharacterTranform().localScale;   
         weaponScipt.Fly(character ,target.characterTransform);
     }
 

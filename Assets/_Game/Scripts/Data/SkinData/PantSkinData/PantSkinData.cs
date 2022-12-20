@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "My Assets/PantSkin Data")]
-
+[System.Serializable]
 public class PantSkinData : ScriptableObject
 {
-    [SerializeField, NonReorderable] private List<PantSkin> PantSkinList;
+    public PantData pantData;
 
     public bool GetSkinStatus(PantType type)
     {
-        for(int i = 0; i < PantSkinList.Count; i++)
+        for(int i = 0; i < pantData.PantSkinList.Count; i++)
         {
-            if(PantSkinList[i].pantType == type)
+            if(pantData.PantSkinList[i].pantType == type)
             {
-                return PantSkinList[i].isLock;
+                return pantData.PantSkinList[i].isLock;
             }
         }
 
@@ -22,22 +22,22 @@ public class PantSkinData : ScriptableObject
 
     public void ChangeSkinStatus(PantType type, bool status)
     {
-        for(int i = 0; i < PantSkinList.Count; i++)
+        for(int i = 0; i < pantData.PantSkinList.Count; i++)
         {
-            if(PantSkinList[i].pantType == type)
+            if(pantData.PantSkinList[i].pantType == type)
             {
-                PantSkinList[i].isLock = status;
+                pantData.PantSkinList[i].isLock = status;
             }
         }
     }
 
     public int GetSkinPrice(PantType type)
     {
-        for(int i = 0; i < PantSkinList.Count; i++)
+        for(int i = 0; i < pantData.PantSkinList.Count; i++)
         {
-            if(PantSkinList[i].pantType == type)
+            if(pantData.PantSkinList[i].pantType == type)
             {
-                return PantSkinList[i].price;
+                return pantData.PantSkinList[i].price;
             }
         }
 
@@ -46,10 +46,15 @@ public class PantSkinData : ScriptableObject
 }
 
 [System.Serializable]
+public class PantData
+{
+    [SerializeField, NonReorderable] public List<PantSkin> PantSkinList;
+}
+
+[System.Serializable]
 public class PantSkin
 {
     public PantType pantType;
     public int price;
     public bool isLock;
-    public bool isEquip;
 }

@@ -14,22 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponID: 1
   currentSkin: {fileID: 3214655658876123911, guid: 4227aa52ba8b03e468401fc2c1ea7d18, type: 3}
-  currentSkinUI: {fileID: 3214655658876123911, guid: 248ec92f48abe364dae9f9b846582408, type: 3}
+  currentSkinIndex: 0
   price: 20
   isLock: 1
   WeaponSkins:
   - price: 0
-    isLock: 0
-    isEquipped: 1
+    isLock: 1
     skinPrefab: {fileID: 3214655658876123911, guid: 4227aa52ba8b03e468401fc2c1ea7d18, type: 3}
     skinUI: {fileID: 3214655658876123911, guid: 248ec92f48abe364dae9f9b846582408, type: 3}
   - price: 5
     isLock: 1
-    isEquipped: 0
     skinPrefab: {fileID: 3214655658876123911, guid: 856ee420d9a387641ad89c9b51064e2e, type: 3}
     skinUI: {fileID: 3214655658876123911, guid: c222efad58015784bbb6984eff0e6b19, type: 3}
   - price: 10
     isLock: 1
-    isEquipped: 0
     skinPrefab: {fileID: 3214655658876123911, guid: 93767fff83ad68e498125b5e48816b76, type: 3}
     skinUI: {fileID: 3214655658876123911, guid: d7e5125371acc4348aa5a172f822a2cc, type: 3}

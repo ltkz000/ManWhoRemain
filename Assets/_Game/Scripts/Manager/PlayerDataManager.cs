@@ -13,7 +13,11 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
 
     private void Start() 
     {
-        PlayerDataManager.Ins.SpawnPlayer();    
+        PlayerDataManager.Ins.SpawnPlayer();  
+        // if(SaveData.current.playerProfile != null)
+        // {
+            // playerData.playerProfile = SaveData.current.playerProfile;
+        // } 
     }
 
     public GameObject SpawnPlayer()
@@ -29,6 +33,11 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
     public Player GetPlayer()
     {
         return player;
+    }
+
+    public PlayerData GetPlayerData()
+    {
+        return playerData;
     }
 
     public void InitPlayer(Player newPlayer)
@@ -58,87 +67,90 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
 
     public WeaponID GetPlayerWeaponID()
     {
-        return playerData.playerWeaponID;
+        return playerData.playerProfile.playerWeaponID;
     }
 
     public void ChangePlayerWeaponID(WeaponID newWeaponID)
     {
-        playerData.playerWeaponID = newWeaponID;
+        playerData.playerProfile.playerWeaponID = newWeaponID;
     }
 
     public void UpdatePlayerGold()
     {
-        playerData.playerGold += ConstValues.KILL_GOLD;
+        playerData.playerProfile.playerGold += ConstValues.KILL_GOLD;
     }
 
     public int GetPlayerGold()
     {
-        return playerData.playerGold;
+        return playerData.playerProfile.playerGold;
     }
 
     public void ChangePlayerGold(int weaponPrice)
     {
-        playerData.playerGold -= weaponPrice;
+        playerData.playerProfile.playerGold -= weaponPrice;
     }
 
     public string GetPlayerName()
     {
-        return playerData.playerName;
+        return playerData.playerProfile.playerName;
     }
 
     public void ChangePlayerName(string newName)
     {
-        playerData.playerName = newName;
+        playerData.playerProfile.playerName = newName;
     }
 
     public TopType GetPlayerTopID()
     {
-        return playerData.skinTopID;
+        return playerData.playerProfile.skinTopID;
     }
 
     public void ChangePlayerTopID(TopType type)
     {
-        playerData.skinTopID = type;
+        playerData.playerProfile.skinTopID = type;
     }
+
     public PantType GetPlayerPantID()
     {
-        return playerData.skinPantID;
+        return playerData.playerProfile.skinPantID;
     }
 
     public void ChangePlayerPantID(PantType type)
     {
-        playerData.skinPantID = type;
+        playerData.playerProfile.skinPantID = type;
     }
+
     public ShieldType GetPlayerShieldID()
     {
-        return playerData.skinShieldID;
+        return playerData.playerProfile.skinShieldID;
     }
 
     public void ChangePlayerShieldID(ShieldType type)
     {
-        playerData.skinShieldID = type;
+        playerData.playerProfile.skinShieldID = type;
     }
+
     public SetType GetPlayerSetID()
     {
-        return playerData.skinSetID;
+        return playerData.playerProfile.skinSetID;
     }
 
     public void ChangePlayerSetID(SetType type)
     {
-        playerData.skinSetID = type;
+        playerData.playerProfile.skinSetID = type;
     }
 
     public int GetPlayerLevel()
     {
-        return playerData.currentLevel;
+        return playerData.playerProfile.currentLevel;
     }
 
     public void ChangePlayerLevel()
     {
-        playerData.currentLevel++;
-        if(playerData.currentLevel > LevelManager.Ins.GetMaxLevel())
+        playerData.playerProfile.currentLevel++;
+        if(playerData.playerProfile.currentLevel > LevelManager.Ins.GetMaxLevel())
         {
-            playerData.currentLevel = 0;
+            playerData.playerProfile.currentLevel = 0;
         }
     }
 }

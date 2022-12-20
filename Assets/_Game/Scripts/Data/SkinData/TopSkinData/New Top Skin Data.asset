@@ -12,28 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0117f9bf3e6aff44a231946192d23c9, type: 3}
   m_Name: New Top Skin Data
   m_EditorClassIdentifier: 
-  TopSkinList:
-  - topType: 0
-    price: 5
-    isLock: 1
-    isEquip: 0
-  - topType: 1
-    price: 10
-    isLock: 1
-    isEquip: 0
-  - topType: 2
-    price: 15
-    isLock: 0
-    isEquip: 0
-  - topType: 3
-    price: 20
-    isLock: 0
-    isEquip: 0
-  - topType: 4
-    price: 25
-    isLock: 1
-    isEquip: 0
-  - topType: 5
-    price: 30
-    isLock: 0
-    isEquip: 0
+  topData:
+    TopSkinList:
+    - topType: 6
+      price: 0
+      isLock: 1
+    - topType: 0
+      price: 10
+      isLock: 1
+    - topType: 1
+      price: 15
+      isLock: 1
+    - topType: 2
+      price: 20
+      isLock: 1
+    - topType: 3
+      price: 25
+      isLock: 1
+    - topType: 4
+      price: 30
+      isLock: 1
+    - topType: 5
+      price: 35
+      isLock: 1

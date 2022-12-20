@@ -11,11 +11,28 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
+        Init();
+        // OnSaveGame();
+        // OnLoadGame();
+    }
+
+    public void Init()
+    {
         Application.targetFrameRate = 60;
         Input.multiTouchEnabled = true;
 
         currentgameState = GameState.MainMenu;
     }
+
+    // public void OnSaveGame()
+    // {
+    //     SerializationManager.Save("PlayerProfile", SaveData.current.playerProfile);
+    // }
+
+    // public void OnLoadGame()
+    // {
+    //     SaveData.current.playerProfile = (PlayerProfile)SerializationManager.Load(Application.persistentDataPath + "/saves/PlayerProfile.save");
+    // }
 
     public void ChangeState(GameState gameState)
     {

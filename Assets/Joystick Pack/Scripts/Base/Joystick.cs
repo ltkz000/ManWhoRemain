@@ -62,6 +62,11 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         OnDrag(eventData);
     }
 
+    public void DisableJoystick()
+    {
+        input = Vector2.zero;
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
         cam = null;

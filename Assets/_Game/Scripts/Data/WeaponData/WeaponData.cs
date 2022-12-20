@@ -8,7 +8,6 @@ public class WeaponSkin
 {
     public int price;
     public bool isLock;
-    // public bool isEquipped;
     public GameObject skinPrefab;
     public GameObject skinUI;
 }

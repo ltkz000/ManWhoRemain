@@ -12,40 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87093850d947254a9eb29e5ce4304cf, type: 3}
   m_Name: New Pant Skin Data
   m_EditorClassIdentifier: 
-  PantSkinList:
-  - pantType: 0
-    price: 5
-    isLock: 1
-    isEquip: 0
-  - pantType: 1
-    price: 5
-    isLock: 1
-    isEquip: 0
-  - pantType: 2
-    price: 10
-    isLock: 0
-    isEquip: 0
-  - pantType: 3
-    price: 10
-    isLock: 1
-    isEquip: 0
-  - pantType: 4
-    price: 15
-    isLock: 0
-    isEquip: 0
-  - pantType: 5
-    price: 15
-    isLock: 1
-    isEquip: 0
-  - pantType: 6
-    price: 20
-    isLock: 1
-    isEquip: 0
-  - pantType: 7
-    price: 20
-    isLock: 1
-    isEquip: 0
-  - pantType: 8
-    price: 25
-    isLock: 1
-    isEquip: 0
+  pantData:
+    test: 10
+    PantSkinList:
+    - pantType: 0
+      price: 5
+      isLock: 1
+    - pantType: 1
+      price: 10
+      isLock: 1
+    - pantType: 2
+      price: 15
+      isLock: 1
+    - pantType: 3
+      price: 20
+      isLock: 1
+    - pantType: 4
+      price: 25
+      isLock: 1
+    - pantType: 5
+      price: 30
+      isLock: 1
+    - pantType: 6
+      price: 35
+      isLock: 1
+    - pantType: 6
+      price: 40
+      isLock: 1
+    - pantType: 7
+      price: 45
+      isLock: 1
+    - pantType: 8
+      price: 50
+      isLock: 1

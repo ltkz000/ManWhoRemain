@@ -9,17 +9,16 @@ public class CanvasVictory : UICanvas
     protected override void OnOpenCanvas()
     {
         base.OnOpenCanvas();
-        // Time.timeScale = 0;
         
         GameManager.Ins.ChangeState(GameState.Pause);
         LevelManager.Ins.CloseMap(PlayerDataManager.Ins.GetPlayerLevel());
         PlayerDataManager.Ins.ChangePlayerLevel();
+        PlayerDataManager.Ins.GetCharacterCombat().capsuleCollider.enabled = false;
         UIManager.Ins.CloseUI(UICanvasID.GamePlay);
     }
 
     public void HomeButton()
     {
-        // PlayerDataManager.Ins.GetCharacterCombat().Revive();
         GameManager.Ins.BackToMainMenu();
         UIManager.Ins.OpenUI(UICanvasID.MainMenu);
 
@@ -31,6 +30,5 @@ public class CanvasVictory : UICanvas
     protected override void OnCloseCanvas()
     {
         base.OnCloseCanvas();
-        // Time.timeScale = 1;
     }
 }

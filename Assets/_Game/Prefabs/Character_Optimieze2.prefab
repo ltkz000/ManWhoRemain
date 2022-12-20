@@ -1518,6 +1518,11 @@ MonoBehaviour:
   _moveSpeed: 7
   _rotateSpeed: 10
   rb: {fileID: 1470167231265950712}
+  setDead: 0
+  setRun: 0
+  setIdle: 0
+  setAttack: 0
+  setDance: 0
 --- !u!114 &3347294626538573161
 MonoBehaviour:
   m_ObjectHideFlags: 0

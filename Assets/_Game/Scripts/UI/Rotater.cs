@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Rotater : MonoBehaviour
 {
+    public Transform holderTrans;
     public float rotateSpeed = -50f;
 
     private void Update() 
     {
-        transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);    
+        holderTrans.Rotate(0, rotateSpeed * Time.deltaTime, 0);    
     }
 }

@@ -27,7 +27,6 @@ public class Character : CharacterCombatAbtract
     private void Start()
     {
         InitBotWeapon();
-        ChangeState(pauseState);
     }
 
     private void InitBotWeapon()
@@ -58,6 +57,7 @@ public class Character : CharacterCombatAbtract
     public override void BeingKilled()
     {
         base.BeingKilled();
+        ChangeState(deadState);
         BotManager.Ins.BotDead();
         BotManager.Ins.SpawnBotFromPool();
     }
@@ -71,11 +71,6 @@ public class Character : CharacterCombatAbtract
     // Update is called once per frame
     void Update()
     {
-        if(isDead == true)
-        {
-            ChangeState(deadState);
-        }
-
         if(GameManager.Ins.IsState(GameState.Pause) || GameManager.Ins.IsState(GameState.MainMenu))
         {
             ChangeState(pauseState);

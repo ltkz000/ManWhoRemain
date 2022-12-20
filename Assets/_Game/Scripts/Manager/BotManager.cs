@@ -43,8 +43,8 @@ public class BotManager : Singleton<BotManager>
     {
         Character character = Instantiate(botPrefab);
         character.gameObject.SetActive(false);
-        character.transform.position = playerTrans.position;
-        character.transform.parent = botParentTranform;
+        character.GetCharacterTranform().position = playerTrans.position;
+        character.GetCharacterTranform().parent = botParentTranform;
         return character;
     }
 
@@ -67,7 +67,7 @@ public class BotManager : Singleton<BotManager>
 
             spawnPos = new Vector3(playerPos.x + xPos, playerPos.y, playerPos.z + zPos); 
 
-            if(Physics.Raycast(spawnPos, -playerTrans.transform.up, Mathf.Infinity, groundLayer))
+            if(Physics.Raycast(spawnPos, -playerTrans.up, Mathf.Infinity, groundLayer))
             {
                 if(botQueue.Count == 0)
                 {
@@ -78,7 +78,7 @@ public class BotManager : Singleton<BotManager>
                 Character objectToSpawn = botQueue.Dequeue();
                 spawnedList.Add(objectToSpawn);
                 objectToSpawn.gameObject.SetActive(true);
-                objectToSpawn.transform.position = spawnPos;
+                objectToSpawn.GetCharacterTranform().position = spawnPos;
                 objectToSpawn.BotOnSpawn();
 
                 enemyCount++;
@@ -108,23 +108,7 @@ public class BotManager : Singleton<BotManager>
 
         Init();
     }
-
-    // public void Restart()
-    // {
-    //     CancelInvoke();
-    //     for(int i = 0; i < spawnedList.Count; i++)
-    //     {
-    //         spawnedList[i].characterTransform.localScale = Vector3.one;
-    //         spawnedList[i].gameObject.SetActive(false);
-    //         botQueue.Enqueue(spawnedList[i]);
-    //     }
-    //     spawnedList.Clear();
-
-    //     enemyCount = 0;
-    //     botOnTime = levelData.GetBotOnTimeData(PlayerDataManager.Ins.GetPlayerLevel());
-    //     botAlive = levelData.GetBotAliveData(PlayerDataManager.Ins.GetPlayerLevel());
-    // }
-
+    
     public int GetBotAlive()
     {
         return botAlive;

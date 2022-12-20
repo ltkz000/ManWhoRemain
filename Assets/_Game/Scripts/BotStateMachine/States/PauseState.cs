@@ -6,14 +6,14 @@ public class PauseState : IState<Character>
 {
     public void OnEnter(Character character)
     {
+        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
     }
 
     public void OnExecute(Character character)
     {
-        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
-
         if(GameManager.Ins.currentgameState != GameState.Pause)
         {
+            Debug.Log("Execute");
             character.ChangeState(character.idleState);
         }
     }

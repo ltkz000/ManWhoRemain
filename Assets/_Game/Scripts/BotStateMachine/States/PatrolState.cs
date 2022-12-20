@@ -11,6 +11,7 @@ public class PatrolState : IState<Character>
 
     public void OnEnter(Character character)
     {
+        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_RUN);
         character.IsAttackalbe(false);
         character.IsAttacked(false);
         character.IsThrowable(true);
@@ -18,14 +19,14 @@ public class PatrolState : IState<Character>
 
     public void OnExecute(Character character)
     {
-        character.TriggerAnimation(ConstValues.ANIM_TRIGGER_RUN);
+        // character.TriggerAnimation(ConstValues.ANIM_TRIGGER_RUN);
 
         Move(character);
     }
 
     private void CheckWalkPoint(Character character)
     {
-        float distanceToWalkPoint = Vector3.Distance(character.transform.position, character.walkPoint);
+        float distanceToWalkPoint = Vector3.Distance(character.GetCharacterTranform().position, character.walkPoint);
 
         if(distanceToWalkPoint < 2f)
         {
@@ -35,14 +36,13 @@ public class PatrolState : IState<Character>
 
     private void Move(Character character)
     {
-        // Vector3 walkDir = (character.walkPoint - character.transform.position).normalized;
-        Vector3 walkDir = character.walkPoint - character.transform.position;
+        Vector3 walkDir = character.walkPoint - character.GetCharacterTranform().position;
         walkDir.y = 0;
         walkDir = walkDir.normalized;
-        character.characterTransform.position = Vector3.MoveTowards(character.transform.position, character.transform.position + walkDir, Time.deltaTime * moveSpeed);
+        character.GetCharacterTranform().position = Vector3.MoveTowards(character.GetCharacterTranform().position, character.GetCharacterTranform().position + walkDir, Time.deltaTime * moveSpeed);
 
-        Vector3 direction = Vector3.RotateTowards(character.transform.forward, walkDir, rotateSpeed * Time.deltaTime, 0.0f);
-        character.characterTransform.rotation = Quaternion.LookRotation(direction);
+        Vector3 direction = Vector3.RotateTowards(character.GetCharacterTranform().forward, walkDir, rotateSpeed * Time.deltaTime, 0.0f);
+        character.GetCharacterTranform().rotation = Quaternion.LookRotation(direction);
 
         CheckWalkPoint(character);
     }

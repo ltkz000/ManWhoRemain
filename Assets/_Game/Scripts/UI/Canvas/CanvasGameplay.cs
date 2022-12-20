@@ -14,7 +14,11 @@ public class CanvasGameplay : UICanvas
         base.OnOpenCanvas();
         mapGold = PlayerDataManager.Ins.GetPlayerGold();
 
+        Input.ResetInputAxes();
+
         PlayerDataManager.Ins.GetPlayer().UpdateJoystick(_joystick);
+        PlayerDataManager.Ins.GetPlayer().StopMove();
+        PlayerDataManager.Ins.GetPlayer().GetJoystick().DisableJoystick();
         PlayerDataManager.Ins.GetCharacterCombat().ActiveNameText();
         PlayerDataManager.Ins.GetCharacterCombat().ResetMapGold();
 

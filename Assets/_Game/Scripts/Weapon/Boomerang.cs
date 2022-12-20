@@ -8,7 +8,7 @@ public class Boomerang : Weapon
     {
         if(_attacker != null)
         {
-            float distance = Vector3.Distance(transform.position, lastPosition);
+            float distance = Vector3.Distance(weaponTransform.position, lastPosition);
 
             if(distance > _attacker.attackRange - 1f)
             {

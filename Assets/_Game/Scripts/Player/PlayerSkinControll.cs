@@ -210,6 +210,11 @@ public class PlayerSkinControll : MonoBehaviour
         pantRenderer.material = pantMat;
     }
 
+    public void DisablePreviewPant()
+    {
+        pantRenderer.material = defaultMaterial;
+    }
+
     public void UnequipPant()
     {
         pantRenderer.material = defaultMaterial;

@@ -10,8 +10,15 @@ public class Player : MonoBehaviour
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private Rigidbody rb;
 
+    [SerializeField] private bool setDead;
+    [SerializeField] private bool setRun;
+    [SerializeField] private bool setIdle;
+    [SerializeField] private bool setAttack;
+    [SerializeField] private bool setDance;
+
     private Vector3 moveVector;
 
+    // float testTimer = 0;
     private void Update() 
     {
         if(_characterCombat.isDead == false)
@@ -20,14 +27,18 @@ public class Player : MonoBehaviour
         }
         else
         {
-            _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DEAD);
+            // if (!settedAnim) {
+            //     settedAnim = true;
+                _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DEAD);
+            // }
         }
     }
 
-    public void OnInit(){
-        
+    public FloatingJoystick GetJoystick()
+    {
+        return _joystick;
     }
-
+    
     public void UpdateJoystick(FloatingJoystick newfloatingJoystick)
     {
         _joystick = newfloatingJoystick;
@@ -39,8 +50,9 @@ public class Player : MonoBehaviour
         moveVector = Vector3.zero;
         if(_joystick != null && GameManager.Ins.IsState(GameState.GamePlay))
         {
-            moveVector.x = _joystick.Horizontal;
-            moveVector.z = _joystick.Vertical;
+            // moveVector.x = _joystick.Horizontal;
+            // moveVector.z = _joystick.Vertical;
+            moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         }
         moveVector = moveVector.normalized;
 
@@ -59,7 +71,19 @@ public class Player : MonoBehaviour
         {
             if(GameManager.Ins.IsState(GameState.SkinShop))
             {
-                _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DANCESKIN);
+                // if(!setDance)
+                // {
+                    _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DANCESKIN);
+                    // testTimer += Time.deltaTime;
+                    // if(testTimer > 2f)
+                    // {
+                    //     setDance = true;
+                    // }
+                //     setAttack = false;
+                //     setDead = false;
+                //     setIdle = false;
+                //     setRun = false;
+                // }
             }
             else
             {

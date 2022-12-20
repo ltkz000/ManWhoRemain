@@ -12,24 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e630d2e657cd511409a1a9947f3da90a, type: 3}
   m_Name: New Set Skin Data
   m_EditorClassIdentifier: 
-  SetSkinList:
-  - setType: 0
-    price: 5
-    isLock: 1
-    isEquip: 0
-  - setType: 1
-    price: 10
-    isLock: 1
-    isEquip: 0
-  - setType: 2
-    price: 15
-    isLock: 0
-    isEquip: 0
-  - setType: 3
-    price: 20
-    isLock: 1
-    isEquip: 0
-  - setType: 4
-    price: 25
-    isLock: 0
-    isEquip: 0
+  setData:
+    SetSkinList:
+    - setType: 0
+      price: 10
+      isLock: 1
+    - setType: 1
+      price: 20
+      isLock: 1
+    - setType: 2
+      price: 30
+      isLock: 1
+    - setType: 3
+      price: 40
+      isLock: 1
+    - setType: 4
+      price: 50
+      isLock: 1
+    - setType: 5
+      price: 0
+      isLock: 0

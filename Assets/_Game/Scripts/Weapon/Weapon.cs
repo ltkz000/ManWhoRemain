@@ -137,13 +137,6 @@ public class Weapon : MonoBehaviour
         {
             isStuck = true;
         }
-
-        // IHit hit = other.GetComponent<IHit>();
-
-        // if(hit != null)
-        // {
-        //     hit.OnHit();
-        // }
     }
 
     private void OnTarGet(CharacterCombatAbtract target)

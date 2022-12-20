@@ -25,7 +25,7 @@ public class Pooler : MonoBehaviour
         else if(totalFree == 0) GenerateNewObject();
 
         GameObject g = freeList[freeList.Count - 1];
-        g.transform.position = transform.position;
+        g.transform.position = poolerTransform.position;
         g.transform.parent = parent;
         g.SetActive(true);
 

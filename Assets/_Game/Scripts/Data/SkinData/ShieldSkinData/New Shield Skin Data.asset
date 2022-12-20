@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9265667b3ccb284e91229e2aba1da5c, type: 3}
   m_Name: New Shield Skin Data
   m_EditorClassIdentifier: 
-  ShieldSkinList:
-  - shieldType: 1
-    price: 5
-    isLock: 1
-    isEquip: 0
-  - shieldType: 0
-    price: 10
-    isLock: 0
-    isEquip: 0
+  shieldData:
+    ShieldSkinList:
+    - shieldType: 0
+      price: 10
+      isLock: 1
+    - shieldType: 1
+      price: 20
+      isLock: 1
+    - shieldType: 2
+      price: 0
+      isLock: 1

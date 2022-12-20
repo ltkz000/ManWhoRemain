@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "My Assets/SetSkin Data")]
-
+[System.Serializable]
 public class SetSkinData : ScriptableObject
 {
-    [SerializeField, NonReorderable] private List<SetSkin> SetSkinList;
+    public SetData setData;
 
     public bool GetSkinStatus(SetType type)
     {
-        for(int i = 0; i < SetSkinList.Count; i++)
+        for(int i = 0; i < setData.SetSkinList.Count; i++)
         {
-            if(SetSkinList[i].setType == type)
+            if(setData.SetSkinList[i].setType == type)
             {
-                return SetSkinList[i].isLock;
+                return setData.SetSkinList[i].isLock;
             }
         }
 
@@ -22,22 +22,22 @@ public class SetSkinData : ScriptableObject
 
     public void ChangeSkinStatus(SetType type, bool status)
     {
-        for(int i = 0; i < SetSkinList.Count; i++)
+        for(int i = 0; i < setData.SetSkinList.Count; i++)
         {
-            if(SetSkinList[i].setType == type)
+            if(setData.SetSkinList[i].setType == type)
             {
-                SetSkinList[i].isLock = status;
+                setData.SetSkinList[i].isLock = status;
             }
         }
     }
 
     public int GetSkinPrice(SetType type)
     {
-        for(int i = 0; i < SetSkinList.Count; i++)
+        for(int i = 0; i < setData.SetSkinList.Count; i++)
         {
-            if(SetSkinList[i].setType == type)
+            if(setData.SetSkinList[i].setType == type)
             {
-                return SetSkinList[i].price;
+                return setData.SetSkinList[i].price;
             }
         }
 
@@ -46,10 +46,15 @@ public class SetSkinData : ScriptableObject
 }
 
 [System.Serializable]
+public class SetData
+{
+    [SerializeField, NonReorderable] public List<SetSkin> SetSkinList;
+}
+
+[System.Serializable]
 public class SetSkin
 {
     public SetType setType;
     public int price;
     public bool isLock;
-    public bool isEquip;
 }

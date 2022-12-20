@@ -49,7 +49,7 @@ public class CameraController : Singleton<CameraController>
         if(playerTrans != null) 
         {
             Vector3 desiredPos = playerTrans.position + offset;
-            Vector3 smoothPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
+            Vector3 smoothPos = Vector3.Lerp(camTrans.position, desiredPos, smoothSpeed);
             camTrans.position = smoothPos;
             camTrans.rotation = camRotate;
         }

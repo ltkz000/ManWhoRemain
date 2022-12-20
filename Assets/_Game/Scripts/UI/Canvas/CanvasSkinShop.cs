@@ -526,8 +526,8 @@ public class CanvasSkinShop : UICanvas
         base.OnCloseCanvas();
         DeactivePreviewSet();
         DeactivePreviewSkin();
+        playerSkinControll.DisablePreviewPant();
         playerSkinControll.ChooseSkinToActive();
         characterCombat.characterWeaponScript.AppearOnHand();
-        // GameManager.Ins.ChangeState(GameState.MainMenu);
     }
 }
