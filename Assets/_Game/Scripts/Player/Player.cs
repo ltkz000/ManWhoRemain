@@ -10,11 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private Rigidbody rb;
 
-    [SerializeField] private bool setDead;
-    [SerializeField] private bool setRun;
-    [SerializeField] private bool setIdle;
-    [SerializeField] private bool setAttack;
-    [SerializeField] private bool setDance;
+    private string currentAnimName;
 
     private Vector3 moveVector;
 
@@ -27,10 +23,8 @@ public class Player : MonoBehaviour
         }
         else
         {
-            // if (!settedAnim) {
-            //     settedAnim = true;
-                _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DEAD);
-            // }
+            // _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DEAD);
+            ChangeAnim(ConstValues.ANIM_TRIGGER_DEAD);
         }
     }
 
@@ -50,9 +44,9 @@ public class Player : MonoBehaviour
         moveVector = Vector3.zero;
         if(_joystick != null && GameManager.Ins.IsState(GameState.GamePlay))
         {
-            // moveVector.x = _joystick.Horizontal;
-            // moveVector.z = _joystick.Vertical;
-            moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+            moveVector.x = _joystick.Horizontal;
+            moveVector.z = _joystick.Vertical;
+            // moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         }
         moveVector = moveVector.normalized;
 
@@ -65,40 +59,33 @@ public class Player : MonoBehaviour
             _characterCombat.IsAttackalbe(false);
             _characterCombat.IsAttacked(false);
             _characterCombat.IsThrowable(true);
-            _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_RUN);
+            // _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_RUN);
+            ChangeAnim(ConstValues.ANIM_TRIGGER_RUN);
         }
         else if(moveVector.magnitude == 0)
         {
             if(GameManager.Ins.IsState(GameState.SkinShop))
             {
-                // if(!setDance)
-                // {
-                    _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DANCESKIN);
-                    // testTimer += Time.deltaTime;
-                    // if(testTimer > 2f)
-                    // {
-                    //     setDance = true;
-                    // }
-                //     setAttack = false;
-                //     setDead = false;
-                //     setIdle = false;
-                //     setRun = false;
-                // }
+                // _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_DANCESKIN);
+                ChangeAnim(ConstValues.ANIM_TRIGGER_DANCESKIN);    
             }
             else
             {
                 if(_characterCombat.isAttacking == false)//Start IdleAnimation
                 {
                     _characterCombat.IsAttackalbe(true);
-                    _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
+                    ChangeAnim(ConstValues.ANIM_TRIGGER_IDLE);
+                    // _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
                 }
                 else if(_characterCombat.isAttacking == true && _characterCombat.targetList.Count > 0)//Start AttackAnimation
                 {
-                    _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_ATTACK);
+                    ChangeAnim(ConstValues.ANIM_TRIGGER_ATTACK);
+                    // _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_ATTACK);
                 }
                 else
                 {
-                    _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
+                    ChangeAnim(ConstValues.ANIM_TRIGGER_IDLE);
+                    // _characterCombat.TriggerAnimation(ConstValues.ANIM_TRIGGER_IDLE);
                 }
             }
         }
@@ -109,5 +96,14 @@ public class Player : MonoBehaviour
     public void StopMove()
     {
         moveVector = Vector3.zero;
+    }
+
+    public void ChangeAnim(string animName)
+    {
+        if(currentAnimName != animName)
+        {
+            currentAnimName = animName;
+            _characterCombat.TriggerAnimation(currentAnimName);
+        }
     }
 }

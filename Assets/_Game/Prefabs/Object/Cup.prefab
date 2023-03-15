@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4310380041251131228}
   - component: {fileID: 4614506910514784909}
   - component: {fileID: 5986099239799589188}
+  - component: {fileID: 3296348315560880777}
   m_Layer: 6
   m_Name: Cup
   m_TagString: Obstacle
@@ -91,6 +92,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!208 &3296348315560880777
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690172654665913105}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.4, y: 2.5366604, z: 1.4}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.828683, z: -0.5958871}
+  m_TimeToStationary: 0.5
 --- !u!1001 &6280954162105185436
 PrefabInstance:
   m_ObjectHideFlags: 0

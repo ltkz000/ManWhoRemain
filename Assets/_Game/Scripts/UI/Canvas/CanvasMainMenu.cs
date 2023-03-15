@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.AI;
 using TMPro;
 
 public class CanvasMainMenu : UICanvas
@@ -22,7 +21,7 @@ public class CanvasMainMenu : UICanvas
             LevelManager.Ins.CloseMap(PlayerDataManager.Ins.GetPlayerLevel() - 1);
         }
         LevelManager.Ins.OpenMap(PlayerDataManager.Ins.GetPlayerLevel());
-        NavMeshBuilder.BuildNavMesh();
+        // NavMeshBuilder.BuildNavMesh();
     }
 
     public void PlayButton()

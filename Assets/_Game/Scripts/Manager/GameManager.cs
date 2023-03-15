@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.AI;
 
 public enum GameState {MainMenu, GamePlay, Pause, Result, SkinShop}
 

@@ -14,7 +14,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         if(!levelMapDict.ContainsKey(level) || levelMapDict[level] == null)
         {
-            GameObject map = Instantiate(levelData.GetLevelMapData(level),levelManagerTrans);
+            GameObject map = Instantiate(levelData.GetLevelMapData(level), levelManagerTrans);
             levelMapDict[level] = map;
         }
 

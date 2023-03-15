@@ -24,6 +24,7 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
     {
         if(player != null) Destroy(player.gameObject);
         GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.Euler(0, 180, 0), parentTrans);
+        // GameObject newPlayer = Instantiate(playerPrefab, Vector3Quaternion.Euler(0, 180, 0), parentTrans);
         player = newPlayer.GetComponent<Player>();
         characterCombat = newPlayer.GetComponent<CharacterCombat>();
         playerSkinControll = newPlayer.GetComponent<PlayerSkinControll>();

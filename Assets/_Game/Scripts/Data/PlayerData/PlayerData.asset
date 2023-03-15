@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerProfile:
     playerName: Hello
-    playerGold: 120
-    currentLevel: 1
+    playerGold: 140
+    currentLevel: 0
     playerWeaponID: 1
     skinTopID: 6
     skinPantID: 2
